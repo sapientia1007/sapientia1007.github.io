@@ -356,6 +356,6 @@ def hanoi(begin : Stack[int], end : Stack[int], temp : Stack[int], n : int) -> N
 
 
 
----
+___
 참고 : 
 고전 컴퓨터 알고리즘 인 파이썬(한빛미디어) - 데이비트 코펙 지음, 최길우 옮김 
