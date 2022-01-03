@@ -98,7 +98,12 @@ def fib6(n : int) -> Generator[int, None, None] :
   for _ in range(1, n) :
     last, next = next, last + next
     yield next # 제너레이터 핵심 반환문
+
+
+for i in fib6(50) : 
+  print(i)
 ```
+
 이때 매 반복마다 `yield문`이 실행되고, 끝에 도달하여 더 이상 반환될 `yield문이 없다`면 **for문은 반복을 종료**한다.
 
 ***
@@ -119,6 +124,56 @@ def fib6(n : int) -> Generator[int, None, None] :
 
 파이썬 표준 라이브러리에서는 임의 길이의 비트 문자열을 다루기 위한 구조체를 제공하지 않는다. 다음 코드는 A, C, G, T로 구성된 문자열을 비트 문자열로 변환하여 반환한다. 비트 문자열은 정수로 저장되며, 정수는 어떤 길이의 비트 문자열로도 사용될 수 있다. 정수를 다시 문자열로 변환하려면 특수 메서드 `__str__()` 를 구현한다.
 ```python
+class CompressedGene:
+    def __init__(self, gene: str) -> None:
+        self._compress(gene)
+
+    def _compress(self, gene: str) -> None:
+        self.bit_string: int = 1  # start with sentinel
+        for nucleotide in gene.upper():
+            self.bit_string <<= 2  # shift left two bits
+            if nucleotide == "A":  # change last two bits to 00
+                self.bit_string |= 0b00
+            elif nucleotide == "C":  # change last two bits to 01
+                self.bit_string |= 0b01
+            elif nucleotide == "G":  # change last two bits to 10
+                self.bit_string |= 0b10
+            elif nucleotide == "T":  # change last two bits to 11
+                self.bit_string |= 0b11
+            else:
+                raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
+
+    def decompress(self) -> str:
+        gene: str = ""
+        for i in range(0, self.bit_string.bit_length() - 1, 2):  # - 1 to exclude sentinel
+            bits: int = self.bit_string >> i & 0b11  # get just 2 relevant bits
+            if bits == 0b00:  # A
+                gene += "A"
+            elif bits == 0b01:  # C
+                gene += "C"
+            elif bits == 0b10:  # G
+                gene += "G"
+            elif bits == 0b11:  # T
+                gene += "T"
+            else:
+                raise ValueError("Invalid bits:{}".format(bits))
+        return gene[::-1]  # [::-1] reverses string by slicing backwards
+
+    def __str__(self) -> str:  # string representation for pretty printing
+        return self.decompress()
+
+
+
+from sys import getsizeof
+original: str = "TAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATATAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATA" * 100
+print("original is {} bytes".format(getsizeof(original)))
+compressed: CompressedGene = CompressedGene(original)  # compress
+print("compressed is {} bytes".format(getsizeof(compressed.bit_string)))
+print(compressed)  # decompress
+print("original and decompressed are the same: {}".format(original == compressed.decompress()))
+```
+
+```python
 class CompressedGene :
   def __init__(self, gene : str) -> None :
     self._compress(gene)
@@ -134,16 +189,15 @@ def _compress(self, gene : str) -> None :
   self.bit_string : int = 1 # 1로 시작
   for nucleotide in gene.upper() :
     self.bit_string <<= 2 # 왼쪽으로 2비트 시프트
-    
     if nucleotide == "A" : # 마지막 2 비트를 00으로 변경
       self.bit_string |= 0b00
-   elif nucleotide == "C" : # 마지막 2 비트를 01로 변경
+    elif nucleotide == "C" : # 마지막 2 비트를 01로 변경
       self.bit_string |= 0b01
-   elif nucleotide == "G" : # 마지막 2 비트를 10으로 변경
+    elif nucleotide == "G" : # 마지막 2 비트를 10으로 변경
       self.bit_string |= 0b10
-   elif nucleotide == "C" : # 마지막 2 비트를 11로 변경
+    elif nucleotide == "C" : # 마지막 2 비트를 11로 변경
       self.bit_string |= 0b11
-   else :
+    else :
       raise ValeError("유효하지 않은 뉴클레오타이드입니다:{}".format(nucleotide))
 ```
 
@@ -316,6 +370,13 @@ def hanoi(begin : Stack[int], end : Stack[int], temp : Stack[int], n : int) -> N
     hanoi(begin, temp, end, n-1)
     hanoi(begin, end, temp, 1)
     hanoi(temp, end, begin, n-1)
+    
+
+# 하노이탑 실행
+hanoi(tower_a, tower_c, tower_b, num_discs)
+print(tower_a)
+print(tower_b)
+print(tower_c)
 ```
 하노이 탑의 **디스크 하나를 움직이는 것**은 하노이탑 문제에 대한 **재귀 함수의 기저 조건**이다. 
 **재귀 조건**은 **둘 이상의 디스크를 움직**인다. 
