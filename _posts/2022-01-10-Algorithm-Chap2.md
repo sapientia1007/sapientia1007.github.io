@@ -67,7 +67,7 @@ my_gene: Gene = string_to_gene(gene_str)
 
 #### (4) 제네릭 검색 예제
 
-
+***
 
 ### 2.2 미로 
 
@@ -81,7 +81,7 @@ my_gene: Gene = string_to_gene(gene_str)
 
 #### (5) A* 알고리즘
 
-
+***
 
 ### 2.3 선교사와 식인종 문제
 
@@ -90,9 +90,12 @@ my_gene: Gene = string_to_gene(gene_str)
 
 #### (2) 문제 풀이
 
+***
 
 ### 2.4 적용 사례
 
+
+***
 
 ### 2.5 연습문제
 
