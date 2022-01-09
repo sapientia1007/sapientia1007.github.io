@@ -616,7 +616,7 @@ from generic_search import bfs, Node, node_to_path
 
 MAX_NUM: int = 3
 
-# 서쪽 강둑에 있는 선교사 수와 식인종 수, 배 위치를 초기화하고 현재 상태를 파악하고 결과 출력하기 위한 메서드가 포함되어 있다
+# 서쪽 강둑에 있는 선교사 수와 식인종 수, 배 위치를 초기화하고 현재 상태를 파악하고 결과를 출력하기 위한 메서드가 포함되어 있다
 from __future__ import annotations
 from typing import List, Optional
 from generic_search import bfs, Node, node_to_path
