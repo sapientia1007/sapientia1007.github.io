@@ -130,13 +130,99 @@ print(binary_contains(my_sorted_gene, gat))  # 거짓
 
 ```
 
-
-
 #### (4) 제네릭 검색 예제
+
+`linear_contains()`와 `binary_contains()` 함수는 파이썬의 거의 모든 시퀀스에서 동작하도록 일반화할 수 있다.
+
+아래 일반화된 코드는 이전 코드와 거의 동일하며, 일부 이름과 타입 힌트만 바뀌었다.
+```python
+from __future__ import annotations
+from typing import TypeVar, Iterable, Sequence, Generic, List, Callable, Set, Deque, Dict, Any, Optional
+from typing_extensions import Protocol
+from heapq import heappush, heappop
+
+T = TypeVar('T')
+
+
+def linear_contains(iterable: Iterable[T], key: T) -> bool:
+    for item in iterable:
+        if item == key:
+            return True
+    return False
+
+
+C = TypeVar("C", bound="Comparable")
+
+
+class Comparable(Protocol):
+    def __eq__(self, other: Any) -> bool:
+        ...
+
+    def __lt__(self: C, other: C) -> bool:
+        ...
+
+    def __gt__(self: C, other: C) -> bool:
+        return (not self < other) and self != other
+
+    def __le__(self: C, other: C) -> bool:
+        return self < other or self == other
+
+    def __ge__(self: C, other: C) -> bool:
+        return not self < other
+
+
+def binary_contains(sequence: Sequence[C], key: C) -> bool:
+    low: int = 0
+    high: int = len(sequence) - 1
+    while low <= high:  # 검색 공간이 있을 때까지 
+        mid: int = (low + high) // 2
+        if sequence[mid] < key:
+            low = mid + 1
+        elif sequence[mid] > key:
+            high = mid - 1
+        else:
+            return True
+    return False
+
+if __name__ == "__main__":
+    print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5))  # True
+    print(binary_contains(["a", "d", "e", "f", "z"], "f"))  # True
+    print(binary_contains(["john", "mark", "ronald", "sarah"], "sheila"))  # False
+```
+이제 다른 데이터 타입의 선형 검색과 이진 검색을 수행할 수 있다. 이 함수는 거의 모든 파이썬 컬렉션에서 재사용할 수 있다.
+
+위 예제에서 **타입 힌트**를 위해 `Comparable 클래스`를 구현해야 하는데, `Comparable 타입`은 비교 연산자를 구현하는 타입이다.  
+
 
 ***
 
 ### 2.2 미로 
+**미로**의 경로를 문자를 이용해서 찾고, **너비 우선 탐색, 깊이 우선 탐색, A* 알고리즘**을 구현할 것이다.
+
+
+우리 미로는 셀(Cell)의 2차원 격자로, Cell 클래스는 문자열 열거형(enum)이고, `" "`는 미로의 빈 공간, `"X"`는 막힌 공간을 나타낸다.
+
+```python
+from enum import Enum
+from typing import List, NamedTuple, Callable, Optional
+import random
+from math import sqrt
+from generic_search import dfs, bfs, node_to_path, astar, Node
+
+
+class Cell(str, Enum):
+    EMPTY = " "
+    BLOCKED = "X"
+    START = "S"
+    GOAL = "G"
+    PATH = "*"
+
+
+class MazeLocation(NamedTuple):
+    row: int
+    column: int
+
+```
 
 #### (1) 미로 무작위로 생성
 
