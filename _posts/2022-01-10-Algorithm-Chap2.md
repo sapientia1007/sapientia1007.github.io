@@ -103,10 +103,30 @@ print(linear_contains(my_gene, gat))  #
 
 **검색이 여러 번 수행**된다면, *개별 검색의 시간 비용을 절약*하는 점에서 **이진 검색**이 더 효율적이다.
 
-**유전자 코돈에 대한 이진 검색 함수는 다른 타입의 데이터에 대한 이진 검색 함수를 작성하는 것과 크게 다르지 않다.
-<p> 왜냐하면 Codon 타입은 다른 타입과 비교할 수 있고, Gene 타입은 리스트이기 때문이다.
+**유전자 코돈에 대한 이진 검색 함수는 다른 타입의 데이터에 대한 이진 검색 함수를 작성하는 것과 크게 다르지 않다.**
+왜냐하면 Codon 타입은 다른 타입과 비교할 수 있고, Gene 타입은 리스트이기 때문이다.
 
 ``` python
+def binary_contains(gene: Gene, key_codon: Codon) -> bool:
+    # 전체 유전자 리스트 범위에서 찾기 시작
+    low: int = 0
+    high: int = len(gene) - 1
+    while low <= high:  # 검색 공간이 있을 때까지 계속 검색을 수행, low가 high보다 크면 리스트에서 해당 검색할 범위가 더 이상 없다는 것을 의미
+        mid: int = (low + high) // 2 # 검색 범위를 반으로 나누기
+        if gene[mid] < key_codon:
+            low = mid + 1 # 검색할 요소가 범위의 중간 요소 뒤에 있는 경우 mid 변수에 1을 더하여 중간 요소 다음 위치로 low 변수 수정
+        elif gene[mid] > key_codon:
+            high = mid - 1 # 검색할 요소가 범위의 중간 요소 앞에 있는 경우 mid 변수에 1을 빼서 중간 요소 이전 위치로 high 변수 수정
+        else:
+            return True
+    return False # 실행되지 않고 반복문이 끝나면, 검색할 요소가 발견되지 않았음을 나타낸다.
+
+
+my_sorted_gene: Gene = sorted(my_gene) # 정렬 
+print(binary_contains(my_sorted_gene, acg))  # 참
+print(binary_contains(my_sorted_gene, gat))  # 거짓
+
+```
 
 
 
