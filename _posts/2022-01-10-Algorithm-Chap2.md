@@ -202,6 +202,7 @@ if __name__ == "__main__":
 
 우리 미로는 셀(Cell)의 2차원 격자로, Cell 클래스는 문자열 열거형(enum)이고, `" "`는 미로의 빈 공간, `"X"`는 막힌 공간을 나타낸다.
 
+미로의 개별 위치를 나타내는 방법이 필요하고, 여기에서 행과 열 속성을 가진 네임드튜플(NamedTuple)을 사용한다.
 ```python
 from enum import Enum
 from typing import List, NamedTuple, Callable, Optional
@@ -226,12 +227,210 @@ class MazeLocation(NamedTuple):
 
 #### (1) 미로 무작위로 생성
 
+```python
+# 미로를 생성할 때 막힌 공간의 무작위 비율을 설정하기 위해 sparseness 매개변수의 기본값 20%
+class Maze:
+    def __init__(self, rows: int = 10, columns: int = 10, sparseness: float = 0.2, start: MazeLocation = MazeLocation(0, 0), goal: MazeLocation = MazeLocation(9, 9)) -> None:
+        # 기본 인스턴스 변수 초기화
+        self._rows: int = rows
+        self._columns: int = columns
+        self.start: MazeLocation = start
+        self.goal: MazeLocation = goal
+        # 격자를 빈 공간으로 채운다
+        self._grid: List[List[Cell]] = [[Cell.EMPTY for c in range(columns)] for r in range(rows)]
+        # 격자에 막힌 공간을 무작위로 채운다
+        self._randomly_fill(rows, columns, sparseness)
+        # 시작 위치와 목표 위치를 설정한다
+        self._grid[start.row][start.column] = Cell.START
+        self._grid[goal.row][goal.column] = Cell.GOAL
+
+    def _randomly_fill(self, rows: int, columns: int, sparseness: float):
+        for row in range(rows):
+            for column in range(columns):
+                if random.uniform(0, 1.0) < sparseness:
+                    self._grid[row][column] = Cell.BLOCKED
+
+    # 미로 출력
+    def __str__(self) -> str:
+        output: str = ""
+        for row in self._grid:
+            output += "".join([c.value for c in row]) + "\n"
+        return output
+
+    def goal_test(self, ml: MazeLocation) -> bool:
+        return ml == self.goal
+
+    def successors(self, ml: MazeLocation) -> List[MazeLocation]:
+        locations: List[MazeLocation] = []
+        if ml.row + 1 < self._rows and self._grid[ml.row + 1][ml.column] != Cell.BLOCKED:
+            locations.append(MazeLocation(ml.row + 1, ml.column))
+        if ml.row - 1 >= 0 and self._grid[ml.row - 1][ml.column] != Cell.BLOCKED:
+            locations.append(MazeLocation(ml.row - 1, ml.column))
+        if ml.column + 1 < self._columns and self._grid[ml.row][ml.column + 1] != Cell.BLOCKED:
+            locations.append(MazeLocation(ml.row, ml.column + 1))
+        if ml.column - 1 >= 0 and self._grid[ml.row][ml.column - 1] != Cell.BLOCKED:
+            locations.append(MazeLocation(ml.row, ml.column - 1))
+        return locations
+
+    def mark(self, path: List[MazeLocation]):
+        for maze_location in path:
+            self._grid[maze_location.row][maze_location.column] = Cell.PATH
+        self._grid[self.start.row][self.start.column] = Cell.START
+        self._grid[self.goal.row][self.goal.column] = Cell.GOAL
+    
+    def clear(self, path: List[MazeLocation]):
+        for maze_location in path:
+            self._grid[maze_location.row][maze_location.column] = Cell.EMPTY
+        self._grid[self.start.row][self.start.column] = Cell.START
+        self._grid[self.goal.row][self.goal.column] = Cell.GOAL
+  
+def euclidean_distance(goal: MazeLocation) -> Callable[[MazeLocation], float]:
+    def distance(ml: MazeLocation) -> float:
+        xdist: int = ml.column - goal.column
+        ydist: int = ml.row - goal.row
+        return sqrt((xdist * xdist) + (ydist * ydist))
+    return distance
+
+
+def manhattan_distance(goal: MazeLocation) -> Callable[[MazeLocation], float]:
+    def distance(ml: MazeLocation) -> float:
+        xdist: int = abs(ml.column - goal.column)
+        ydist: int = abs(ml.row - goal.row)
+        return (xdist + ydist)
+    return distance  
+  
+if __name__ == "__main__":
+    # Test DFS
+    m: Maze = Maze()
+    print(m)
+    solution1: Optional[Node[MazeLocation]] = dfs(m.start, m.goal_test, m.successors)
+    if solution1 is None:
+        print("No solution found using depth-first search!")
+    else:
+        path1: List[MazeLocation] = node_to_path(solution1)
+        m.mark(path1)
+        print(m)
+        m.clear(path1)
+    # Test BFS
+    solution2: Optional[Node[MazeLocation]] = bfs(m.start, m.goal_test, m.successors)
+    if solution2 is None:
+        print("No solution found using breadth-first search!")
+    else:
+        path2: List[MazeLocation] = node_to_path(solution2)
+        m.mark(path2)
+        print(m)
+        m.clear(path2)
+    # Test A*
+    distance: Callable[[MazeLocation], float] = manhattan_distance(m.goal)
+    solution3: Optional[Node[MazeLocation]] = astar(m.start, m.goal_test, m.successors, distance)
+    if solution3 is None:
+        print("No solution found using A*!")
+    else:
+        path3: List[MazeLocation] = node_to_path(solution3)
+        m.mark(path3)
+        print(m)
+```
+`Maze 클래스`는 상태를 나타내는 격자를 내부적으로 추적한다. 그리고 행 수, 열 수, 시작 위치 및 목표 위치에 대한 인스턴스 변수를 가지고 있다. 격자에는 막힌 공간이 무작위로 채워진다.
+
 #### (2) 기타 미로 세부사항
+
+**미로를 찾는 동안 목표 지점에 도달했는지 여부를 확인**하는 기능이 있어야 하는데, 검색된 특정 위치(MazeLocation 네임드튜플)가 목표 지점인지 확인해야 하므로, `goal_test 함수`를 작성한다.
+
+`successors() 메서드`는 **미로에서 상하좌우 위치를 확인하여 해당 위치에서 이동할 수 있는 빈 공간을 찾는다.** 또한, 미로의 가장자리 너머의 위치를 확인하는 것은 피한다. `successors() 메서드`는 이동 가능한 모든 빈공간(MazeLocation)의 리스트를 반환한다.
 
 #### (3) 깊이 우선 탐색
 
+**깊이 우선 탐색(Depth-First Serach)** 는 이름에서 알 수 있듯이 **막다른 지점에 도달하여 최종 결정 지점으로 되돌아오기 전까지 가능한 깊이 탐색**한다. 미로 찾기 문제에서는 다른 문제에도 재사용할 수 있도록 일반적인 깊이 우선 탐색을 구현할 것이다.
+
+
+**깊이 우선 탐색 알고리즘**은 *후입선출(Last-In-First-Out) 원칙에 따라 동작하는 자료구조*인 `스택`에 의존한다.
+
+**스택**
+- 후입선출(Last-In-First-Out) 원칙에 따라 동작하는 자료구조
+- `push()` 작업은 스택 상단에 항목을 추가한다.
+- `pop()` 작업은 스택 상단의 항목을 제거하고, 반환한다.
+
+즉, 파이썬 리스트를 사용하여 스택을 구현할 때 오른쪽 끝에서 항목을 **추가**하고, **제거 및 반환**을 한다. 리스트에 항목이 없으면 pop()메서드는 실패하므로 스택에서도 실패한다.
+
+**깊이 우선 탐색**을 구현하기 전에 노드를 구현해야 하는데, 탐색은 한 장소에서 다른 장소의 변화를 추적하기 위해 `Node 클래스`가 필요하다.
+미로 찾기에서 노드는 장소를 감싼 래퍼(Wrapper)로 생각할 수 있고, 장소는 MazeLocation 타입이다.
+
+`Node 클래스`는 **비용(cost)** 과 **휴리스틱(heuristic)** 속성이 있고, `__lt()` 특수 메서드를 구현하여 정의한다. 
+```python
+class Node(Generic[T]):
+    def __init__(self, state: T, parent: Optional[Node], cost: float = 0.0, heuristic: float = 0.0) -> None:
+        self.state: T = state
+        self.parent: Optional[Node] = parent
+        self.cost: float = cost
+        self.heuristic: float = heuristic
+
+    def __lt__(self, other: Node) -> bool:
+        return (self.cost + self.heuristic) < (other.cost + other.heuristic)
+```
+
+**깊이 우선 탐색**은 다음 두 자료구조를 추적한다.
+- 탐색 방문하려고 하는 장소 스택으로 다음 코드에서 `frontier 변수`로 표현한다.
+- 이미 방문한 장소 셋으로 `explored 변수`로 표현한다.
+
+**깊이 우선 탐색**은 `frontier 변수`에서 장소를 방문하면서, 문한 곳이 목표 지점인지 계속 확인한다.
+
+그리고 `successors 변수`에서 현재 지점을 확인하여 다음 이동할 장소를 `frontier 변수`에 추가한다. 
+
+또한 이미 방문한 장소를 표시하여 방문한 곳을 다시 방문하지 않도록 한다.
+
+`frontier 변수`가 비어 있다면 모든 장소를 방문했다는 것을 의미하므로 탐색을 종료한다.
+
+
+```python
+# 목표 지점을 찾았다면 목표 지점 경로를 캡슐화한 노드를 반환
+# 출발 지점부터 목표 지점까지의 경로는 이 노드의 parent 속성을 사용하여 노드를 반전함으로써 재구성
+
+def dfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]]) -> Optional[Node[T]]:
+    # frontier : 아직 방문하지 않은 곳
+    frontier: Stack[Node[T]] = Stack()
+    frontier.push(Node(initial, None))
+    # explored : 이미 방문한 곳
+    explored: Set[T] = {initial}
+
+    # 방문할 곳이 더 있는지 탐색
+    while not frontier.empty:
+        current_node: Node[T] = frontier.pop()
+        current_state: T = current_node.state
+        # 목표 지점을 찾았다면 종료
+        if goal_test(current_state):
+            return current_node
+        # 방문하지 않은 다음 장소가 있는지 확인
+        for child in successors(current_state):
+            if child in explored:  # 이미 방문한 장소라면 건너뛴다
+                continue
+            explored.add(child)
+            frontier.push(Node(child, current_node))
+    return None  # 모든 곳을 방문했지만 결국 목표 지점 찾기 실패
+
+
+# 미로의 출발 지점, 목표 지점, 경로를 출력
+# 같은 미로에서 다른 탐색 알고리즘을 시도할 수 있도록 경로를 초기화
+def node_to_path(node: Node[T]) -> List[T]:
+    path: List[T] = [node.state]
+    # 노드 경로 반전
+    while node.parent is not None:
+        node = node.parent
+        path.append(node.state)
+    path.reverse()
+    return path
+```
+
+
+
 #### (4) 너비 우선 탐색
 
+깊이 우선 탐색으로 찾은 목표 지점에 대한 경로는 부자연스럽게 보일 수 있으며, 최단 경로가 아닐 수 있다.
+
+**너비 우선 탐색(Breadth-First Search)** 은 탐색의 각 **반복마다 출발 지점에서 한 계층의 노드를 가까운 지점부터 순차적으로 탐색**함으로써 항상 최단 경로를 찾는다. 
+
+**깊이 우선 탐색**은 일반적으로 **너비 우선 탐색**보다 더 빨리 목표 지점을 찾지만, 그 반대의 경우도 있어서 두 가지 방법 중 하나를 선택하는 것은 *최단 경로를 선택하느냐 빠른 탐색의 가능성을 선택하느냐*의 문제이다.
+
+깊이 우선 탐색과 같이 같은 방향으로 계속 탐색하고 막다른 
 #### (5) A* 알고리즘
 
 ***
