@@ -531,22 +531,134 @@ class PriorityQueue(Generic[T]):
         return repr(self._container)
 ```
 
-**휴리스틱**
+**휴리스틱**은 문제를 해결하는 방법을 직관적으로 제시한다. 미로 찾기의 경우 휴리스틱은 목표 지점에 도달하기 위한 최적 경로 찾기를 목적으로 한다. 다시 말해 방문하지 않은 지점의 어느 노도가 가장 목표 지점에 가까운지 찾는다. A* 알고리즘에 사용된 휴리스틱은 정확한 상대 결과를 계산하고, 허용 가능한 휴리스틱이라면(목표 도달 추정 비용 < 경로에서 현재 지점의 최저 가능 비용), 즉 과대평가하지 않는다면 A* 알고리즘은 최단 경로를 제공한다. 더 적은 비용을 계산하는 휴리스틱은 결국 더 많은 지점의 탐색으로 이어진다.  반면 최단 경로에 가까운 휴리스틱은 더 적은 지점의 탐색으로 이어진다(허용 가능한 휴리스틱 범위여야 한다). 이상적인 휴리스틱은 지점을 모두 탐색하지 않고 가능한 실제 최단 경로에 가까운 경로를 차즌 것이다.
+
+**유클리드 거리**는 두 점 사이의 최단 거리는 직선인것과 같이, 피타고라스 정리에서 파생된 유클리드 거리는 `(두 점 x 차이)^2 + (두 점 y의 차이)^2
 
 
 ***
 
 ### 2.3 선교사와 식인종 문제
-
+세 명의 선교사와 세 명의 식인종이 강 서쪽에 있고, 두 명이 탈 수 있는 배를 갖고 있으며, 배를 타고 동쪽으로 이동해야 한다. 강 양쪽에 선교사보다 더 많은 식인종이 있다면, 식인종은 선교사를 잡아먹는다. 강을 건널 때 배에는 적어도 한 명이 탑승해야한다.
 
 #### (1) 문제 나타내기
+서쪽 강둑을 추적하여 문제를 나타내면, 서쪽 강둑에는 선교사와 식인종이 각각 몇명이 있고, 배가 서쪽에 있는 지의 문제만 파악되면 동쪽 강둑에 무엇이 있는지 알 수 있다. 즉, 서쪽 강둑에 없는 것은 동쪽 강둑에 있기 때문이다.
+
+
+```python
+from __future__ import annotations
+from typing import List, Optional
+from generic_search import bfs, Node, node_to_path
+
+MAX_NUM: int = 3
+
+# 서쪽 강둑에 있는 선교사 수와 식인종 수, 배 위치를 초기화하고 현재 상태를 파악하고 결과 출력하기 위한 메서드가 포함되어 있다
+from __future__ import annotations
+from typing import List, Optional
+from generic_search import bfs, Node, node_to_path
+
+MAX_NUM: int = 3
+
+
+class MCState:
+    def __init__(self, missionaries: int, cannibals: int, boat: bool) -> None:
+        self.wm: int = missionaries # 서쪽 강둑에 있는 선교사 수
+        self.wc: int = cannibals # 서쪽 강둑에 있는 식인종 수
+        self.em: int = MAX_NUM - self.wm  # 동쪽 강둑에 있는 선교사 수 
+        self.ec: int = MAX_NUM - self.wc  # 동쪽 강둑에 있는 식인종 수 
+        self.boat: bool = boat
+
+    def __str__(self) -> str:
+        return ("On the west bank there are {} missionaries and {} cannibals.\n" 
+                "On the east bank there are {} missionaries and {} cannibals.\n"
+                "The boat is on the {} bank.")\
+            .format(self.wm, self.wc, self.em, self.ec, ("west" if self.boat else "east"))
+    
+    def goal_test(self) -> bool:
+        return self.is_legal and self.em == MAX_NUM and self.ec == MAX_NUM
+        
+    # successors 메서드를 작성하기 위해서는 한 강둑에서 다른 강둑으로 이동 가능한 모든 상태를 확인한 다음 합법적인 상태인지 점검해야 한다
+    @property
+    def is_legal(self) -> bool:
+        if self.wm < self.wc and self.wm > 0:
+            return False
+        if self.em < self.ec and self.em > 0:
+            return False
+        return True
+
+    # successors 메서드는 배가 있는 강둑에서 한 명 또는 두 명이 강 건너편으로 이동 가능한 모든 조합을 추가하여 실제로 합법적인 동작을 필터링한다
+    def successors(self) -> List[MCState]:
+        sucs: List[MCState] = []
+        if self.boat: # 서쪽 강둑에 있는 배 
+            if self.wm > 1:
+                sucs.append(MCState(self.wm - 2, self.wc, not self.boat))
+            if self.wm > 0:
+                sucs.append(MCState(self.wm - 1, self.wc, not self.boat))
+            if self.wc > 1:
+                sucs.append(MCState(self.wm, self.wc - 2, not self.boat))
+            if self.wc > 0:
+                sucs.append(MCState(self.wm, self.wc - 1, not self.boat))
+            if (self.wc > 0) and (self.wm > 0):
+                sucs.append(MCState(self.wm - 1, self.wc - 1, not self.boat))
+        else: # 동쪽 강둑에 있는 배
+            if self.em > 1:
+                sucs.append(MCState(self.wm + 2, self.wc, not self.boat))
+            if self.em > 0:
+                sucs.append(MCState(self.wm + 1, self.wc, not self.boat))
+            if self.ec > 1:
+                sucs.append(MCState(self.wm, self.wc + 2, not self.boat))
+            if self.ec > 0:
+                sucs.append(MCState(self.wm, self.wc + 1, not self.boat))
+            if (self.ec > 0) and (self.em > 0):
+                sucs.append(MCState(self.wm + 1, self.wc + 1, not self.boat))
+        return [x for x in sucs if x.is_legal]
+```
 
 #### (2) 문제 풀이
+
+`bfs()`, `dfs()`, `astar()`로 선교사와 식인종 문제를 풀 때 `node_top_path() 함수`는 궁극적인 솔루션으로 이어지는 상태 리스트로 변환되는 노드를 반환한다.
+
+이러한 상태 리스트를 사람이 쉽게 이해할 수 있도록 출력하는 함수가 필요하다.
+
+`display_solution() 함수`는 사람이 읽을 수 있는 솔루션 경로의 결과를 출력하고 마지막 최근 상태를 추적하면서 솔루션 경로의 모든 상태를 순회한다. 마지막 상태에서 선교사와 식인종 몇 명이 강을 건넜는지, 배를 타고 어느 방향으로 이동했는지 알아보기 위한 상태를 확인한다.
+```python
+def display_solution(path: List[MCState]):
+    if len(path) == 0: # 세네티 체크
+        return
+    old_state: MCState = path[0]
+    print(old_state)
+    for current_state in path[1:]:
+        if current_state.boat:
+            print("{} missionaries and {} cannibals moved from the east bank to the west bank.\n"
+                  .format(old_state.em - current_state.em, old_state.ec - current_state.ec))
+        else:
+            print("{} missionaries and {} cannibals moved from the west bank to the east bank.\n"
+                  .format(old_state.wm - current_state.wm, old_state.wc - current_state.wc))
+        print(current_state)
+        old_state = current_state
+
+# 앞에서 탐색 기능을 범용적으로 구현했기 때문에, 재사용하여 bfs()함수 사용
+# dfs() 함수를 사용하면 참조적을 ㅗ다른 상태를 동일한 값을 표시해야 하고, astar() 함수는 휴리스틱을 요구하기 때문이다
+if __name__ == "__main__":
+    start: MCState = MCState(MAX_NUM, MAX_NUM, True)
+    solution: Optional[Node[MCState]] = bfs(start, MCState.goal_test, MCState.successors)
+    if solution is None:
+        print("No solution found!")
+    else:
+        path: List[MCState] = node_to_path(solution)
+        display_solution(path)
+```
 
 ***
 
 ### 2.4 적용 사례
+**탐색**은 대부분의 소프트웨어에서 유용하게 사용된다. **검색 기능**이 핵심이고, 그 외 다른 곳에서는 **데이터 저장을 위한 기초**로 사용된다.
 
+**A* 알고리즘**은 가장 잘 알려진 길 찾기 알고리즘으로, 탐색 공간에서 계산을 미리 수행하는 알고리즘으로 구현한다. 또한, 단순 맹목적인 검색의 모든 시나리오에서 안정적이어서 경로 탐색, 프로그래밍 언어의 구문 분석을 위한 최단 경로 찾기 등 모든 탐색 부분에서 필수 요소가 되었다. 대부분의 지도 검색 애플리케이션은 **A* 알고리즘의 변형**인 `다익스트라 알고리즘`을 사용하여 탐색한다.
+
+**너비 우선 탐색**과 **깊이 우선 탐색**은 `균일 비용 탐색(uniform-cost-search)`이나 `역추적 탐색(backtracking search)`같은 복잡한 탐색 알고리즘의 기초가 된다.
+
+**너비 우선 탐색**은 작은 그래프에서 최단 경로를 찾는 데 충분한 알고리즘이지만, 큰 그래프의 경우 훌륭한 휴리스틱이 존재한다면 **너비 우선 탐색**에서 **A* 알고리즘**으로 쉽게 변경할 수 있다.
 
 ***
 
