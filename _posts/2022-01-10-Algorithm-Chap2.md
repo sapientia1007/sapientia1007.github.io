@@ -10,8 +10,7 @@ tags: Algorithm
 
 
 ### 2.1 DNA 검색
-유전자는 일반적으로 프로그램에서 문자 A, C, G, T의 시퀀스로 표현한다.
-각 문자는 **뉴클레오타이드**를 나타내고, 세 개의 뉴클레오타이드 조합을 **코돈**이라고 한다.
+유전자는 일반적으로 프로그램에서 문자 A, C, G, T의 시퀀스로 표현하며, 각 문자는 **뉴클레오타이드**를 나타내고, 세 개의 뉴클레오타이드 조합을 **코돈**이라고 한다.
 특정 아미노산에 대한 코돈 코드는 다른 아미노산과 함께 단백질을 형성할 수 있다.
 
 #### (1) DNA 정렬
@@ -19,9 +18,12 @@ tags: Algorithm
 from enum import IntEnum
 from typing import Tuple, List
 
-Nucleotide: IntEnum = IntEnum('Nucleotid', ('A', 'C', 'G', 'T'))
+Nucleotide: IntEnum = IntEnum('Nucleotide', ('A', 'C', 'G', 'T'))
 ``` 
-뉴클레오타이드는 Enum 타입 대신 IntEnum 타입을 사용한다.
+뉴클레오타이드는 Enum 타입 대신 비교연산자를 사용할 수 있는 IntEnum 타입을 사용한다. 
+
+<p></p>
+**이러한 데이터 타입은 구현하려는 검색 알고리즘에서 작동할 수 있어야 한다.**
 
 
 
