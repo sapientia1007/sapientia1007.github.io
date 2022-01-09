@@ -111,7 +111,9 @@ def binary_contains(gene: Gene, key_codon: Codon) -> bool:
     # 전체 유전자 리스트 범위에서 찾기 시작
     low: int = 0
     high: int = len(gene) - 1
-    while low <= high:  # 검색 공간이 있을 때까지 계속 검색을 수행, low가 high보다 크면 리스트에서 해당 검색할 범위가 더 이상 없다는 것을 의미
+    
+    # 검색 공간이 있을 때까지 계속 검색을 수행, low가 high보다 크면 리스트에서 해당 검색할 범위가 더 이상 없다는 것을 의미
+    while low <= high:  
         mid: int = (low + high) // 2 # 검색 범위를 반으로 나누기
         if gene[mid] < key_codon:
             low = mid + 1 # 검색할 요소가 범위의 중간 요소 뒤에 있는 경우 mid 변수에 1을 더하여 중간 요소 다음 위치로 low 변수 수정
