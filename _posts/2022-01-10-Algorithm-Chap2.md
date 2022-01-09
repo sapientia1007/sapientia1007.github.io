@@ -23,6 +23,7 @@ Nucleotide: IntEnum = IntEnum('Nucleotide', ('A', 'C', 'G', 'T'))
 뉴클레오타이드는 Enum 타입 대신 비교연산자를 사용할 수 있는 IntEnum 타입을 사용한다. 
 
 <p></p>
+
 **이러한 데이터 타입은 구현하려는 검색 알고리즘에서 작동할 수 있어야 한다.**
 
 
