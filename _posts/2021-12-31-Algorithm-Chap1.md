@@ -2,7 +2,7 @@
 layout: post
 title: Algorithm - Chap 1
 subtitle: Chap1
-categories: Classic_Computer
+categories: Classic_Computer_Science
 tags: Algorithm
 ---
 
