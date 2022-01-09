@@ -45,11 +45,11 @@ gene_str: str = "ACGTGGCTCTCTAACGTACGTACGTACGGGGTTTATATATACCCTAGGACTCCCTTT" # �
 def string_to_gene(s: str) -> Gene:
     gene: Gene = []
     for i in range(0, len(s), 3):
-        if (i + 2) >= len(s):  # don't run off end!
+        if (i + 2) >= len(s):  # 현재 위치 다음에 2개의 문자가 없으면 실행하지 않는다.
             return gene
-        #  initialize codon out of three nucleotides
+        #  3개의 늌틀레오타이드에서 코돈을 초기화
         codon: Codon = (Nucleotide[s[i]], Nucleotide[s[i + 1]], Nucleotide[s[i + 2]])
-        gene.append(codon)  # add codon to gene
+        gene.append(codon)  # 코돈을 유전자에 
     return gene
     
 my_gene: Gene = string_to_gene(gene_str)
@@ -62,8 +62,53 @@ my_gene: Gene = string_to_gene(gene_str)
 
 #### (2) 선형 검색
 
+**선형 검색(Linear Search)** 은 **유전자에서 특정 코돈이 존재하는지 여부를 확인**하는 것이다. 
+> 선형 검색은 찾고자 하는 요소가 발견되거나 자료구조의 끝에 도달할 때까지 순서대로 모든 요소를 훑어본다.
+> 선형 검색은 가장 간단하고, 자연스럽고, 명백한 방법으로 검색한다.
+> **최악**의 경우 선형 검색은 *자료구조의 모든 요소를 거쳐야* 하므로 **최악의 시간복잡도는 `O(n)`** 이다. (n : 자료구조의 요소 수)
+> 단순히 자료구조의 모든 요소를 탐색하면서 탐색할 항목과 동등한지 확인한다.
+
+```python
+# Gene 타입 앨리어스와 Codon 타입 앨리어스를 인자로 취하는 선형 검색 함수를 정의
+def linear_contains(gene: Gene, key_codon: Codon) -> bool:
+    for codon in gene:
+        if codon == key_codon:
+            return True
+    return False
+
+
+acg: Codon = (Nucleotide.A, Nucleotide.C, Nucleotide.G)
+gat: Codon = (Nucleotide.G, Nucleotide.A, Nucleotide.T)
+print(linear_contains(my_gene, acg))  # 참
+print(linear_contains(my_gene, gat))  # 
+
+# 앞에서 정의한 my_gene 변수와 각각의 acg, gat 변수를 함수의 인자로 전달하여 선형 검색
+```
+
+
+
 
 #### (3) 이진 검색
+
+**이진 검색(Binary Search)** 은 모든 요소를 살펴보는 선형 검색보다 빠른 검색 방법이지만, **해당 자료구조의 저장 순서를 미리 알고 있어야** 한다.
+> 자료구조가 정렬되어 있고, 그 인덱스로 항목에 즉시 접근할 수 있는 경우 이진 검색을 할 수 있다.
+> 파이썬에서는 리스트를 사용하여 이진 검색을 수행하는 방식으로 작동한다.
+> 이진 검색은 정렬된 요소들의 범위에서 중간 요소를 검색하여 찾고자 하는 요소와 비교한다.
+> 해당 비교를 기준으로 범위를 바으로 줄이고 다시 이진 검색을 수행하는 방식으로 작동한다.
+> 이진 검색은 *검색 공간을 계속해서 절반으로 줄이므로* **최악의 경우 시간복잡도는 `O(lg n)`** 이다.
+> 이진 검색은 선형 검색과달리 정렬된 자료구조가 필요하며, 정렬에는 시간이 소요된다. (최적의 정렬 알고리즘의 시간복잡도는 `O(n lg n)`)
+
+<p> </p>
+**검색을 딱 한번 수행**하려 하고 *원본 자료구조가 정렬되어 있지 않다*면, **선형 검색**이 더 효율적이다.
+
+**검색이 여러 번 수행**된다면, *개별 검색의 시간 비용을 절약*하는 점에서 **이진 검색**이 더 효율적이다.
+
+**유전자 코돈에 대한 이진 검색 함수는 다른 타입의 데이터에 대한 이진 검색 함수를 작성하는 것과 크게 다르지 않다.
+<p> 왜냐하면 Codon 타입은 다른 타입과 비교할 수 있고, Gene 타입은 리스트이기 때문이다. </p>
+
+``` python
+
+
 
 #### (4) 제네릭 검색 예제
 
