@@ -430,8 +430,109 @@ def node_to_path(node: Node[T]) -> List[T]:
 
 **깊이 우선 탐색**은 일반적으로 **너비 우선 탐색**보다 더 빨리 목표 지점을 찾지만, 그 반대의 경우도 있어서 두 가지 방법 중 하나를 선택하는 것은 *최단 경로를 선택하느냐 빠른 탐색의 가능성을 선택하느냐*의 문제이다.
 
-깊이 우선 탐색과 같이 같은 방향으로 계속 탐색하고 막다른 
+깊이 우선 탐색은 같은 방향으로 계속 탐색하고 막다른 지점과 만났을때 역추정으로 탐색한다면, 탐색 전에 더 먼 지점을 탐색하게 될 수 있다.
+
+하지만, 너비 우선 탐색에서는 한 지점 떨어진 모든 지점들을 먼저 확인하고 두 지점, 세 지점과 같이 떨어진 모든 지점을 목표 지점을 찾을 때까지 계속 탐색한다.
+
+따라서 너비 우선 탐색을 할때는, 최단 경로를 알 수 있다.
+
+
+**너비 우선 탐색**을 구현하려면 *선입선출(First-In-First-Out) 원칙에 따라 동작하는 자료구조*인 `큐`에 의존한다.
+`큐`는 `스택` 구현과 거의 돌일하나, 다른 점은 `_container 변수`에서 오른쪽 끝 요소 대신 왼쪽 끝 요소를 제거하고 반환하고, 리스트 대신 `덱(deque)`를 사용한다.
+```python
+class Queue(Generic[T]):
+    def __init__(self) -> None:
+        self._container: Deque[T] = Deque()
+
+    @property
+    def empty(self) -> bool:
+        return not self._container  # not is true for empty container
+
+    def push(self, item: T) -> None:
+        self._container.append(item)
+
+    def pop(self) -> T:
+        return self._container.popleft()  # FIFO
+
+    def __repr__(self) -> str:
+        return repr(self._container)
+```
+
+`스택`은 오른쪽에서 요소를 추가하고 제거 및 반환을 하고 `큐`는 오른쪽에서 요소를 추가하고 왼쪽에서 요소를 제거 및 반환한다. 리스트는 오른쪽에서 효율적으로 pop하지만, 왼쪽에서는 그렇지 않다. 덱은 양쪽에서 효율적으로 pop할 수 있다. 덱의 왼쪽 pop 시간 복잡도는 O(1)이지만 리스트의 시간 복잡도는 O(n)이다.
+
+```python
+def bfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]]) -> Optional[Node[T]]:
+    # frontier : 아직 방문하지 않은 곳
+    frontier: Queue[Node[T]] = Queue()
+    frontier.push(Node(initial, None))
+    # explored : 이미 방문한 곳
+    explored: Set[T] = {initial}
+
+    # 방문할 곳이 더 있는지 탐색
+    while not frontier.empty:
+        current_node: Node[T] = frontier.pop()
+        current_state: T = current_node.state
+        # 목표 지점을 찾았다면 종료
+        if goal_test(current_state):
+            return current_node
+        # 방문하지 않은 다음 장소가 있는지 확인
+        for child in successors(current_state):
+            if child in explored:  # 이미 방문한 자식 장소라면 건너뛴다
+                continue
+            explored.add(child)
+            frontier.push(Node(child, current_node))
+    return None  # 모든 곳을 방문했찌만 결국 목표 지점 찾기 실패
+```
+**너비 우선 탐색 알고리즘**은 **깊이 우선 탐색 알고리즘**과 동일하며, frontier 변수 타입만 `스택`에서 `큐`로 변경한다. 타입 변경으로 탐색 순서가 변경되고, 출발 지점에서 가장 가까운 지점을 먼저 탐색한다.
+
+`bfs() 함수`를 실행하면 **미로 찾기의 출발 지점에서 목표 지점까지의 최단 경로**를 찾을 수 있다.
+
+
 #### (5) A* 알고리즘
+
+**A* 알고리즘**은 출발 지점에서 목표 지점까지의 최단 경로를 찾는 것을 목표로, **너비 우선 탐색**과 달리 **A* 알고리즘**은 `비용 함수`와 `휴리스틱 함수`를 사용하여 목표 지점에 가장 빨리 도달한 가능성이 있는 경로 탐색에 집중한다.
+
+- 비용 함수 g(n) : 특정 지점에 도달하기 위한 비용을 확인, 미로 찾기의 경우 한 지점으로 가기 위해 얼마나 많은 지점을 거쳐야 하는지 확인한다.
+- 휴리스틱 함수 h(n) : 해당 지점에서 목표 지점까지의 비용을 추정한다. 목표 지점에 도달하는 데 드는 비용을 절대로 과대평가하지 않는 것을 의미하는 *허용 가능한 휴리스틱*이라면, 발견된 경로를 최적으로 판단한다.
+
+탐색을 고려하는 모든 지점에 대한 총 비용은 `f(n)`이다.
+
+`f(n)`은 단순히 `g(n)`과 h(n)을 더한 것으로 `f(n) = g(n) + h(n)`이다.
+
+**A* 알고리즘**은 방문하지 않은 지점에서 다음 지점을 선택할 때 `f(n)이 가장 낮은 것을 선택하며, 이 부분에서 너비 우선 탐색이나 깊이 우선 탐색 알고리즘과 구별된다.
+
+
+방문하지 않은 지점 중 가장 낮은 `f(n)의 지점을 선택하기 위해 **A* 알고리즘**은 `우선순위 큐`를 사용한다. 
+
+우선순위 큐의 요소는 내부 요소를 유지한다. 첫 번째 요소는 가장 우선순위가 높은 요소(미로 찾기의 경우, 우선순위가 가장 높은 항목은 f(n)이 가장 낮은 항목)
+
+우선순위 큐는 보통 이진 힙을 내부적으로 사용하며, 푸시와 팝 연삽의 시간복잡도는 `O(lg n)`이다.
+
+파이썬 표준 라이브러리 `heapq 모듈`에서 `heappush()`와 `heappop()`을 제공하고 이 함수는 리스트를 이진 힙으로 유지하며, 이러한 함수를 래핑(Wrapping)하여 우선순위 큐를 구현할 수 있다.
+
+특정 요소와 다른 요소의 우선순위를 결정하기 위해 `heappush()`와 `heappop()` 함수에 연산자를 사용하여 비교한다.
+```python
+# PriorityQue 클래스는 Stack, Queue 클래스의 push(), pop() 메서드에서 각각 heappush(), heappop() 함수를 사용하도록 수정
+class PriorityQueue(Generic[T]):
+    def __init__(self) -> None:
+        self._container: List[T] = []
+
+    @property
+    def empty(self) -> bool:
+        return not self._container  # not is true for empty container
+
+    def push(self, item: T) -> None:
+        heappush(self._container, item)  # in by priority
+
+    def pop(self) -> T:
+        return heappop(self._container)  # out by priority
+
+    def __repr__(self) -> str:
+        return repr(self._container)
+```
+
+**휴리스틱**
+
 
 ***
 
