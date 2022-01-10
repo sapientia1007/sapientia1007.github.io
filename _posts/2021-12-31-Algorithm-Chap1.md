@@ -247,7 +247,7 @@ from secrets import token_bytes
 from typing import Tuple
 
 def random_key(length : int) -> int :
-  tb : byyes = token_bytes(length) # length만큼 임의의 바이트 생성
+  tb : bytes = token_bytes(length) # length만큼 임의의 바이트 생성
   return int.from_bytes(tb, "big") # 바이트를 비트 문자열로 변환한 후 반환
 ```
 위 예제는 `secret 모듈`에서 `token_bytes()` 함수를 사용하여 **의사난수 데이터를 생성**하는 것이다. 이 데이터는 *진정한 난수가 아니*지만 `secret 모듈`의 `token_bytes()` 함수는 예제 사용 목적을 충분히 만족하고, 이를 사용해서 *더미 데이터로 사용할 임의의 키를 생성*한다.
