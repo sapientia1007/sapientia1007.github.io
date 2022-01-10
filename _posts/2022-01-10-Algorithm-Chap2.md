@@ -430,7 +430,7 @@ def node_to_path(node: Node[T]) -> List[T]:
 
 
 **너비 우선 탐색**을 구현하려면 *선입선출(First-In-First-Out) 원칙에 따라 동작하는 자료구조*인 `큐`에 의존한다.
-`큐`는 `스택` 구현과 거의 돌일하나, 다른 점은 `_container 변수`에서 오른쪽 끝 요소 대신 왼쪽 끝 요소를 제거하고 반환하고, 리스트 대신 `덱(deque)`를 사용한다.
+`큐`는 `스택` 구현과 거의 일하나, 다른 점은 `_container 변수`에서 오른쪽 끝 요소 대신 왼쪽 끝 요소를 제거하고 반환하고, 리스트 대신 `덱(deque)`를 사용한다.
 ```python
 class Queue(Generic[T]):
     def __init__(self) -> None:
