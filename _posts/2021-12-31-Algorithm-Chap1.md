@@ -394,6 +394,41 @@ print(tower_c)
 ### 연습문제
 
 #### (1) 
+```python
+def fib7(n: int) -> int :
+  BASE = [[1, 1], [1, 0]]
+  def matrix_mult(A, B):
+    temp = [[0] * 2 for _ in range(2)]
+    for i in range(2):
+        for j in range(2):
+            for k in range(2):
+                temp[i][j] += (A[i][k] * B[k][j])
+    return temp
+
+  def matrix_pow(n, M):
+      if n == 1:
+          return M
+      if n % 2 == 0:
+          temp = matrix_pow(n//2, M)
+          return matrix_mult(temp, temp)
+      else:
+          temp = matrix_pow(n-1, M)
+          return matrix_mult(temp, M)
+
+  return matrix_pow(n-1, BASE)[0][0]
+
+print(fib7(100))
+
+# fib5와 단위 테스트
+import unittest
+
+class Test_fib(unittest.TestCase) :
+
+  def test_fib(self) :
+    self.assertEqual(fib5(100), fib7(100))
+
+unittest.main()
+```
 
 #### (2)
 
