@@ -629,7 +629,7 @@ def astar(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], 
 #### (1) 문제 나타내기
 서쪽 강둑을 추적하여 문제를 나타내면, *서쪽 강둑에는 선교사와 식인종이 각각 몇명이 있고, 배가 서쪽에 있는 지*의 문제만 파악되면 동쪽 강둑에 무엇이 있는지 알 수 있다. 그 이유는 서쪽 강둑에 없는 것은 동쪽 강둑에 있기 때문이다.
 
-
+선교사와 식인종의 최대 인원을 지정하는 전역 변수를 생성한 후 메인 클래스를 구현한 코드는 다음과 같습니다.
 ```python
 from __future__ import annotations
 from typing import List, Optional
