@@ -856,12 +856,12 @@ def dfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], Li
     while not frontier.empty:
         current_node: Node[T] = frontier.pop()
         current_state: T = current_node.state
-        counter += 1
         # 목표 지점을 찾았다면 종료
         if goal_test(current_state):
             return current_node, counter
         # 방문하지 않은 다음 장소가 있는지 확인
         for child in successors(current_state):
+            counter += 1
             if child in explored:  # 이미 방문한 장소라면 건너뛴다
                 continue
             explored.add(child)
@@ -881,12 +881,12 @@ def bfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], Li
     while not frontier.empty:
         current_node: Node[T] = frontier.pop()
         current_state: T = current_node.state
-        counter += 1
         # 목표 지점을 찾았다면 종료
         if goal_test(current_state):
             return current_node, counter
         # 방문하지 않은 다음 장소가 있는지 확인
         for child in successors(current_state):
+            counter += 1
             if child in explored:  # 이미 방문한 자식 장소라면 건너뛴다
                 continue
             explored.add(child)
@@ -906,14 +906,13 @@ def astar(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], 
     while not frontier.empty:
         current_node: Node[T] = frontier.pop()
         current_state: T = current_node.state
-        counter += 1
         # 목표 지점을 찾았다면 종료
         if goal_test(current_state):
             return current_node, counter
         # 방문하지 않은 다음 장소가 있는지 확인
         for child in successors(current_state):
             new_cost: float = current_node.cost + 1  # 현재 장소에서 갈 수 있는 다음 장소의 비용은 1이라고 가정
-
+            counter += 1
             if child not in explored or explored[child] > new_cost:
                 explored[child] = new_cost
                 frontier.push(Node(child, current_node, new_cost, heuristic(child)))
