@@ -348,6 +348,24 @@ if __name__ == "__main__":
 - `push()` 작업은 스택 상단에 항목을 추가한다.
 - `pop()` 작업은 스택 상단의 항목을 제거하고, 반환한다.
 
+```python
+class Stack(Generic[T]):
+    def __init__(self) -> None:
+        self._container: List[T] = []
+
+    @property
+    def empty(self) -> bool:
+        return not self._container
+
+    def push(self, item: T) -> None:
+        self._container.append(item)
+
+    def pop(self) -> T:
+        return self._container.pop()  # LIFO
+
+    def __repr__(self) -> str:
+        return repr(self._container)
+```
 즉, 파이썬 리스트를 사용하여 스택을 구현할 때 오른쪽 끝에서 항목을 **추가**하고, **제거 및 반환**을 한다. 리스트에 항목이 없으면 pop()메서드는 실패하므로 스택에서도 실패한다.
 
 **깊이 우선 탐색**을 구현하기 전에 노드를 구현해야 하는데, 탐색은 한 장소에서 다른 장소의 변화를 추적하기 위해 `Node 클래스`가 필요하다.
