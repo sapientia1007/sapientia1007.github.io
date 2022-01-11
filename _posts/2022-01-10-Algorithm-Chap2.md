@@ -774,19 +774,19 @@ import time
 search_list= [1295,84139,772910]
 num_list = [i for i in range(1000000)]
 
-# 선형 탐색
+# 선형 검색
 start_time = time.time()
 for num in search_list :
   linear_contains(num_list, num)
   end_time = time.time()
-  print("{}을 선형탐색하는 실행 시간 : {}".format(num, end_time-start_time))
+  print("{}을 선형검색하는 실행 시간 : {}".format(num, end_time-start_time))
 
-# 이진 탐색
+# 이진 검색
 start_time = time.time()
 for num in search_list :
   binary_contains(num_list, num)
   end_time = time.time()
-  print("{}을 이진탐색하는 실행 시간 : {}".format(num, end_time-start_time))
+  print("{}을 이진색하는 실행 시간 : {}".format(num, end_time-start_time))
 ```
 #### (2)
 ```python
