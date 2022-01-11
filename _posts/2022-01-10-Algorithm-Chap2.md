@@ -508,7 +508,7 @@ def bfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], Li
 
 특정 요소와 다른 요소의 우선순위를 결정하기 위해 `heappush()`와 `heappop()` 함수에 연산자를 사용하여 비교한다.
 ```python
-# PriorityQue 클래스는 Stack, Queue 클래스의 push(), pop() 메서드에서 각각 heappush(), heappop() 함수를 사용하도록 수정
+# PriorityQueue 클래스는 Stack, Queue 클래스의 push(), pop() 메서드에서 각각 heappush(), heappop() 함수를 사용하도록 수정
 class PriorityQueue(Generic[T]):
     def __init__(self) -> None:
         self._container: List[T] = []
