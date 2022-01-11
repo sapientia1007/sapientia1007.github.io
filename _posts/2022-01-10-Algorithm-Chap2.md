@@ -793,51 +793,52 @@ for num in search_list :
 from generic_search import node_to_path, Node, dfs, bfs, astar
 from typing import Optional, List, Callable
 from maze import Maze, MazeLocation, manhattan_distance
+for i in range(100) : 
+  print("-------기본 미로--------")
+  m : Maze = Maze()
+  print(m)
+  print("-------DFS 탐색--------")
+  print("")
 
-print("-------기본 미로--------")
-m : Maze = Maze()
-print(m)
-print("-------DFS 탐색--------")
-print("")
+  # DFS
+  solution1: Optional[Node[MazeLocation]] = dfs(m.start, m.goal_test, m.successors)[0]
+  if solution1 is None:
+      print("깊이 우선 탐색으로 길을 찾을 수 없습니다!")
+  else:
+      path1: List[MazeLocation] = node_to_path(solution1)
+      m.mark(path1)
+      print(m)
+      print("검색 지점 수 : " , dfs(m.start, m.goal_test, m.successors)[1])
+      m.clear(path1)
 
-# DFS
-solution1: Optional[Node[MazeLocation]] = dfs(m.start, m.goal_test, m.successors)[0]
-if solution1 is None:
-    print("깊이 우선 탐색으로 길을 찾을 수 없습니다!")
-else:
-    path1: List[MazeLocation] = node_to_path(solution1)
-    m.mark(path1)
-    print(m)
-    print("검색 지점 수 : " , dfs(m.start, m.goal_test, m.successors)[1])
-    m.clear(path1)
+  # BFS
+  print()
+  print("-------BFS 탐색--------")
+  print()
+  solution2: Optional[Node[MazeLocation]] = bfs(m.start, m.goal_test, m.successors)[0]
+  if solution2 is None:
+      print("너비 우선 탐색으로 길을 찾을 수 없습니다!")
+  else:
+      path2: List[MazeLocation] = node_to_path(solution2)
+      m.mark(path2)
+      print(m)
+      print("검색 지점 수 : " , bfs(m.start, m.goal_test, m.successors)[1])
+      m.clear(path2)
 
-# BFS
-print()
-print("-------BFS 탐색--------")
-print()
-solution2: Optional[Node[MazeLocation]] = bfs(m.start, m.goal_test, m.successors)[0]
-if solution2 is None:
-    print("너비 우선 탐색으로 길을 찾을 수 없습니다!")
-else:
-    path2: List[MazeLocation] = node_to_path(solution2)
-    m.mark(path2)
-    print(m)
-    print("검색 지점 수 : " , bfs(m.start, m.goal_test, m.successors)[1])
-    m.clear(path2)
-
-# A*
-print()
-print("-------A* 탐색--------")
-print()
-distance: Callable[[MazeLocation], float] = manhattan_distance(m.goal)
-solution3: Optional[Node[MazeLocation]] = astar(m.start, m.goal_test, m.successors, distance)[0]
-if solution3 is None:
-    print("A* 알고리즘으로 길을 찾을 수 없습니다!")
-else:
-    path3: List[MazeLocation] = node_to_path(solution3)
-    m.mark(path3)
-    print(m)
-    print("검색 지점 수 : " , astar(m.start, m.goal_test, m.successors, distance)[1])
+  # A*
+  print()
+  print("-------A* 탐색--------")
+  print()
+  distance: Callable[[MazeLocation], float] = manhattan_distance(m.goal)
+  solution3: Optional[Node[MazeLocation]] = astar(m.start, m.goal_test, m.successors, distance)[0]
+  if solution3 is None:
+      print("A* 알고리즘으로 길을 찾을 수 없습니다!")
+  else:
+      path3: List[MazeLocation] = node_to_path(solution3)
+      m.mark(path3)
+      print(m)
+      print("검색 지점 수 : " , astar(m.start, m.goal_test, m.successors, distance)[1])
+  i += 1
 
 ```
 ```python
@@ -865,7 +866,7 @@ def dfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], Li
                 continue
             explored.add(child)
             frontier.push(Node(child, current_node))
-    return None # 모든 곳을 방문했지만 결국 목표 지점 찾기 실패
+    return None, counter # 모든 곳을 방문했지만 결국 목표 지점 찾기 실패
     
 # BFS
 def bfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]]) -> Optional[Node[T]]:
@@ -890,7 +891,7 @@ def bfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], Li
                 continue
             explored.add(child)
             frontier.push(Node(child, current_node))
-    return None  # 모든 곳을 방문했지만 결국 목표 지점 찾기 실패
+    return None, counter  # 모든 곳을 방문했지만 결국 목표 지점 찾기 실패
     
 # A*
 def astar(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]], heuristic: Callable[[T], float]) -> Optional[Node[T]]:
@@ -916,7 +917,7 @@ def astar(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], 
             if child not in explored or explored[child] > new_cost:
                 explored[child] = new_cost
                 frontier.push(Node(child, current_node, new_cost, heuristic(child)))
-    return None  # 모든 곳을 방문했지만 결국 목표 지점을 찾지 못했다.
+    return None, counter  # 모든 곳을 방문했지만 결국 목표 지점을 찾지 못했다.
 ```
 #### (3)
 ```python
