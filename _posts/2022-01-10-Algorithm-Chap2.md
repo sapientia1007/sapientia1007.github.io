@@ -224,7 +224,7 @@ class MazeLocation(NamedTuple):
 
 ```python
 # 미로를 생성할 때 막힌 공간의 무작위 비율을 설정하기 위해 sparseness 매개변수의 기본값 20%
-# 무작위로 생성된 값이 sparseness 파라미터의 임곗값보다 더 클 경우 공간은 벽으로 채워진다.
+# 무작위로 생성된 값이 sparseness 파라미터의 임곗값보다 더  경우 공간은 벽으로 채워진다.
 class Maze:
     def __init__(self, rows: int = 10, columns: int = 10, sparseness: float = 0.2, start: MazeLocation = MazeLocation(0, 0), goal: MazeLocation = MazeLocation(9, 9)) -> None:
         # 기본 인스턴스 변수 초기화
