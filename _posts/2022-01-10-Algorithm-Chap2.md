@@ -789,7 +789,135 @@ for num in search_list :
   print("{}을 이진탐색하는 실행 시간 : {}".format(num, end_time-start_time))
 ```
 #### (2)
+```python
+from generic_search import node_to_path, Node, dfs, bfs, astar
+from typing import Optional, List, Callable
+from maze import Maze, MazeLocation, manhattan_distance
 
+print("-------기본 미로--------")
+m : Maze = Maze()
+print(m)
+print("-------DFS 탐색--------")
+print("")
+
+# DFS
+solution1: Optional[Node[MazeLocation]] = dfs(m.start, m.goal_test, m.successors)[0]
+if solution1 is None:
+    print("깊이 우선 탐색으로 길을 찾을 수 없습니다!")
+else:
+    path1: List[MazeLocation] = node_to_path(solution1)
+    m.mark(path1)
+    print(m)
+    print("검색 지점 수 : " , dfs(m.start, m.goal_test, m.successors)[1])
+    m.clear(path1)
+
+# BFS
+print()
+print("-------BFS 탐색--------")
+print()
+solution2: Optional[Node[MazeLocation]] = bfs(m.start, m.goal_test, m.successors)[0]
+if solution2 is None:
+    print("너비 우선 탐색으로 길을 찾을 수 없습니다!")
+else:
+    path2: List[MazeLocation] = node_to_path(solution2)
+    m.mark(path2)
+    print(m)
+    print("검색 지점 수 : " , bfs(m.start, m.goal_test, m.successors)[1])
+    m.clear(path2)
+
+# A*
+print()
+print("-------A* 탐색--------")
+print()
+distance: Callable[[MazeLocation], float] = manhattan_distance(m.goal)
+solution3: Optional[Node[MazeLocation]] = astar(m.start, m.goal_test, m.successors, distance)[0]
+if solution3 is None:
+    print("A* 알고리즘으로 길을 찾을 수 없습니다!")
+else:
+    path3: List[MazeLocation] = node_to_path(solution3)
+    m.mark(path3)
+    print(m)
+    print("검색 지점 수 : " , astar(m.start, m.goal_test, m.successors, distance)[1])
+
+```
+```python
+# generic_search.py
+# DFS
+def dfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]]) -> Optional[Node[T]]:
+    counter = 0 
+    # frontier : 아직 방문하지 않은 곳
+    frontier: Stack[Node[T]] = Stack()
+    frontier.push(Node(initial, None))
+    # explored : 이미 방문한 곳
+    explored: Set[T] = {initial}
+
+    # 방문할 곳이 더 있는지 탐색
+    while not frontier.empty:
+        current_node: Node[T] = frontier.pop()
+        current_state: T = current_node.state
+        counter += 1
+        # 목표 지점을 찾았다면 종료
+        if goal_test(current_state):
+            return current_node, counter
+        # 방문하지 않은 다음 장소가 있는지 확인
+        for child in successors(current_state):
+            if child in explored:  # 이미 방문한 장소라면 건너뛴다
+                continue
+            explored.add(child)
+            frontier.push(Node(child, current_node))
+    return None # 모든 곳을 방문했지만 결국 목표 지점 찾기 실패
+    
+# BFS
+def bfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]]) -> Optional[Node[T]]:
+    counter = 0
+    # frontier : 아직 방문하지 않은 곳
+    frontier: Queue[Node[T]] = Queue()
+    frontier.push(Node(initial, None))
+    # explored : 이미 방문한 곳
+    explored: Set[T] = {initial}
+
+    # 방문할 곳이 더 있는지 탐색
+    while not frontier.empty:
+        current_node: Node[T] = frontier.pop()
+        current_state: T = current_node.state
+        counter += 1
+        # 목표 지점을 찾았다면 종료
+        if goal_test(current_state):
+            return current_node, counter
+        # 방문하지 않은 다음 장소가 있는지 확인
+        for child in successors(current_state):
+            if child in explored:  # 이미 방문한 자식 장소라면 건너뛴다
+                continue
+            explored.add(child)
+            frontier.push(Node(child, current_node))
+    return None  # 모든 곳을 방문했지만 결국 목표 지점 찾기 실패
+    
+# A*
+def astar(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]], heuristic: Callable[[T], float]) -> Optional[Node[T]]:
+    counter = 0
+    # frontier : 아직 방문하지 않은 곳 
+    frontier: PriorityQueue[Node[T]] = PriorityQueue()
+    frontier.push(Node(initial, None, 0.0, heuristic(initial)))
+    # explored : 이미 방문한 곳
+    explored: Dict[T, float] = {initial: 0.0}
+
+    # 방문할 곳이 더 있는지 탐색
+    while not frontier.empty:
+        current_node: Node[T] = frontier.pop()
+        current_state: T = current_node.state
+        counter += 1
+        # 목표 지점을 찾았다면 종료
+        if goal_test(current_state):
+            return current_node, counter
+        # 방문하지 않은 다음 장소가 있는지 확인
+        for child in successors(current_state):
+            new_cost: float = current_node.cost + 1  # 현재 장소에서 갈 수 있는 다음 장소의 비용은 1이라고 가정
+
+            if child not in explored or explored[child] > new_cost:
+                explored[child] = new_cost
+                frontier.push(Node(child, current_node, new_cost, heuristic(child)))
+    return None  # 모든 곳을 방문했지만 결국 목표 지점을 찾지 못했다.
+```
 #### (3)
 ```python
 from __future__ import annotations
