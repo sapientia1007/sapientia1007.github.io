@@ -763,10 +763,10 @@ MAX_NUM: int = 3
 
 class MCState:
     def __init__(self, missionaries: int, cannibals: int, boat: bool) -> None:
-        self.wm: int = missionaries # 선교사
-        self.wc: int = cannibals # 식인종
-        self.em: int = MAX_NUM - self.wm  # east bank missionaries
-        self.ec: int = MAX_NUM - self.wc  # east bank cannibals
+        self.wm: int = missionaries 
+        self.wc: int = cannibals 
+        self.em: int = MAX_NUM - self.wm  
+        self.ec: int = MAX_NUM - self.wc 
         self.boat: bool = boat
 
     def __eq__(self, other) :
@@ -778,10 +778,10 @@ class MCState:
         return hash((self.wm, self.wc, self.em, self.ec, self.boat))
 
     def __str__(self) -> str:
-        return ("On the west bank there are {} missionaries and {} cannibals.\n" 
-                "On the east bank there are {} missionaries and {} cannibals.\n"
-                "The boat is on the {} bank.")\
-            .format(self.wm, self.wc, self.em, self.ec, ("west" if self.boat else "east"))
+        return ("서쪽 강둑에는 {}명의 선교사와 {}명의 식인종이 있다.\n"
+        "동쪽 강둑에는 {}명의 선교사와 {}명의 식인종이 있다.\n"
+        "배는 {}쪽에 있다.\n")\
+            .format(self.wm, self.wc, self.em, self.ec, ("서" if self.boat else "동"))
 
     def goal_test(self) -> bool:
         return self.is_legal and self.em == MAX_NUM and self.ec == MAX_NUM
@@ -796,7 +796,7 @@ class MCState:
 
     def successors(self) -> List[MCState]:
         sucs: List[MCState] = []
-        if self.boat: # boat on west bank
+        if self.boat:
             if self.wm > 1:
                 sucs.append(MCState(self.wm - 2, self.wc, not self.boat))
             if self.wm > 0:
@@ -822,16 +822,16 @@ class MCState:
 
 
 def display_solution(path: List[MCState]):
-    if len(path) == 0: # sanity check
+    if len(path) == 0:
         return
     old_state: MCState = path[0]
     print(old_state)
     for current_state in path[1:]:
         if current_state.boat:
-            print("{} missionaries and {} cannibals moved from the east bank to the west bank.\n"
+            print("{}명의 선교사와 {}명의 식인종이 동쪽 강둑에서 서쪽 강둑으로 갔다.\n"
                   .format(old_state.em - current_state.em, old_state.ec - current_state.ec))
         else:
-            print("{} missionaries and {} cannibals moved from the west bank to the east bank.\n"
+            print("{}명의 선교사와 {}명의 식인종이 서쪽 강둑에서 동쪽 강둑으로 갔다.\n"
                   .format(old_state.wm - current_state.wm, old_state.wc - current_state.wc))
         print(current_state)
         old_state = current_state
@@ -841,7 +841,7 @@ if __name__ == "__main__":
     start: MCState = MCState(MAX_NUM, MAX_NUM, True)
     solution: Optional[Node[MCState]] = bfs(start, MCState.goal_test, MCState.successors)
     if solution is None:
-        print("No solution found!")
+        print("답을 찾을 수 없습니다.")
     else:
         path: List[MCState] = node_to_path(solution)
         display_solution(path)
