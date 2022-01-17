@@ -168,7 +168,7 @@ if __name__ == "__main__":
         domains[variable] = ["빨강", "초록", "파랑"]
     csp: CSP[str, str] = CSP(variables, domains)
     csp.add_constraint(MapColoringConstraint("웨스턴 오스트레일리아", "노던 준주"))
-    csp.add_constraint(MapColoringConstraint(""웨스턴 오스트레일리아", "사우스 오스트레일리아"))
+    csp.add_constraint(MapColoringConstraint("웨스턴 오스트레일리아", "사우스 오스트레일리아"))
     csp.add_constraint(MapColoringConstraint("사우스 오스트레일리아", "노던 준주"))
     csp.add_constraint(MapColoringConstraint("퀸즐랜드", "노던 준주"))
     csp.add_constraint(MapColoringConstraint("퀸즐랜드", "사우스 오스트레일리아"))
