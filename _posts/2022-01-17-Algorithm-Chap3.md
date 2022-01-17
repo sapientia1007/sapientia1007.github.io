@@ -119,8 +119,8 @@ def backtrakcking_search(self, assignment: Dict[V, D] = {}) -> Optional[Dict[V,D
     return None # 솔루션 없음
 ```
 
-### 3.2 호주 지도 색칠 문제호
-![aus_map](http://jjhcom.github.io/assets/images/banners/aus_map_00) : <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=thatsnothing&logNo=220362024301>
+### 3.2 호주 지도 색칠 문제
+![aus_map](http://jjhcom.github.io/assets/images/banners/aus_map_00.jpg) : <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=thatsnothing&logNo=220362024301>
 
 호주 지도에서 인접한 두 지역은 같은 색을 사용할 수 없다는 조건으로 분할된 지역을 3가지 색을 이용하여 칠한다고 가정한다.
 
