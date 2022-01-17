@@ -73,7 +73,7 @@ class CSP(Generic[V, D]):
             if variable not in self.domains:
                 raise LookupError("모든 변수에 도메인이 할당되어야 합니다.")
 
-    # add_constraing() 메서드는 모든 변수에 대해 제약 조건을 확인하고, 각 제약 조건 매핑에 자신을 추가
+    # add_constraint() 메서드는 모든 변수에 대해 제약 조건을 확인하고, 각 제약 조건 매핑에 자신을 추가
     def add_constraint(self, constraint: Constraint[V, D]) -> None:
         for variable in constraint.variables:
             if variable not in self.variables:
