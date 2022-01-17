@@ -22,7 +22,7 @@ tags: Algorithm
 
 ### 3.1 제약 충족 문제 프레임워크 구현하기
 
-- 제약 조건은 `Constraing 클래스`로 정의한다.
+- 제약 조건은 `Constraint 클래스`로 정의한다.
 
   -> 이 클래스는 `제약 조건 변수(variables)`와 이를 충족하는지 검사하는 `메서드(satisfied())`로 구성된다.
   
