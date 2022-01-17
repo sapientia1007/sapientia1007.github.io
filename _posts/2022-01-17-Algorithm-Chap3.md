@@ -97,7 +97,7 @@ def consistent(self, variable: V, assignment: Dict[V, D]) -> bool :
 ```python
 # CSP 클래스에 추가
 
-def backtrakcking_search(self, assignment: Dict[V, D] = {}) -> Optional[Dict[V,D]] :
+def backtracking_search(self, assignment: Dict[V, D] = {}) -> Optional[Dict[V,D]] :
     # 재귀적 검색에 대한 기저 조건은 모든 변수에 대한 유효 할당을 찾는것, 유효 할당을 찾았다면 솔루션의 첫 번째 인스턴스를 반환
     if len(assignment) == len(self.variables) :
         return assignment
