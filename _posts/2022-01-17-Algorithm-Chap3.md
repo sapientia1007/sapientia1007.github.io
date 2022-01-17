@@ -135,7 +135,7 @@ def backtracking_search(self, assignment: Dict[V, D] = {}) -> Optional[Dict[V,D]
 
 - 이러한 **이진 제약 조건**을 구현하기 위해서 `Constraint 베이스 클래스`를 이용한다.
 - `MapColoringConstraint 서브클래스` 생성자에는 경계를 공유하는 두 지역에 대한 변수가 있다.
-- *오버라이드*된 `satisfied() 메서드는 먼저 두 지역에 할당된 도메인 값(색상)이 있는지 확인한다.
+- *오버라이드*된 `satisfied() 메서드`는 먼저 두 지역에 할당된 도메인 값(색상)이 있는지 확인한다.
 - 두 지역의 색상이 같으면 제약 조건이 충족되지 않는다는 것을 의미한다.
 
 ```python
