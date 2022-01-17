@@ -82,7 +82,7 @@ class CSP(Generic[V, D]):
                 self.constraints[variable].append(constraint)
 ```
 
-주어진 변수 구성과 선택된 도메인값이 제약 조건을 충족시키는지 알 수 있는 방법은 **주어진 변수에 대한 모든 제약 조건을 할당하고 비교하여 할당 변숫값이 제약 조건을 만족하는지 인하는 `consistent() 메서드`가 필요하다.**
+주어진 변수 구성과 선택된 도메인값이 제약 조건을 충족시키는지 알 수 있기 위해 **주어진 변수에 대한 모든 제약 조건을 할당하고 비교하여 할당 변숫값이 제약 조건을 만족하는지 확인하는 `consistent() 메서드`** 를 사용한다. 
 ```python
 # 주어진 변수의 모든 제약 조건을 검사하여 assignment 값이 일관적인지 확인
 def consistent(self, variable: V, assignment: Dict[V, D]) -> bool :
