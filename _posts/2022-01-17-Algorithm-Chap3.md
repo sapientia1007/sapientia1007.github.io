@@ -31,6 +31,7 @@ tags: Algorithm
 - **추상 클래스는** *메서드*에 `@abstractmethod 데커레이터`를 사용하여 **인스턴스화되지 않는다.**
 
   -> 이 메서드는 실제 구현하는 서브클래스의 메서드에 의해 오버라이드된다.
+  
 ```python
 from typing import Generic, TypeVar, Dict, List, Optional
 from abc import ABC, abstractmethod
