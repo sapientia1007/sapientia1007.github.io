@@ -45,8 +45,8 @@ class Constraint(Generic[V, D], ABC) :
       self.variables = variables
   
     # 서브클래스 메서드에 의해 오버라이드된다.
-    @abstactmethod
-    def satisfied(self, assignment : Dcit[V, D]) -> bool :
+    @abstractmethod
+    def satisfied(self, assignment : Dict[V, D]) -> bool :
       ...
 ```
 
