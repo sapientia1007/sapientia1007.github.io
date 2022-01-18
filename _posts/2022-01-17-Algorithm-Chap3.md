@@ -187,7 +187,7 @@ if __name__ == "__main__":
 ```
 
 ### 3.3 여덟 퀸 문제
-
+![queens](http://jjhcom.github.io/assets/images/banners/queen.png) : <https://terms.naver.com/entry.naver?docId=5667830&cid=60205&categoryId=60205>
 - 체스보드는 8x8 격자로 데어 있고, 퀸은 체스보드의 모든 행과 열, 대각선으로 이동할 수 있다. 
 - 퀸의 이동 경로에 적군 말이 있다면, 그 말의 위치로 이동하여 획득할 수 있다.
 - 여덟 퀸 문제는 한 퀸이 다른 퀸을 공격하지 않도록 여덟 개의 퀸을 체스보드에 배치하는 것이다.
