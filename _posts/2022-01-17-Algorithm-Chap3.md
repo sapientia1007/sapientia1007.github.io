@@ -406,7 +406,6 @@ if __name__ == "__main__":
 - 사각형이 대각선으로 배치될 수 없기 때문에 단어 검색보다 더 간단하다.
 - 회로판 칩의 직사각형의 너비가 다양하다.
 
-
 ### 3.7 적용사례
 **제약 조건 문제**는 일반적으로 스케줄링에 사용된다.*(제약 충족 문제는 모션 플래닝(motion planning)에도 사용된다)*
 
@@ -422,6 +421,68 @@ if __name__ == "__main__":
 #### (1)
 
 #### (2)
+```python
+from typing import NamedTuple, List, Dict, Optional, Tuple
+from csp import Constraint, CSP
+
+Grid = List[List[str]]
+
+class GridLocation(NamedTuple):
+    row:int
+    column:int
+
+def generate_grid(rows:int, columns:int) -> Grid:
+    return [["-" for c in range(columns)] for r in range(rows)]
+
+def display_grid(grid:Grid) -> None:
+    for row in grid:
+        print(" ".join(row))
+
+def generate_domain(layout:tuple, grid:Grid) -> List[List[GridLocation]]:
+    domain:List[List[GridLocation]] = []
+    height:int = len(grid)
+    width:int = len(grid[0])
+    layout_width:int = layout[1]
+    layout_height:int = layout[2]
+    for row in range(height):
+        for col in range(width):
+            columns:range = range(col, col + layout_width)
+            rows:range = range(row, row + layout_height)
+            if (col + layout_width <= width) and (row + layout_height <= height):
+                domain.append([GridLocation(r, c) for c in columns for r in rows])
+    return domain
+
+
+class LayoutConstraint(Constraint[tuple, List[GridLocation]]):
+    def __init__(self, layouts:List[Tuple[str, int, int]]) -> None:
+        super().__init__(layouts)
+        self.layouts:List[Tuple[str, int, int]] = layouts
+
+    def satisfied(self, assignment:Dict[tuple, List[GridLocation]]) -> bool:
+        all_locations = [locs for values in assignment.values() for locs in values]
+        return len(set(all_locations)) == len(all_locations)
+
+
+if __name__ == "__main__":
+    grid:Grid = generate_grid(9, 9)
+    layouts:List[Tuple[str, int, int]] = [("1", 2, 6), ("2", 4, 4), ("3", 1, 5), ("4", 3, 3), ("5", 2, 4)]
+    locations:Dict[str, List[List[GridLocation]]] = {}
+    for layout in layouts:
+        locations[layout] = generate_domain(layout, grid)
+
+    csp:CSP[str, List[GridLocation]] = CSP(layouts, locations)
+    csp.add_constraint(LayoutConstraint(layouts))
+    
+    solution:Optional[Dict[str, List[GridLocation]]] = csp.backtracking_search()
+    if solution is None:
+        print("답을 찾을 수 없습니다!")
+    else:
+        for layout, grid_locations in solution.items():
+            for index in grid_locations:
+                (row, col) = (index.row, index.column)
+                grid[row][col] = layout[0]
+        display_grid(grid)
+```
 
 #### (3)
 ___
