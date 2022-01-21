@@ -666,8 +666,8 @@ class MCState:
         self.boat: bool = boat
 
     def __str__(self) -> str:
-        return ("서쪽 강둑에는 {}명의 선교사와 {}명의 식인종이 있다.\n"
-        "동쪽 강둑에는 {}명의 선교사와 {}명의 식인종이 있다.\n"
+        return ("서쪽 강둑에는 {}명의 선교사와 {}명의 식인종이 있다.\n" +
+        "동쪽 강둑에는 {}명의 선교사와 {}명의 식인종이 있다.\n" + 
         "배는 {}쪽에 있다.\n")\
             .format(self.wm, self.wc, self.em, self.ec, ("서" if self.boat else "동"))
     
@@ -723,7 +723,7 @@ def display_solution(path: List[MCState]):
         return
     old_state: MCState = path[0]
     print(old_state)
-    for current_state in path[1:]:
+    for current_state in path[1::]
         if current_state.boat:
             print("{}명의 선교사와 {}명의 식인종이 동쪽 강둑에서 서쪽 강둑으로 갔다.\n"
                   .format(old_state.em - current_state.em, old_state.ec - current_state.ec))
