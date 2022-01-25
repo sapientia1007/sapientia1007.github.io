@@ -283,7 +283,7 @@ sys.path.insert(0, '..')
 from ch2.generic_serach import bfs, Node, node_to_path
 # bfs 함수는 시작 지점, 목표지점, 현재 지점에서 다음 지점을 찾기 위한 변수로 3개의 매개변수를 취한다.
 
-# 시작 지점 : 보스턴 / 목표 지점 : 마이애미 / 정점 이 마이애미와 같은지 확인
+# 시작 지점 : 보스턴 / 목표 지점 : 마이애미 / 정점이 마이애미와 같은지 확인
 bfs_result : Optional[Node[V]] = bfs("보스턴", lambda x : x == "마이애미", 
 city_graph.neighbors_for_vertex)
 if bfs_result is None :
