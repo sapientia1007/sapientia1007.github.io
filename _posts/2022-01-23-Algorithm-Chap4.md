@@ -415,7 +415,6 @@ if __name__ == "__main__" :
 
 최소 신장 트리를 찾는다는 것은 가중치 그래프의 모든 정점에서 최소 가중치와 연결하는 방법을 찾는 것을 의미한다.
 
-`프림 알고리즘`에서는 `우선순위 큐`가 필요하다.
 ```python
 # priority_queue.py
 from typing import TypeVar, Generic, List
