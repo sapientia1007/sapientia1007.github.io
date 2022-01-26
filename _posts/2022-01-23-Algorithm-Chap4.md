@@ -814,7 +814,7 @@ if __name__ == "__main__" :
 워싱턴 -> ['애틀랜타', '마이애미', '디트로이트', '필라델피아']
 ```
 ```python
-city_graph.remove_vertex("보스턴") # 정점 
+city_graph.remove_vertex("보스턴") # '보스턴' 정점 제거
 print(city_graph)
 ```
 ```
