@@ -871,7 +871,7 @@ if __name__ == "__main__" :
   city_graph.add_edge_by_vertices("로스앤젤리스", "리버사이드") # 무향
   city_graph.add_edge_by_vertices("로스앤젤리스", "피닉스") # 무향
   city_graph.add_edge_by_vertices_digraph("리버사이드", "피닉스") # 유향
-  city_graph.add_edge_by_vertices_digraph("리버사이드", "시카고") # 
+  city_graph.add_edge_by_vertices_digraph("리버사이드", "시카고") # 유향 
 
   print(city_graph)
 ```
