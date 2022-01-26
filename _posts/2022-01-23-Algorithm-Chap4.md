@@ -889,6 +889,99 @@ if __name__ == "__main__" :
 
 ![..](http://jjhcom.github.io/assets/images/banners/bridge_fin.jpg) : <https://blog.naver.com/falcon2026/221237421277>
 
+```python
+from typing import TypeVar, Generic, List, Optional
+from edge import Edge
+from random import choice
+
+V = TypeVar('V') 
+
+class Graph(Generic[V]):
+  ...
+  
+if __name__ == "__main__" :
+
+  def remove_bridge(u : int, v : int) :
+      edge : Edge = Edge(u, v)
+      city_graph._edges[edge.u].remove(edge)
+      city_graph._edges[edge.v].remove(edge.reversed())
+  def show_bridge(u : int, v: int) :
+      remove_bridge(u, v)
+      print(f"<<{city_graph._vertices[edge.u]} -> {city_graph._vertices[edge.v]}>>")
+      print(city_graph)
+      
+    
+  city_graph : Graph[str] = Graph(["A","B","C","D"])
+  city_graph.add_edge_by_vertices("A","B")
+  city_graph.add_edge_by_vertices("A","B")
+  city_graph.add_edge_by_vertices("A","D")
+  city_graph.add_edge_by_vertices("D","B")
+  city_graph.add_edge_by_vertices("D","C")
+  city_graph.add_edge_by_vertices("A","C")
+  city_graph.add_edge_by_vertices("A","C")
+  print(city_graph)
+  
+  print("------------------------")
+  edge = choice(choice(city_graph._edges))
+  show_bridge(edge.u, edge.v)
+
+  while bool(city_graph._edges) :   
+      try : 
+          edge = choice(city_graph._edges[edge.v])
+          show_bridge(edge.u, edge.v)
+
+      except :
+          print("결과가 나오지 않아요")
+          break
+```
+```
+A -> ['B', 'B', 'D', 'C', 'C']
+B -> ['A', 'A', 'D']
+C -> ['D', 'A', 'A']
+D -> ['A', 'B', 'C']
+
+------------------------
+<<C -> A>>
+A -> ['B', 'B', 'D', 'C']
+B -> ['A', 'A', 'D']
+C -> ['D', 'A']
+D -> ['A', 'B', 'C']
+
+<<A -> D>>
+A -> ['B', 'B', 'C']
+B -> ['A', 'A', 'D']
+C -> ['D', 'A']
+D -> ['B', 'C']
+
+<<D -> C>>
+A -> ['B', 'B', 'C']
+B -> ['A', 'A', 'D']
+C -> ['A']
+D -> ['B']
+
+<<C -> A>>
+A -> ['B', 'B']
+B -> ['A', 'A', 'D']
+C -> []
+D -> ['B']
+
+<<A -> B>>
+A -> ['B']
+B -> ['A', 'D']
+C -> []
+D -> ['B']
+
+<<B -> D>>
+A -> ['B']
+B -> ['A']
+C -> []
+D -> []
+
+결과가 나오지 않아요
+```
+```
+*** 나무위키에서 보았듯이, 임의의 지점에서 출발하야 일곱 개의 다리를 한 번씩만 건너서 원래 위치로 돌아오는 알고리즘을 작성했을때, 어떻게 그어도 다리 하나가 항상 건너지 못한 채로 남아 있게 된다는 것을 확인할 수 있다.
+```
 ___
 ## 참고 : 
 고전 컴퓨터 알고리즘 인 파이썬(한빛미디어) - 데이비트 코펙 지음, 최길우 옮김 
