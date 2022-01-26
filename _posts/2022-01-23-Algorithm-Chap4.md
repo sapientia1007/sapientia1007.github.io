@@ -729,6 +729,7 @@ if __name__ == "__main__" :
 ### 4.7 연습 문제
 
 #### (1)
+**그래프 프레임워크에 에지 및 정점 제거를 위한 메서드를 추가하라**
 ```python
 from typing import TypeVar, Generic, List, Optional
 from edge import Edge
@@ -836,6 +837,7 @@ print(city_graph)
 ```
 
 #### (2)
+**그래프 프레임워크에 유향 그래프(digraph)를 사용할 수 있도록 코드를 추가하라**
 
 ```python
 from typing import TypeVar, Generic, List, Optional
@@ -883,6 +885,7 @@ if __name__ == "__main__" :
 시카고 -> ['시애틀']
 ```
 #### (3)
+**그래프 프레임워크를 사용하여 위키피디아 설명되어 있는 것과 같은[쾨니히스베르크 다리 건너기 문제](https://namu.wiki/w/%EC%BE%A8%EB%8B%88%ED%9E%88%EC%8A%A4%EB%B2%A0%EB%A5%B4%ED%81%AC%20%EB%8B%A4%EB%A6%AC%20%EA%B1%B4%EB%84%88%EA%B8%B0%20%EB%AC%B8%EC%A0%9C)를 증명 또는 반증하라**
 
 ![..](http://jjhcom.github.io/assets/images/banners/bridge_fin.jpg) : <https://blog.naver.com/falcon2026/221237421277>
 
