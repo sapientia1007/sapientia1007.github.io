@@ -793,7 +793,7 @@ if __name__ == "__main__" :
   city_graph.add_edge_by_vertices("보스턴", "뉴욕")
   city_graph.add_edge_by_vertices("뉴욕", "필라델피아")
   city_graph.add_edge_by_vertices("필라델피아", "워싱턴")
-  city_graph.remove_edges("필라델피아", "뉴욕")
+  city_graph.remove_edges("필라델피아", "뉴욕") # '필라델피아 <-> 뉴욕' 간선 제거
   print(city_graph)
 ```
 ```
@@ -814,7 +814,7 @@ if __name__ == "__main__" :
 워싱턴 -> ['애틀랜타', '마이애미', '디트로이트', '필라델피아']
 ```
 ```python
-city_graph.remove_vertex("보스턴")
+city_graph.remove_vertex("보스턴") # 정점 
 print(city_graph)
 ```
 ```
@@ -864,14 +864,14 @@ class Graph(Generic[V]):
 if __name__ == "__main__" : 
   city_graph : Graph[str] = Graph(["시애틀", "샌프란시스코", "로스앤젤리스", 
   "리버사이드", "피닉스", "시카고"])
-  city_graph.add_edge_by_vertices("시애틀", "시카고")
-  city_graph.add_edge_by_vertices_digraph("시애틀", "샌프란시스코")
-  city_graph.add_edge_by_vertices("샌프란시스코", "리버사이드")
-  city_graph.add_edge_by_vertices_digraph("샌프란시스코", "로스앤젤리스")
-  city_graph.add_edge_by_vertices("로스앤젤리스", "리버사이드")
-  city_graph.add_edge_by_vertices("로스앤젤리스", "피닉스")
-  city_graph.add_edge_by_vertices_digraph("리버사이드", "피닉스")
-  city_graph.add_edge_by_vertices_digraph("리버사이드", "시카고")
+  city_graph.add_edge_by_vertices("시애틀", "시카고") # 무향
+  city_graph.add_edge_by_vertices_digraph("시애틀", "샌프란시스코") # 유향
+  city_graph.add_edge_by_vertices("샌프란시스코", "리버사이드") # 무향
+  city_graph.add_edge_by_vertices_digraph("샌프란시스코", "로스앤젤리스") #유향
+  city_graph.add_edge_by_vertices("로스앤젤리스", "리버사이드") # 무향
+  city_graph.add_edge_by_vertices("로스앤젤리스", "피닉스") # 무향
+  city_graph.add_edge_by_vertices_digraph("리버사이드", "피닉스") # 유향
+  city_graph.add_edge_by_vertices_digraph("리버사이드", "시카고") # 
 
   print(city_graph)
 ```
