@@ -883,7 +883,7 @@ if __name__ == "__main__" :
 시카고 -> ['시애틀']
 ```
 #### (3)
-![bridge](http://jjhcom.github.io/assets/images/banners/birdge.jpg) : <https://terms.naver.com/entry.naver?docId=1150679&cid=40942&categoryId=32223>
+![bridge](http://jjhcom.github.io/assets/images/banners/birdge.png) : <https://blog.naver.com/kong8128/222130124963>
 
 ___
 ## 참고 : 
