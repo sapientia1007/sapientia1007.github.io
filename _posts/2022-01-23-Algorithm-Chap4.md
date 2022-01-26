@@ -838,7 +838,6 @@ print(city_graph)
 #### (2)
 
 ```python
-```python
 from typing import TypeVar, Generic, List, Optional
 from edge import Edge
 
