@@ -837,6 +837,52 @@ print(city_graph)
 
 #### (2)
 
+```python
+```python
+from typing import TypeVar, Generic, List, Optional
+from edge import Edge
+
+
+V = TypeVar('V') 
+
+
+class Graph(Generic[V]):
+    ...
+    
+    def add_edge_digraph(self, edge: Edge) -> None :
+        self._edges[edge.u].append(edge)
+    
+    def add_edge_by_indices_digraph(self, u: int, v: int) -> None:
+        edge: Edge = Edge(u, v)
+        self.add_edge_digraph(edge)
+
+    def add_edge_by_vertices_digraph(self, first: V, second: V) -> None:
+        u: int = self._vertices.index(first)
+        v: int = self._vertices.index(second)
+        self.add_edge_by_indices_digraph(u, v)
+        
+if __name__ == "__main__" : 
+  city_graph : Graph[str] = Graph(["시애틀", "샌프란시스코", "로스앤젤리스", 
+  "리버사이드", "피닉스", "시카고"])
+  city_graph.add_edge_by_vertices("시애틀", "시카고")
+  city_graph.add_edge_by_vertices_digraph("시애틀", "샌프란시스코")
+  city_graph.add_edge_by_vertices("샌프란시스코", "리버사이드")
+  city_graph.add_edge_by_vertices_digraph("샌프란시스코", "로스앤젤리스")
+  city_graph.add_edge_by_vertices("로스앤젤리스", "리버사이드")
+  city_graph.add_edge_by_vertices("로스앤젤리스", "피닉스")
+  city_graph.add_edge_by_vertices_digraph("리버사이드", "피닉스")
+  city_graph.add_edge_by_vertices_digraph("리버사이드", "시카고")
+
+  print(city_graph)
+```
+```
+시애틀 -> ['시카고', '샌프란시스코']
+샌프란시스코 -> ['리버사이드', '로스앤젤리스']
+로스앤젤리스 -> ['리버사이드', '피닉스']
+리버사이드 -> ['샌프란시스코', '로스앤젤리스', '피닉스', '시카고']
+피닉스 -> ['로스앤젤리스']
+시카고 -> ['시애틀']
+```
 #### (3)
 ___
 ## 참고 : 
