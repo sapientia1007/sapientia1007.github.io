@@ -729,6 +729,136 @@ if __name__ == "__main__" :
 ### 4.7 연습 문제
 
 #### (1)
+```python
+from typing import TypeVar, Generic, List, Optional
+from edge import Edge
+
+
+V = TypeVar('V') 
+
+
+class Graph(Generic[V]):
+    def __init__(self, vertices: List[V] = []) -> None:
+        self._vertices: List[V] = vertices
+        self._edges: List[List[Edge]] = [[] for _ in vertices]
+
+    @property
+    def vertex_count(self) -> int:
+        return len(self._vertices) 
+
+    @property
+    def edge_count(self) -> int:
+        return sum(map(len, self._edges)) 
+
+    def add_vertex(self, vertex: V) -> int:
+        self._vertices.append(vertex)
+        self._edges.append([]) 
+        return self.vertex_count - 1 
+
+    def add_edge(self, edge: Edge) -> None:
+        self._edges[edge.u].append(edge)
+        self._edges[edge.v].append(edge.reversed())
+
+    def add_edge_by_indices(self, u: int, v: int) -> None:
+        edge: Edge = Edge(u, v)
+        self.add_edge(edge)
+
+    def add_edge_by_vertices(self, first: V, second: V) -> None:
+        u: int = self._vertices.index(first)
+        v: int = self._vertices.index(second)
+        self.add_edge_by_indices(u, v)
+
+    def vertex_at(self, index: int) -> V:
+        return self._vertices[index]
+
+    def index_of(self, vertex: V) -> int:
+        return self._vertices.index(vertex)
+
+    def neighbors_for_index(self, index: int) -> List[V]:
+        return list(map(self.vertex_at, [e.v for e in self._edges[index]]))
+
+    def neighbors_for_vertex(self, vertex: V) -> List[V]:
+        return self.neighbors_for_index(self.index_of(vertex))
+
+    def edges_for_index(self, index: int) -> List[Edge]:
+        return self._edges[index]
+
+    def edges_for_vertex(self, vertex: V) -> List[Edge]:
+        return self.edges_for_index(self.index_of(vertex))
+
+    def remove_vertex(self, vertex : V) -> None : # 정점 제거
+        u = self.index_of(vertex)
+        for i in self.neighbors_for_index(u):
+            v = self.index_of(i)
+            edge : Edge = Edge(u,v)
+            self._edges[edge.u].remove(edge)
+            self._edges[edge.v].remove(edge.reversed())
+
+    def remove_edges(self, vertex1: V, vertex2: V) -> List[V] : # 간선 제거
+        u = self.index_of(vertex1)
+        v = self.index_of(vertex2)
+        edge : Edge = Edge(u, v)
+        self._edges[edge.u].remove(edge)
+        self._edges[edge.v].remove(edge.reversed())      
+       
+    def __str__(self) -> str:
+        desc: str = ""
+        for i in range(self.vertex_count):
+            desc += f"{self.vertex_at(i)} -> {self.neighbors_for_index(i)}\n"
+        return desc
+
+    
+if __name__ == "__main__" : 
+  # 기본 그래프 구축 테스트
+  city_graph : Graph[str] = Graph(["시애틀", "샌프란시스코", "로스앤젤리스", 
+  "리버사이드", "피닉스", "시카고", "보스턴", "뉴욕", "애틀랜타", "마이애미", "댈러스",
+  "휴스턴", "디트로이트", "필라델피아", "워싱턴"])
+  city_graph.add_edge_by_vertices("시애틀", "시카고")
+  city_graph.add_edge_by_vertices("시애틀", "샌프란시스코")
+  city_graph.add_edge_by_vertices("샌프란시스코", "리버사이드")
+  city_graph.add_edge_by_vertices("샌프란시스코", "로스앤젤리스")
+  city_graph.add_edge_by_vertices("로스앤젤리스", "리버사이드")
+  city_graph.add_edge_by_vertices("로스앤젤리스", "피닉스")
+  city_graph.add_edge_by_vertices("리버사이드", "피닉스")
+  city_graph.add_edge_by_vertices("리버사이드", "시카고")
+  city_graph.add_edge_by_vertices("피닉스", "댈러스")
+  city_graph.add_edge_by_vertices("피닉스", "휴스턴")
+  city_graph.add_edge_by_vertices("댈러스", "시카고")
+  city_graph.add_edge_by_vertices("댈러스", "애틀랜타")
+  city_graph.add_edge_by_vertices("댈러스", "휴스턴")
+  city_graph.add_edge_by_vertices("휴스턴", "애틀랜타")
+  city_graph.add_edge_by_vertices("휴스턴", "마이애미")
+  city_graph.add_edge_by_vertices("애틀랜타", "시카고")
+  city_graph.add_edge_by_vertices("애틀랜타", "워싱턴")
+  city_graph.add_edge_by_vertices("애틀랜타", "마이애미")
+  city_graph.add_edge_by_vertices("마이애미", "워싱턴")
+  city_graph.add_edge_by_vertices("시카고", "디트로이트")
+  city_graph.add_edge_by_vertices("디트로이트", "보스턴")
+  city_graph.add_edge_by_vertices("디트로이트", "워싱턴")
+  city_graph.add_edge_by_vertices("디트로이트", "뉴욕")
+  city_graph.add_edge_by_vertices("보스턴", "뉴욕")
+  city_graph.add_edge_by_vertices("뉴욕", "필라델피아")
+  city_graph.add_edge_by_vertices("필라델피아", "워싱턴")
+  city_graph.remove_edges("필라델피아", "뉴욕")
+  print(city_graph)
+```
+```markdown
+시애틀 -> ['시카고', '샌프란시스코']
+샌프란시스코 -> ['시애틀', '리버사이드', '로스앤젤리스']
+로스앤젤리스 -> ['샌프란시스코', '리버사이드', '피닉스']
+리버사이드 -> ['샌프란시스코', '로스앤젤리스', '피닉스', '시카고']
+피닉스 -> ['로스앤젤리스', '리버사이드', '댈러스', '휴스턴']
+시카고 -> ['시애틀', '리버사이드', '댈러스', '애틀랜타', '디트로이트']
+보스턴 -> ['디트로이트', '뉴욕']
+뉴욕 -> ['디트로이트', '보스턴']
+애틀랜타 -> ['댈러스', '휴스턴', '시카고', '워싱턴', '마이애미']
+마이애미 -> ['휴스턴', '애틀랜타', '워싱턴']
+댈러스 -> ['피닉스', '시카고', '애틀랜타', '휴스턴']
+휴스턴 -> ['피닉스', '댈러스', '애틀랜타', '마이애미']
+디트로이트 -> ['시카고', '보스턴', '워싱턴', '뉴욕']
+필라델피아 -> ['워싱턴']
+워싱턴 -> ['애틀랜타', '마이애미', '디트로이트', '필라델피아']
+```
 
 #### (2)
 
