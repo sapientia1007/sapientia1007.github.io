@@ -884,7 +884,7 @@ if __name__ == "__main__" :
 ```
 #### (3)
 
-![쾨니히스베르크의 다리건너기 문제](http://jjhcom.github.io/assets/images/banners/fin_bridge.jpg) : <https://blog.naver.com/kong8128/222130124963>
+![..](http://jjhcom.github.io/assets/images/banners/bridge_fin.jpg) : <https://blog.naver.com/kong8128/222130124963>
 
 ___
 ## 참고 : 
