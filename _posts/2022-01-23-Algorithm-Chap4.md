@@ -955,7 +955,7 @@ if __name__ == "__main__" :
           print("결과가 나오지 않아요")
           break
 ```
-```code
+```shell
 A -> ['B', 'B', 'D', 'C', 'C']
 B -> ['A', 'A', 'D']
 C -> ['D', 'A', 'A']
