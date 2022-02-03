@@ -4,7 +4,11 @@ title: Algorithm - Chap 3
 subtitle: Chap3
 categories: Classic_Computer_Science
 tags: Algorithm
+use_math: true
 ---
+
+
+$ x^2 = y $
 
 ## Chap3 - 제약 충족 문제
 컴퓨터를 사용하여 해결할 수 있는 많은 문제는 **제약 충족 문제(Constraint-Satisfaction Problem = CSP)** 로 크게 분류할 수 있다.
