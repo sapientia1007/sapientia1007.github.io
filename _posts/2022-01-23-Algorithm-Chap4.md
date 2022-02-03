@@ -6,10 +6,6 @@ categories: Classic_Computer_Science
 tags: Algorithm
 ---
 
-
-$x+y=1$
-$x$는 $y$와의 합이 $1$이다.
-
 ## Chap4 - 그래프 문제
 
 **그래프**는 어떤 한 문제를 연결된 노드 집합으로 구성하며 모델링하는 데 사용하는 추상적인 수학 구조물이다. 
