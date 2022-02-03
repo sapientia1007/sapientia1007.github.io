@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Algorithm - Chap 4
-subtitle: Chap4
+title: Algorithm - Chap 5
+subtitle: Chap5
 categories: Classic_Computer_Science
 tags: Algorithm
 use_math : true
