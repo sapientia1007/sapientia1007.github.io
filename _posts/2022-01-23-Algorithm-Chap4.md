@@ -6,35 +6,6 @@ categories: Classic_Computer_Science
 tags: Algorithm
 ---
 
-\(\LaTeX{}\)
-
-$\Pi$
-
-$ a * b = c ^ b $
-
-$ 2^{\frac{n-1}{3}} $
-
-$ \int_a^b f(x),dx. $
-
-\( \int_a^b f(x),dx. \)
-
-$$ \begin{cases} \text{if true}\ foo \ \text{if false}\ bar \end{cases} $$
-
-$ \rho {\rm{FOD}} = \sum\limits{\sigma ,i} {(\delta _1 - \delta _2 n_i^\sigma )|\phi _i^\sigma ({\bf{r}})|^2} $
-
-$$ \rho {\rm{FOD}} = \sum\limits{\sigma ,i} {(\delta _1 - \delta _2 n_i^\sigma )|\phi _i^\sigma ({\bf{r}})|^2} $$
-
-{{ "here is a liquid filter." | capitalize }}
-
-{% capture test %} `escape inline code`
-inline code
-Here is a capture block. {% endcapture %}
-
-{{ test | markdownify }}
-
-{% assign x = 100 %} {% assign x = x | divided_by: 3 %} 100 / 3 = {{ x }}
-
-
 ## Chap4 - 그래프 문제
 
 **그래프**는 어떤 한 문제를 연결된 노드 집합으로 구성하며 모델링하는 데 사용하는 추상적인 수학 구조물이다. 
