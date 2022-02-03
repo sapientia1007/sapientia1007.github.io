@@ -7,12 +7,8 @@ tags: Algorithm
 ---
 
 
-\begin{align}
-\dot{x} & = \sigma(y-x) \\
-\dot{y} & = \rho x - y - xz \\
-\dot{z} & = -\beta z + xy
-\end{align}
-
+$x+y=1$
+$x$는 $y$와의 합이 $1$이다.
 
 ## Chap4 - 그래프 문제
 
