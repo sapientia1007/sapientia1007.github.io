@@ -4,6 +4,7 @@ title: Algorithm - Chap 5
 subtitle: Chap5
 categories: Classic_Computer_Science
 tags: Algorithm
+use_math: true
 ---
 
 ## Chap5 - 유전 알고리즘
