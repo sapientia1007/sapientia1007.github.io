@@ -636,8 +636,9 @@ from __future__ import annotations
 from typing import Tuple, List
 from chromosome import Chromosome
 from genetic_algorithm import GeneticAlgorithm
-from random import randrange, random
+from random import randrange, random, choice
 from copy import deepcopy
+
 
 class BitString(Chromosome) :
     def __init__(self, x : str, y : str) -> None:
@@ -647,44 +648,46 @@ class BitString(Chromosome) :
     def _compress(self, x: str, y : str) -> None:
         bit_string_list = list()
         
-        self.bit_string: int = 1  
+        self.bit_string: int = 1  # start with sentinel
         for nucleotide in x.upper():
-            self.bit_string <<= 2  
-            if nucleotide == "A": 
+            self.bit_string <<= 2  # shift left two bits
+            if nucleotide == "A":  # change last two bits to 00
                 self.bit_string |= 0b00
-            elif nucleotide == "C":  
+            elif nucleotide == "C":  # change last two bits to 01
                 self.bit_string |= 0b01
-            elif nucleotide == "G":  
+            elif nucleotide == "G":  # change last two bits to 10
                 self.bit_string |= 0b10
-            elif nucleotide == "T": 
+            elif nucleotide == "T":  # change last two bits to 11
                 self.bit_string |= 0b11
             else:
                 raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
             bit_string_list.append(self.bit_string)
 
-        self.bit_string: int = 1 
+        self.bit_string: int = 1  # start with sentinel
         for nucleotide in y.upper():
-            self.bit_string <<= 2  
-            if nucleotide == "A": 
+            self.bit_string <<= 2  # shift left two bits
+            if nucleotide == "A":  # change last two bits to 00
                 self.bit_string |= 0b00
-            elif nucleotide == "C": 
+            elif nucleotide == "C":  # change last two bits to 01
                 self.bit_string |= 0b01
-            elif nucleotide == "G":  
+            elif nucleotide == "G":  # change last two bits to 10
                 self.bit_string |= 0b10
-            elif nucleotide == "T": 
+            elif nucleotide == "T":  # change last two bits to 11
                 self.bit_string |= 0b11
             else:
                 raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
             bit_string_list.append(self.bit_string)
             
         return bit_string_list
+            
+            
 
     def fitness(self) -> float: # 6x - x^2 + 4y - y^2
         return 6 * self.x - self.x * self.x + 4 * self.y - self.y * self.y
 
     @classmethod
     def random_instance(cls) -> BitString:
-        return BitString(randrange(100), randrange(100))
+        return BitString(choice("ACGT"), choice("ACGT"))
 
     def crossover(self, other: BitString) -> Tuple[BitString, BitString]:
         child1: BitString = deepcopy(self)
@@ -708,6 +711,11 @@ class BitString(Chromosome) :
     def __str__(self) -> str:
         return f"X: {self.x} Y: {self.y} 적합도: {self.fitness()}"
 
+if __name__ == "__main__":
+    initial_population: List[BitString] = [BitString.random_instance() for _ in range(20)]
+    ga: GeneticAlgorithm[BitString] = GeneticAlgorithm(initial_population=initial_population, threshold=13.0, max_generations = 100, mutation_chance = 0.1, crossover_chance = 0.7)
+    result: BitString = ga.run()
+    print(result)
 ```
 
 
