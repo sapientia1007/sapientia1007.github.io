@@ -554,7 +554,94 @@ ___
 #### (3)
 **Chromosome 클래스를 상속받는 BitString 클래스를 생성하라. 비트 문자열에 대해서는 1장을 참조한다. 그리고 새로 생성한 클래스를 사용하여 5.3절의 '간단한 방정식'문제를 해결하라. 문제를 어떻게 비트 문자열로 인코딩할 수 있을까?**
 
+```python
+from __future__ import annotations
+from typing import Tuple, List
+from chromosome import Chromosome
+from genetic_algorithm import GeneticAlgorithm
+from random import randrange, random
+from copy import deepcopy
 
+
+class BitString(Chromosome) :
+    def __init__(self, x : str, y : str) -> None:
+        self.x : int = self._compress(x, y)[0]
+        self.y : int = self._compress(x, y)[1]
+
+    def _compress(self, x: str, y : str) -> None:
+        bit_string_list = list()
+        
+        self.bit_string: int = 1  # start with sentinel
+        for nucleotide in x.upper():
+            self.bit_string <<= 2  # shift left two bits
+            if nucleotide == "A":  # change last two bits to 00
+                self.bit_string |= 0b00
+            elif nucleotide == "C":  # change last two bits to 01
+                self.bit_string |= 0b01
+            elif nucleotide == "G":  # change last two bits to 10
+                self.bit_string |= 0b10
+            elif nucleotide == "T":  # change last two bits to 11
+                self.bit_string |= 0b11
+            else:
+                raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
+            bit_string_list.append(self.bit_string)
+
+        self.bit_string: int = 1  # start with sentinel
+        for nucleotide in y.upper():
+            self.bit_string <<= 2  # shift left two bits
+            if nucleotide == "A":  # change last two bits to 00
+                self.bit_string |= 0b00
+            elif nucleotide == "C":  # change last two bits to 01
+                self.bit_string |= 0b01
+            elif nucleotide == "G":  # change last two bits to 10
+                self.bit_string |= 0b10
+            elif nucleotide == "T":  # change last two bits to 11
+                self.bit_string |= 0b11
+            else:
+                raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
+            bit_string_list.append(self.bit_string)
+            
+        return bit_string_list
+            
+            
+
+    def fitness(self) -> float: # 6x - x^2 + 4y - y^2
+        return 6 * self.x - self.x * self.x + 4 * self.y - self.y * self.y
+
+    @classmethod
+    def random_instance(cls) -> BitString:
+        return BitString(randrange(100), randrange(100))
+
+    def crossover(self, other: BitString) -> Tuple[BitString, BitString]:
+        child1: BitString = deepcopy(self)
+        child2: BitString = deepcopy(other)
+        child1.y = other.y
+        child2.y = self.y
+        return child1, child2
+
+    def mutate(self) -> None:
+        if random() > 0.5: 
+            if random() > 0.5:
+                self.x += 1
+            else:
+                self.x -= 1
+        else: 
+            if random() > 0.5:
+                self.y += 1
+            else:
+                self.y -= 1
+
+    def __str__(self) -> str:
+        return f"X: {self.x} Y: {self.y} 적합도: {self.fitness()}"
+
+
+if __name__ == "__main__":
+    ga = BitString("A","C")
+    print(ga)
+```
+```code
+X: 4 Y: 5 적합도: 3
+```
 
 ___
 
