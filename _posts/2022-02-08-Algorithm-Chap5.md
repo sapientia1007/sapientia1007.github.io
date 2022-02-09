@@ -713,9 +713,7 @@ if __name__ == "__main__":
     ga = BitString("A","C")
     print(ga)
 ```
-```code
-X: 4 Y: 5 적합도: 3
-```
+
 
 ___
 
