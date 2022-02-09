@@ -708,10 +708,6 @@ class BitString(Chromosome) :
     def __str__(self) -> str:
         return f"X: {self.x} Y: {self.y} 적합도: {self.fitness()}"
 
-
-if __name__ == "__main__":
-    ga = BitString("A","C")
-    print(ga)
 ```
 
 
