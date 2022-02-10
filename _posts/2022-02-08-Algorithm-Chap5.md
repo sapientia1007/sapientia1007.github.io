@@ -636,111 +636,17 @@ class GeneticAlgorithm(Generic[C]) :
 #### (2)
 **3장의 제약 충족 문제 프레임워크에 유전 알고리즘을 사용하여 임의의 제약 충족 문제를 해결하는 새로운 메서드를 추가하라. 적합도의 가능한 측정은 염색체에 의해 해결되는 제약 조건의 수다.**
 
+```python
+```
+
+
 #### (3)
 **Chromosome 클래스를 상속받는 BitString 클래스를 생성하라. 비트 문자열에 대해서는 1장을 참조한다. 그리고 새로 생성한 클래스를 사용하여 5.3절의 '간단한 방정식'문제를 해결하라. 문제를 어떻게 비트 문자열로 인코딩할 수 있을까?**
 
 ```python
-from __future__ import annotations
-from typing import Tuple, List
-from chromosome import Chromosome
-from genetic_algorithm import GeneticAlgorithm
-from random import randrange, random, choice
-from copy import deepcopy
 
-class BitString(Chromosome) :
-    def __init__(self, x : str, y : str) -> None:
-        self.x : int = self._compress(x, y)[0]
-        self.y : int = self._compress(x, y)[1]
-
-    def _compress(self, x: str, y : str) -> None:
-        bit_string_list = list()
-        
-        self.bit_string: int = 1
-        for nucleotide in x.upper():
-            self.bit_string <<= 2  
-            if nucleotide == "A":  
-                self.bit_string |= 0b00
-            elif nucleotide == "C":  
-                self.bit_string |= 0b01
-            elif nucleotide == "G":
-                self.bit_string |= 0b10
-            elif nucleotide == "T":  
-                self.bit_string |= 0b11
-            else:
-                raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
-            bit_string_list.append(self.bit_string)
-
-        self.bit_string: int = 1  
-        for nucleotide in y.upper():
-            self.bit_string <<= 2  
-            if nucleotide == "A": 
-                self.bit_string |= 0b00
-            elif nucleotide == "C": 
-                self.bit_string |= 0b01
-            elif nucleotide == "G":  
-                self.bit_string |= 0b10
-            elif nucleotide == "T": 
-                self.bit_string |= 0b11
-            else:
-                raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
-            bit_string_list.append(self.bit_string)
-            
-        return bit_string_list         
-
-    def fitness(self) -> float: # 6x - x^2 + 4y - y^2
-        return 6 * self.x - self.x * self.x + 4 * self.y - self.y * self.y
-
-    @classmethod
-    def random_instance(cls) -> BitString:
-        return BitString(choice("ACGT"), choice("ACGT"))
-
-    def crossover(self, other: BitString) -> Tuple[BitString, BitString]:
-        child1: BitString = deepcopy(self)
-        child2: BitString = deepcopy(other)
-        child1.y = other.y
-        child2.y = self.y
-        return child1, child2
-
-    def mutate(self) -> None:
-        if random() > 0.5: 
-            if random() > 0.5:
-                self.x += 1
-            else:
-                self.x -= 1
-        else: 
-            if random() > 0.5:
-                self.y += 1
-            else:
-                self.y -= 1
-
-    def __str__(self) -> str:
-        return f"X: {self.x} Y: {self.y} 적합도: {self.fitness()}"
-
-if __name__ == "__main__":
-    initial_population: List[BitString] = [BitString.random_instance() for _ in range(20)]
-    ga: GeneticAlgorithm[BitString] = GeneticAlgorithm(initial_population=initial_population, threshold=13.0, max_generations = 100, mutation_chance = 0.1, crossover_chance = 0.7)
-    result: BitString = ga.run()
-    print(result)
 ```
-```code
-세대 0 최상 8 평균 -6.3
-세대 1 최상 9 평균 4.95
-세대 2 최상 11 평균 8.6
-세대 3 최상 11 평균 10.1
-세대 4 최상 12 평균 10.9
-세대 5 최상 12 평균 11.15
-세대 6 최상 12 평균 11.75
-세대 7 최상 12 평균 11.95
-세대 8 최상 12 평균 11.95
-세대 9 최상 12 평균 11.8
-세대 10 최상 12 평균 11.95
-세대 11 최상 12 평균 12
-세대 12 최상 12 평균 12
-세대 13 최상 12 평균 11.85
-세대 14 최상 12 평균 11.9
-세대 15 최상 12 평균 12
-X: 3 Y: 2 적합도: 13
-```
+
 
 
 ___
