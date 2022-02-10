@@ -190,6 +190,13 @@ class GeneticAlgorithm(Generic[C]) :
               best = highest # 새로운 최상의 개체 발견
       return best # _max_generations에서 발견한 최상의 개체를 반환
 ```
+`GeneticAlgorithm 클래스`는 `Chromosome 클래스`의 제네릭 타입을 취하며, 타입의 이름은 C이다.
+
+`SelectionType` 열거형(enum)은 알고리즘에서 사용되는 방법을 지정하는데 사용되는 내부 타입이고, 가장 일반적인 유전 알고리즘 선택방법은 **룰렛휠 선택**과 **토너먼트 선택**이다.
+
+**룰렛휠 선택**은 모든 염색체를 적합도에 비례하여 선택하고, **토너먼트 선택**은 특정수의 무작위 염색체를 서로 비교하여 가장 적합도가 높은 개체를 선택한다.
+
+
 
 ___
 
