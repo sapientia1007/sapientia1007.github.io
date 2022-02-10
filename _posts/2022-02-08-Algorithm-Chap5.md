@@ -656,31 +656,31 @@ class BitString(Chromosome) :
     def _compress(self, x: str, y : str) -> None:
         bit_string_list = list()
         
-        self.bit_string: int = 1  # start with sentinel
+        self.bit_string: int = 1
         for nucleotide in x.upper():
-            self.bit_string <<= 2  # shift left two bits
-            if nucleotide == "A":  # change last two bits to 00
+            self.bit_string <<= 2  
+            if nucleotide == "A":  
                 self.bit_string |= 0b00
-            elif nucleotide == "C":  # change last two bits to 01
+            elif nucleotide == "C":  
                 self.bit_string |= 0b01
-            elif nucleotide == "G":  # change last two bits to 10
+            elif nucleotide == "G":
                 self.bit_string |= 0b10
-            elif nucleotide == "T":  # change last two bits to 11
+            elif nucleotide == "T":  
                 self.bit_string |= 0b11
             else:
                 raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
             bit_string_list.append(self.bit_string)
 
-        self.bit_string: int = 1  # start with sentinel
+        self.bit_string: int = 1  
         for nucleotide in y.upper():
-            self.bit_string <<= 2  # shift left two bits
-            if nucleotide == "A":  # change last two bits to 00
+            self.bit_string <<= 2  
+            if nucleotide == "A": 
                 self.bit_string |= 0b00
-            elif nucleotide == "C":  # change last two bits to 01
+            elif nucleotide == "C": 
                 self.bit_string |= 0b01
-            elif nucleotide == "G":  # change last two bits to 10
+            elif nucleotide == "G":  
                 self.bit_string |= 0b10
-            elif nucleotide == "T":  # change last two bits to 11
+            elif nucleotide == "T": 
                 self.bit_string |= 0b11
             else:
                 raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
