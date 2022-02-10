@@ -647,7 +647,6 @@ from genetic_algorithm import GeneticAlgorithm
 from random import randrange, random, choice
 from copy import deepcopy
 
-
 class BitString(Chromosome) :
     def __init__(self, x : str, y : str) -> None:
         self.x : int = self._compress(x, y)[0]
@@ -686,9 +685,7 @@ class BitString(Chromosome) :
                 raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
             bit_string_list.append(self.bit_string)
             
-        return bit_string_list
-            
-            
+        return bit_string_list         
 
     def fitness(self) -> float: # 6x - x^2 + 4y - y^2
         return 6 * self.x - self.x * self.x + 4 * self.y - self.y * self.y
