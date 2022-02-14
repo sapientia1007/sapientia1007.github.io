@@ -232,7 +232,7 @@ from board import Piece, Board, Move
 
 # 게임 플레이어의 가능한 최선의 움직임을 찾는다.
 def minimax(board: Board, maximizing: bool, original_player: Piece, max_depth: int = 8) -> float:
-    # 기저 조건 - 이익을 극대화하거나 상대방의 이익을 최소화
+    # 기저 조건 - 게임 종료 위치 또는 최대 깊이에 도달
     if board.is_win or board.is_draw or max_depth == 0:
         return board.evaluate(original_player)
 
