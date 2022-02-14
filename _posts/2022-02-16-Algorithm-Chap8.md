@@ -759,7 +759,7 @@ if __name__ == "__main__" :
                 print("비겼습니다!")
                 break
             computer_move: Move = find_best_move(board, 5)
-            print(f"컴퓨터가{computer_move}열을 선택습니다.")
+            print(f"컴퓨터가 {computer_move}열을 선택습니다.")
             board = board.move(computer_move)
             print(board)
             if board.is_win:
