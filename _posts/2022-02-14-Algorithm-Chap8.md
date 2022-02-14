@@ -639,7 +639,10 @@ def find_best_move(board: Board, max_depth: int = 8) -> Move:
     return best_move
 ```
 ```text
-탐색 깊이를 5로 설정하면, minimax() 함수를 사용하는 경우 컴퓨터가 말을 이동하는 데 약 3분이 걸리고, alphabeta() 함수를 사용하는 경우 약 30초로, 놀라운 성능 개선을 확인할 수 있다.
+탐색 깊이를 5로 설정하면, 
+minimax() 함수를 사용하는 경우 컴퓨터가 말을 이동하는 데 약 3분이 걸리고, 
+alphabeta() 함수를 사용하는 경우 약 30초로, 
+놀라운 성능 개선을 확인할 수 있다.
 ```
 
 ___
