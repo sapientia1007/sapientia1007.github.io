@@ -720,7 +720,7 @@ def get_player_move() -> Move:
 if __name__ == "__main__":
     # 메인 게임 루프
     while True:
-        print("첫 번째 플레이어 : ")
+        print("<첫 번째 플레이어>")
         human_move1: Move = get_player_move()
         board = board.move(human_move1)
         if board.is_win:
@@ -729,7 +729,7 @@ if __name__ == "__main__":
         elif board.is_draw:
             print("비겼습니다!")
             break
-        print("두 번째 플레이어 : ")
+        print("<두 번째 플레이어>")
         human_move2: Move = get_player_move()
         board = board.move(human_move2)
         print(board)
