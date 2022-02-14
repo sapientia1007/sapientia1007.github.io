@@ -703,6 +703,75 @@ ___
 
 #### (3)
 **tictactoe_ai.py와 connectfour_ai.py의 코드는 거의 비슷하다. 이 두 코드를 두 게임 모두에서 사용할 수 있도록 두 메서드로 작성하여 리팩토링하라.**
+```python
+from minimax import find_best_move
+from tictactoe import TTTBoard
+from board import Move, Board
+from connectfour import C4Board
+
+def get_player_move_tictactoe() -> Move :
+    player_move: Move = Move(-1)
+    while player_move not in board.legal_moves:
+        play: int = int(input("이동할 위치를 입력하세요 (0-8):"))
+        player_move = Move(play)
+    return player_move
+
+def get_player_move_connectfour() -> Move :
+    player_move: Move = Move(-1)
+    while player_move not in board.legal_moves:
+        play: int = int(input("이동할 열 위치를 입력하세요 (0-6):"))
+        player_move = Move(play)
+    return player_move
+
+if __name__ == "__main__" :
+    answer = int(input("1. tictactoe // 2. connectfour?   "))
+    if answer == 1 :
+        board: Board = TTTBoard()
+        while True :
+            human_move: Move = get_player_move_tictactoe()
+            board = board.move(human_move)
+            if board.is_win:
+                print("당신이 이겼습니다!")
+                break
+            elif board.is_draw:
+                print("비겼습니다!")
+                break
+            computer_move: Move = find_best_move(board)
+            print(f"컴퓨터가 {computer_move}(으)로 이동했습니다.")
+            board = board.move(computer_move)
+            print(board)
+            if board.is_win:
+                print("컴퓨터가 이겼습니다!")
+                break
+            elif board.is_draw:
+                print("비겼습니다!")
+                break
+            
+    else :
+         board: Board = C4Board()
+         while True  :
+            human_move: Move = get_player_move_connectfour()
+            board = board.move(human_move)
+            if board.is_win:
+                print("당신이 이겼습니다")
+                break
+            elif board.is_draw:
+                print("비겼습니다!")
+                break
+            computer_move: Move = find_best_move(board, 5)
+            print(f"컴퓨터가{computer_move}열을 선택습니다.")
+            board = board.move(computer_move)
+            print(board)
+            if board.is_win:
+                print("컴퓨터가 이겼습니다!")
+                break
+            elif board.is_draw:
+                print("비겼습니다!")
+                break
+```
+```text
+** 리팩토링?
+```
 
 #### (4)
 **컴퓨터 플레어이가 자신과 게임할 수 있도록 connectfour_ai.py 코드를 변경해보자. 첫 번째 플레이어와 두 번째 플레이어 중 누가 더 많이 이기는가? 매번 같은 선수가 이기는가?**
