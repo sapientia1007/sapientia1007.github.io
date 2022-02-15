@@ -1035,24 +1035,23 @@ player2가 이겼습니다!
                           segment:List[Tuple[int, int]], 
                           player:Piece) -> float:
         black_count, red_count = self._count_segment(segment)
-        if red_count > 0 and black_count > 0:
-            return 0
-        count:int = max(red_count, black_count)
-        score:float = 0
-        if count == 2:
-            score = 1
-        elif count == 3:
-            score = 100
-        elif count == 4:
-            score = 1_000_000
+        score: float = 0
+        if int(max(red_count, black_count)) == 2: 
+            score: float = 1
+        elif int(max(red_count, black_count)) == 3:
+            score: float = 100
+        elif int(max(red_count, black_count)) == 4:
+            score: float = 1_000_000
+            
+        if red_count > black_count :
+            color: C4Piece = C4Piece.R
+        else :
+            color: C4Piece = C4Piece.B
 
-        color:C4Piece = C4Piece.B
-        if red_count > black_count:
-            color = C4Piece.R
-
-        if color != player:
+        if color != player :
             return -score
         return score
+
 ....
 
 ```
