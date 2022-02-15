@@ -1027,6 +1027,35 @@ player2가 이겼습니다!
 
 #### (5)
 **connectfour.py에서 평가 방법을 최적화하여 같은 시간 내에 더 높은 탐색 깊이를 가능하게 하는 방법을 찾아보라(기존 코드를 프로파일링하거나 다른 방법을 사용해도 좋다).**
+```python
+# connectfour.py
+....
+
+    def _evaluate_segment(self, 
+                          segment:List[Tuple[int, int]], 
+                          player:Piece) -> float:
+        black_count, red_count = self._count_segment(segment)
+        if red_count > 0 and black_count > 0:
+            return 0
+        count:int = max(red_count, black_count)
+        score:float = 0
+        if count == 2:
+            score = 1
+        elif count == 3:
+            score = 100
+        elif count == 4:
+            score = 1_000_000
+
+        color:C4Piece = C4Piece.B
+        if red_count > black_count:
+            color = C4Piece.R
+
+        if color != player:
+            return -score
+        return score
+....
+
+```
 
 #### (6)
 **합법적인 체스 이동 생성 및 체스 게임 상태 유지 관리를 위해 이 장에서 개발한 alphabeta() 함수를 파이썬 라이브러리와 함께 체스 AI를 개발하라.**
