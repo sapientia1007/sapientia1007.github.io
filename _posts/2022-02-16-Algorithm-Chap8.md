@@ -697,6 +697,94 @@ ___
 
 #### (1)
 **틱택토에 단위 테스트를 추가하여 legal_moves, is_win, is_draw 속성이 잘 작동하는지 확인하라.**
+```python
+import unittest
+from typing import List
+from minimax import find_best_move
+from tictactoe import TTTPiece, TTTBoard
+from board import Move, Board
+
+board: Board = TTTBoard()
+
+a_list= [i for i in range(9)]
+
+def get_player_move() -> Move:
+    player_move: Move = Move(-1)
+    while player_move not in board.legal_moves:
+        play: int = int(input("이동할 위치를 입력하세요 (0-8):"))
+        a_list.remove(play)
+        player_move = Move(play)
+    return player_move
+
+while True:
+    human_move: Move = get_player_move()
+    board = board.move(human_move)
+    if board.is_win:
+        print("당신이 이겼습니다!")
+        break
+    elif board.is_draw:
+        print("비겼습니다!")
+        break
+    computer_move: Move = find_best_move(board)
+    print(f"컴퓨터가 {computer_move}(으)로 이동했습니다.")
+    board = board.move(computer_move)
+    a_list.remove(int(computer_move))
+    print(board)
+    if board.is_win:
+        print("컴퓨터가 이겼습니다!")
+        break
+    elif board.is_draw:
+        print("비겼습니다!")
+        break
+
+class TTTUnitTestCase(unittest.TestCase):
+    def test_legal_moves(self):
+        self.assertEqual(a_list ,board.legal_moves) 
+
+    def test_is_win(self):
+        self.assertTrue(board.is_win)
+    
+    def test_is_draw(self):
+        to_draw_position: List[TTTPiece] = [TTTPiece.X, TTTPiece.O, TTTPiece.X,
+                                                TTTPiece.O, TTTPiece.X, TTTPiece.O,
+                                                TTTPiece.O, TTTPiece.X, TTTPiece.O]
+        test_board : TTTBoard = TTTBoard(to_draw_position)
+        self.assertTrue(test_board.is_draw)
+        
+if __name__ == '__main__':
+    unittest.main()
+```
+```code
+이동할 위치를 입력하세요 (0-8):2
+컴퓨터가 4(으)로 이동했습니다.
+ | |X
+-----
+ |O| 
+-----
+ | | 
+이동할 위치를 입력하세요 (0-8):1
+컴퓨터가 0(으)로 이동했습니다.
+O|X|X
+-----
+ |O| 
+-----
+ | | 
+이동할 위치를 입력하세요 (0-8):3
+컴퓨터가 8(으)로 이동했습니다.
+O|X|X
+-----
+X|O| 
+-----
+ | |O
+컴퓨터가 이겼습니다!
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.007s
+
+OK
+>>> 
+```
+
 
 #### (2)
 **커넥트포에 대한 최소최대 알고리즘의 단위 테스트를 작성하라.**
@@ -769,6 +857,33 @@ if __name__ == "__main__" :
                 print("비겼습니다!")
                 break
 ```
+```code
+1. tictactoe // 2. connectfour?   1
+이동할 위치를 입력하세요 (0-8):2
+컴퓨터가 4(으)로 이동했습니다.
+ | |X
+-----
+ |O| 
+-----
+ | | 
+이동할 위치를 입력하세요 (0-8):1
+컴퓨터가 0(으)로 이동했습니다.
+O|X|X
+-----
+ |O| 
+-----
+ | | 
+이동할 위치를 입력하세요 (0-8):3
+컴퓨터가 8(으)로 이동했습니다.
+O|X|X
+-----
+X|O| 
+-----
+ | |O
+컴퓨터가 이겼습니다!
+>>> 
+```
+
 ```text
 ** 리팩토링?
 ```
@@ -811,6 +926,34 @@ if __name__ == "__main__":
         elif board.is_draw:
             print("비겼습니다!")
             break
+```
+```code
+# 매번 같은 선수가 이기지 않는다 !!
+
+<첫 번째 플레이어>
+이동할 열 위치를 입력하세요 (0-6):1
+<두 번째 플레이어>
+이동할 열 위치를 입력하세요 (0-6):1
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| |R| | | | | |
+| |B| | | | | |
+
+<첫 번째 플레이어>
+이동할 열 위치를 입력하세요 (0-6):2
+<두 번째 플레이어>
+이동할 열 위치를 입력하세요 (0-6):3
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| |R| | | | | |
+| |B|B|R| | | |
+
+....
+
 ```
 
 #### (5)
