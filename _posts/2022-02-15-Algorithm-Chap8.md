@@ -754,7 +754,7 @@ class TTTUnitTestCase(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 ```
-```shell
+```terminal
 이동할 위치를 입력하세요 (0-8):2
 컴퓨터가 4(으)로 이동했습니다.
  | |X
@@ -838,7 +838,7 @@ if __name__ == "__main__" :
     con = Ai_class(C4Board())
     con.play_game()
 ```
-```shell
+```terminal
 <틱택토  게임>
 이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :1
 컴퓨터가 0(으)로 이동했습니다.
@@ -975,7 +975,7 @@ if __name__ == "__main__":
              print("비겼습니다!")
              break
 ```
-```shell
+```terminal
 player1이 2열을 선택했습니다.
 player2이 0열을 선택했습니다.
 | | | | | | | |
