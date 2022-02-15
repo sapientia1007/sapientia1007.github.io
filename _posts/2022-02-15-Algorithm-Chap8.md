@@ -916,6 +916,231 @@ X|O|
 #### (4)
 **컴퓨터 플레어이가 자신과 게임할 수 있도록 connectfour_ai.py 코드를 변경해보자. 첫 번째 플레이어와 두 번째 플레이어 중 누가 더 많이 이기는가? 매번 같은 선수가 이기는가?**
 
+```python
+from minimax import find_best_move
+from connectfour import C4Board
+from board import Move, Board
+
+board: Board = C4Board()
+
+if __name__ == "__main__":
+    # 메인 게임 루프
+    while True:
+         computer_move1: Move = find_best_move(board, 3)
+         print(f"player1이 {computer_move1}열을 선택습니다.")
+         board = board.move(computer_move1)
+         if board.is_win:
+             print("player1가 이겼습니다!")
+             break
+         elif board.is_draw:
+             print("비겼습니다!")
+             break
+         computer_move2: Move = find_best_move(board, 3)
+         print(f"player2이 {computer_move2}열을 선택습니다.")
+         board = board.move(computer_move2)
+         print(board)
+         if board.is_win:
+             print("player2가 이겼습니다!")
+             break
+         elif board.is_draw:
+             print("비겼습니다!")
+             break
+```
+```shell
+player1이 2열을 선택습니다.
+player2이 0열을 선택습니다.
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+|R| |B| | | | |
+
+player1이 3열을 선택습니다.
+player2이 4열을 선택습니다.
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+|R| |B|B|R| | |
+
+player1이 3열을 선택습니다.
+player2이 2열을 선택습니다.
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | |R|B| | | |
+|R| |B|B|R| | |
+
+player1이 3열을 선택습니다.
+player2이 3열을 선택습니다.
+| | | | | | | |
+| | | | | | | |
+| | | |R| | | |
+| | | |B| | | |
+| | |R|B| | | |
+|R| |B|B|R| | |
+
+player1이 2열을 선택습니다.
+player2이 2열을 선택습니다.
+| | | | | | | |
+| | | | | | | |
+| | |R|R| | | |
+| | |B|B| | | |
+| | |R|B| | | |
+|R| |B|B|R| | |
+
+player1이 2열을 선택습니다.
+player2이 3열을 선택습니다.
+| | | | | | | |
+| | |B|R| | | |
+| | |R|R| | | |
+| | |B|B| | | |
+| | |R|B| | | |
+|R| |B|B|R| | |
+
+player1이 0열을 선택습니다.
+player2이 0열을 선택습니다.
+| | | | | | | |
+| | |B|R| | | |
+| | |R|R| | | |
+|R| |B|B| | | |
+|B| |R|B| | | |
+|R| |B|B|R| | |
+
+player1이 0열을 선택습니다.
+player2이 0열을 선택습니다.
+| | | | | | | |
+|R| |B|R| | | |
+|B| |R|R| | | |
+|R| |B|B| | | |
+|B| |R|B| | | |
+|R| |B|B|R| | |
+
+player1이 2열을 선택습니다.
+player2이 3열을 선택습니다.
+| | |B|R| | | |
+|R| |B|R| | | |
+|B| |R|R| | | |
+|R| |B|B| | | |
+|B| |R|B| | | |
+|R| |B|B|R| | |
+
+player1이 6열을 선택습니다.
+player2이 6열을 선택습니다.
+| | |B|R| | | |
+|R| |B|R| | | |
+|B| |R|R| | | |
+|R| |B|B| | | |
+|B| |R|B| | |R|
+|R| |B|B|R| |B|
+
+player1이 4열을 선택습니다.
+player2이 4열을 선택습니다.
+| | |B|R| | | |
+|R| |B|R| | | |
+|B| |R|R| | | |
+|R| |B|B|R| | |
+|B| |R|B|B| |R|
+|R| |B|B|R| |B|
+
+player1이 4열을 선택습니다.
+player2이 0열을 선택습니다.
+|R| |B|R| | | |
+|R| |B|R| | | |
+|B| |R|R|B| | |
+|R| |B|B|R| | |
+|B| |R|B|B| |R|
+|R| |B|B|R| |B|
+
+player1이 6열을 선택습니다.
+player2이 6열을 선택습니다.
+|R| |B|R| | | |
+|R| |B|R| | | |
+|B| |R|R|B| |R|
+|R| |B|B|R| |B|
+|B| |R|B|B| |R|
+|R| |B|B|R| |B|
+
+player1이 6열을 선택습니다.
+player2이 6열을 선택습니다.
+|R| |B|R| | |R|
+|R| |B|R| | |B|
+|B| |R|R|B| |R|
+|R| |B|B|R| |B|
+|B| |R|B|B| |R|
+|R| |B|B|R| |B|
+
+player1이 1열을 선택습니다.
+player2이 1열을 선택습니다.
+|R| |B|R| | |R|
+|R| |B|R| | |B|
+|B| |R|R|B| |R|
+|R| |B|B|R| |B|
+|B|R|R|B|B| |R|
+|R|B|B|B|R| |B|
+
+player1이 1열을 선택습니다.
+player2이 1열을 선택습니다.
+|R| |B|R| | |R|
+|R| |B|R| | |B|
+|B|R|R|R|B| |R|
+|R|B|B|B|R| |B|
+|B|R|R|B|B| |R|
+|R|B|B|B|R| |B|
+
+player1이 1열을 선택습니다.
+player2이 1열을 선택습니다.
+|R|R|B|R| | |R|
+|R|B|B|R| | |B|
+|B|R|R|R|B| |R|
+|R|B|B|B|R| |B|
+|B|R|R|B|B| |R|
+|R|B|B|B|R| |B|
+
+player1이 5열을 선택습니다.
+player2이 5열을 선택습니다.
+|R|R|B|R| | |R|
+|R|B|B|R| | |B|
+|B|R|R|R|B| |R|
+|R|B|B|B|R| |B|
+|B|R|R|B|B|R|R|
+|R|B|B|B|R|B|B|
+
+player1이 4열을 선택습니다.
+player2이 4열을 선택습니다.
+|R|R|B|R|R| |R|
+|R|B|B|R|B| |B|
+|B|R|R|R|B| |R|
+|R|B|B|B|R| |B|
+|B|R|R|B|B|R|R|
+|R|B|B|B|R|B|B|
+
+player1이 5열을 선택습니다.
+player2이 5열을 선택습니다.
+|R|R|B|R|R| |R|
+|R|B|B|R|B| |B|
+|B|R|R|R|B|R|R|
+|R|B|B|B|R|B|B|
+|B|R|R|B|B|R|R|
+|R|B|B|B|R|B|B|
+
+player1이 5열을 선택습니다.
+player2이 5열을 선택습니다.
+|R|R|B|R|R|R|R|
+|R|B|B|R|B|B|B|
+|B|R|R|R|B|R|R|
+|R|B|B|B|R|B|B|
+|B|R|R|B|B|R|R|
+|R|B|B|B|R|B|B|
+
+player2가 이겼습니다!
+```
+```text
+player2가 이기는 경우가 많이 출력된다.
+```
 
 #### (5)
 **connectfour.py에서 평가 방법을 최적화하여 같은 시간 내에 더 높은 탐색 깊이를 가능하게 하는 방법을 찾아보라(기존 코드를 프로파일링하거나 다른 방법을 사용해도 좋다).**
