@@ -754,7 +754,7 @@ class TTTUnitTestCase(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 ```
-```code
+```shell
 이동할 위치를 입력하세요 (0-8):2
 컴퓨터가 4(으)로 이동했습니다.
  | |X
@@ -857,7 +857,7 @@ if __name__ == "__main__" :
                 print("비겼습니다!")
                 break
 ```
-```code
+```shell
 1. tictactoe // 2. connectfour?   1
 이동할 위치를 입력하세요 (0-8):2
 컴퓨터가 4(으)로 이동했습니다.
@@ -883,7 +883,7 @@ X|O|
 컴퓨터가 이겼습니다!
 >>> 
 ```
-```code
+```shell
 1. tictactoe // 2. connectfour?   2
 이동할 열 위치를 입력하세요 (0-6):3
 컴퓨터가3열을 선택습니다.
