@@ -915,69 +915,7 @@ X|O|
 
 #### (4)
 **컴퓨터 플레어이가 자신과 게임할 수 있도록 connectfour_ai.py 코드를 변경해보자. 첫 번째 플레이어와 두 번째 플레이어 중 누가 더 많이 이기는가? 매번 같은 선수가 이기는가?**
-```python
-from minimax import find_best_move
-from connectfour import C4Board
-from board import Move, Board
 
-board: Board = C4Board()
-
-def get_player_move() -> Move:
-    player_move: Move = Move(-1)
-    while player_move not in board.legal_moves:
-        play: int = int(input("이동할 열 위치를 입력하세요 (0-6):"))
-        player_move = Move(play)
-    return player_move
-
-if __name__ == "__main__":
-    # 메인 게임 루프
-    while True:
-        print("<첫 번째 플레이어>")
-        human_move1: Move = get_player_move()
-        board = board.move(human_move1)
-        if board.is_win:
-            print("첫번째 플레이어가 이겼습니다")
-            break
-        elif board.is_draw:
-            print("비겼습니다!")
-            break
-        print("<두 번째 플레이어>")
-        human_move2: Move = get_player_move()
-        board = board.move(human_move2)
-        print(board)
-        if board.is_win:
-            print("두번째 플레이어가 이겼습니다!")
-            break
-        elif board.is_draw:
-            print("비겼습니다!")
-            break
-```
-```shell
-<첫 번째 플레이어>
-이동할 열 위치를 입력하세요 (0-6):1
-<두 번째 플레이어>
-이동할 열 위치를 입력하세요 (0-6):1
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| |R| | | | | |
-| |B| | | | | |
-
-<첫 번째 플레이어>
-이동할 열 위치를 입력하세요 (0-6):2
-<두 번째 플레이어>
-이동할 열 위치를 입력하세요 (0-6):3
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| |R| | | | | |
-| |B|B|R| | | |
-
-....
-
-```
 
 #### (5)
 **connectfour.py에서 평가 방법을 최적화하여 같은 시간 내에 더 높은 탐색 깊이를 가능하게 하는 방법을 찾아보라(기존 코드를 프로파일링하거나 다른 방법을 사용해도 좋다).**
