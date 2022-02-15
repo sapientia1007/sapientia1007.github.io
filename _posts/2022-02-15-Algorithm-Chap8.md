@@ -927,7 +927,7 @@ if __name__ == "__main__":
     # 메인 게임 루프
     while True:
          computer_move1: Move = find_best_move(board, 3)
-         print(f"player1이 {computer_move1}열을 선택습니다.")
+         print(f"player1이 {computer_move1}열을 선택했습니다.")
          board = board.move(computer_move1)
          if board.is_win:
              print("player1가 이겼습니다!")
@@ -936,7 +936,7 @@ if __name__ == "__main__":
              print("비겼습니다!")
              break
          computer_move2: Move = find_best_move(board, 3)
-         print(f"player2이 {computer_move2}열을 선택습니다.")
+         print(f"player2이 {computer_move2}열을 선택했습니다.")
          board = board.move(computer_move2)
          print(board)
          if board.is_win:
@@ -947,8 +947,8 @@ if __name__ == "__main__":
              break
 ```
 ```shell
-player1이 2열을 선택습니다.
-player2이 0열을 선택습니다.
+player1이 2열을 선택했습니다.
+player2이 0열을 선택했습니다.
 | | | | | | | |
 | | | | | | | |
 | | | | | | | |
@@ -956,8 +956,8 @@ player2이 0열을 선택습니다.
 | | | | | | | |
 |R| |B| | | | |
 
-player1이 3열을 선택습니다.
-player2이 4열을 선택습니다.
+player1이 3열을 선택했습니다.
+player2이 4열을 선택했습니다.
 | | | | | | | |
 | | | | | | | |
 | | | | | | | |
@@ -965,8 +965,8 @@ player2이 4열을 선택습니다.
 | | | | | | | |
 |R| |B|B|R| | |
 
-player1이 3열을 선택습니다.
-player2이 2열을 선택습니다.
+player1이 3열을 선택했습니다.
+player2이 2열을 선택했습니다.
 | | | | | | | |
 | | | | | | | |
 | | | | | | | |
@@ -974,8 +974,8 @@ player2이 2열을 선택습니다.
 | | |R|B| | | |
 |R| |B|B|R| | |
 
-player1이 3열을 선택습니다.
-player2이 3열을 선택습니다.
+player1이 3열을 선택했습니다.
+player2이 3열을 선택했습니다.
 | | | | | | | |
 | | | | | | | |
 | | | |R| | | |
@@ -983,8 +983,8 @@ player2이 3열을 선택습니다.
 | | |R|B| | | |
 |R| |B|B|R| | |
 
-player1이 2열을 선택습니다.
-player2이 2열을 선택습니다.
+player1이 2열을 선택했습니다.
+player2이 2열을 선택했습니다.
 | | | | | | | |
 | | | | | | | |
 | | |R|R| | | |
@@ -992,8 +992,8 @@ player2이 2열을 선택습니다.
 | | |R|B| | | |
 |R| |B|B|R| | |
 
-player1이 2열을 선택습니다.
-player2이 3열을 선택습니다.
+player1이 2열을 선택했습니다.
+player2이 3열을 선택했습니다.
 | | | | | | | |
 | | |B|R| | | |
 | | |R|R| | | |
@@ -1001,8 +1001,8 @@ player2이 3열을 선택습니다.
 | | |R|B| | | |
 |R| |B|B|R| | |
 
-player1이 0열을 선택습니다.
-player2이 0열을 선택습니다.
+player1이 0열을 선택했습니다.
+player2이 0열을 선택했습니다.
 | | | | | | | |
 | | |B|R| | | |
 | | |R|R| | | |
@@ -1010,8 +1010,8 @@ player2이 0열을 선택습니다.
 |B| |R|B| | | |
 |R| |B|B|R| | |
 
-player1이 0열을 선택습니다.
-player2이 0열을 선택습니다.
+player1이 0열을 선택했습니다.
+player2이 0열을 선택했습니다.
 | | | | | | | |
 |R| |B|R| | | |
 |B| |R|R| | | |
@@ -1019,8 +1019,8 @@ player2이 0열을 선택습니다.
 |B| |R|B| | | |
 |R| |B|B|R| | |
 
-player1이 2열을 선택습니다.
-player2이 3열을 선택습니다.
+player1이 2열을 선택했습니다.
+player2이 3열을 선택했습니다.
 | | |B|R| | | |
 |R| |B|R| | | |
 |B| |R|R| | | |
@@ -1028,8 +1028,8 @@ player2이 3열을 선택습니다.
 |B| |R|B| | | |
 |R| |B|B|R| | |
 
-player1이 6열을 선택습니다.
-player2이 6열을 선택습니다.
+player1이 6열을 선택했습니다.
+player2이 6열을 선택했습니다.
 | | |B|R| | | |
 |R| |B|R| | | |
 |B| |R|R| | | |
@@ -1037,8 +1037,8 @@ player2이 6열을 선택습니다.
 |B| |R|B| | |R|
 |R| |B|B|R| |B|
 
-player1이 4열을 선택습니다.
-player2이 4열을 선택습니다.
+player1이 4열을 선택했습니다.
+player2이 4열을 선택했습니다.
 | | |B|R| | | |
 |R| |B|R| | | |
 |B| |R|R| | | |
@@ -1046,8 +1046,8 @@ player2이 4열을 선택습니다.
 |B| |R|B|B| |R|
 |R| |B|B|R| |B|
 
-player1이 4열을 선택습니다.
-player2이 0열을 선택습니다.
+player1이 4열을 선택했습니다.
+player2이 0열을 선택했습니다.
 |R| |B|R| | | |
 |R| |B|R| | | |
 |B| |R|R|B| | |
@@ -1055,8 +1055,8 @@ player2이 0열을 선택습니다.
 |B| |R|B|B| |R|
 |R| |B|B|R| |B|
 
-player1이 6열을 선택습니다.
-player2이 6열을 선택습니다.
+player1이 6열을 선택했습니다.
+player2이 6열을 선택했습니다.
 |R| |B|R| | | |
 |R| |B|R| | | |
 |B| |R|R|B| |R|
@@ -1064,8 +1064,8 @@ player2이 6열을 선택습니다.
 |B| |R|B|B| |R|
 |R| |B|B|R| |B|
 
-player1이 6열을 선택습니다.
-player2이 6열을 선택습니다.
+player1이 6열을 선택했습니다.
+player2이 6열을 선택했습니다.
 |R| |B|R| | |R|
 |R| |B|R| | |B|
 |B| |R|R|B| |R|
@@ -1073,8 +1073,8 @@ player2이 6열을 선택습니다.
 |B| |R|B|B| |R|
 |R| |B|B|R| |B|
 
-player1이 1열을 선택습니다.
-player2이 1열을 선택습니다.
+player1이 1열을 선택했습니다.
+player2이 1열을 선택했습니다.
 |R| |B|R| | |R|
 |R| |B|R| | |B|
 |B| |R|R|B| |R|
@@ -1082,8 +1082,8 @@ player2이 1열을 선택습니다.
 |B|R|R|B|B| |R|
 |R|B|B|B|R| |B|
 
-player1이 1열을 선택습니다.
-player2이 1열을 선택습니다.
+player1이 1열을 선택했습니다.
+player2이 1열을 선택했습니다.
 |R| |B|R| | |R|
 |R| |B|R| | |B|
 |B|R|R|R|B| |R|
@@ -1091,8 +1091,8 @@ player2이 1열을 선택습니다.
 |B|R|R|B|B| |R|
 |R|B|B|B|R| |B|
 
-player1이 1열을 선택습니다.
-player2이 1열을 선택습니다.
+player1이 1열을 선택했습니다.
+player2이 1열을 선택했습니다.
 |R|R|B|R| | |R|
 |R|B|B|R| | |B|
 |B|R|R|R|B| |R|
@@ -1100,8 +1100,8 @@ player2이 1열을 선택습니다.
 |B|R|R|B|B| |R|
 |R|B|B|B|R| |B|
 
-player1이 5열을 선택습니다.
-player2이 5열을 선택습니다.
+player1이 5열을 선택했습니다.
+player2이 5열을 선택했습니다.
 |R|R|B|R| | |R|
 |R|B|B|R| | |B|
 |B|R|R|R|B| |R|
@@ -1109,8 +1109,8 @@ player2이 5열을 선택습니다.
 |B|R|R|B|B|R|R|
 |R|B|B|B|R|B|B|
 
-player1이 4열을 선택습니다.
-player2이 4열을 선택습니다.
+player1이 4열을 선택했습니다.
+player2이 4열을 선택했습니다.
 |R|R|B|R|R| |R|
 |R|B|B|R|B| |B|
 |B|R|R|R|B| |R|
@@ -1118,8 +1118,8 @@ player2이 4열을 선택습니다.
 |B|R|R|B|B|R|R|
 |R|B|B|B|R|B|B|
 
-player1이 5열을 선택습니다.
-player2이 5열을 선택습니다.
+player1이 5열을 선택했습니다.
+player2이 5열을 선택했습니다.
 |R|R|B|R|R| |R|
 |R|B|B|R|B| |B|
 |B|R|R|R|B|R|R|
@@ -1127,8 +1127,8 @@ player2이 5열을 선택습니다.
 |B|R|R|B|B|R|R|
 |R|B|B|B|R|B|B|
 
-player1이 5열을 선택습니다.
-player2이 5열을 선택습니다.
+player1이 5열을 선택했습니다.
+player2이 5열을 선택했습니다.
 |R|R|B|R|R|R|R|
 |R|B|B|R|B|B|B|
 |B|R|R|R|B|R|R|
@@ -1139,7 +1139,7 @@ player2이 5열을 선택습니다.
 player2가 이겼습니다!
 ```
 ```text
-player2가 이기는 경우가 많이 출력된다.
+대부분의 상황에서 player2가 이긴다.
 ```
 
 #### (5)
