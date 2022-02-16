@@ -893,53 +893,7 @@ OK
 
 #### (3)
 **tictactoe_ai.py와 connectfour_ai.py의 코드는 거의 비슷하다. 이 두 코드를 두 게임 모두에서 사용할 수 있도록 두 메서드로 작성하여 리팩토링하라.**
-```python
-from minimax import find_best_move
-from tictactoe import TTTBoard
-from board import Move, Board
-from connectfour import C4Board
 
-class Ai_class :
-    def __init__(self, board) :
-        self.b = board
-        
-    def get_player_move(self) -> Move :
-        player_move: Move = Move(-1)
-        while player_move not in self.b.legal_moves:
-            play: int = int(input("이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :"))
-            player_move = Move(play)
-        return player_move
-
-    def play_game(self) :
-        while True :
-            human_move: Move = self.get_player_move()
-            self.b = self.b.move(human_move)
-            if self.b.is_win :
-                print("당신이 이겼습니다!")
-                break
-            elif self.b.is_draw:
-                print("비겼습니다!")
-                break
-            computer_move: Move = find_best_move(self.b, 3)
-            print(f"컴퓨터가 {computer_move}(으)로 이동했습니다.")
-            self.b = self.b.move(computer_move)
-            print(self.b)
-            if self.b.is_win:
-                print("컴퓨터가 이겼습니다!")
-                break
-            elif self.b.is_draw:
-                print("비겼습니다!")
-                break
-
-if __name__ == "__main__" :
-    print("<틱택토  게임>")
-    tic = Ai_class(TTTBoard())
-    tic.play_game()
-    print()
-    print("<커넥트포 게임>")
-    con = Ai_class(C4Board())
-    con.play_game()
-```
 
 #### (4)
 **컴퓨터 플레어이가 자신과 게임할 수 있도록 connectfour_ai.py 코드를 변경해보자. 첫 번째 플레이어와 두 번째 플레이어 중 누가 더 많이 이기는가? 매번 같은 선수가 이기는가?**
