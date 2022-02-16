@@ -944,7 +944,7 @@ if __name__ == "__main__" :
 #### (4)
 **컴퓨터 플레어이가 자신과 게임할 수 있도록 connectfour_ai.py 코드를 변경해보자. 첫 번째 플레이어와 두 번째 플레이어 중 누가 더 많이 이기는가? 매번 같은 선수가 이기는가?**
 
-이전에 onnectfour_ai.py 코드에서 사용한 컴퓨터 플레이어의 코드를 반복하여 사용다.
+이전에 onnectfour_ai.py 코드에서 사용한 컴퓨터 플레이어의 코드를 반복하여 사용했다.
 
 ```python
 from minimax import find_best_move
