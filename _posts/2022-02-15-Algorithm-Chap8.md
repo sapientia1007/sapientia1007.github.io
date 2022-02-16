@@ -697,6 +697,9 @@ ___
 
 #### (1)
 **틱택토에 단위 테스트를 추가하여 legal_moves, is_win, is_draw 속성이 잘 작동하는지 확인하라.**
+
+게임을 실행하여, 해당 게임이 종료될때 해당 플레이어가 이동할 수 있는 위치가 어디인지, 게임을 이겼는지를 확인하는 단위테스트를 작성하고, 무승부인 상황에서 무승부인지 확인할 수 있도록 단위테스를 작성했다.
+
 ```python
 import unittest
 from typing import List
@@ -789,6 +792,105 @@ OK
 #### (2)
 **커넥트포에 대한 최소최대 알고리즘의 단위 테스트를 작성하라.**
 
+다음 턴에 B가 이겨야 하는 상황, R의 승리를 막아야 하는 상황, 남은 두 턴을 고려해서 최선의 이동을 찾아야 하는 상황의 보드판을 직접 작성하여, 그 보드판에서의 단위테스트를 작성했다.
+
+```python
+import unittest
+from typing import List
+from minimax import find_best_move
+from connectfour import C4Piece, C4Board
+from board import Move
+
+class C4MinimaxTestCase(unittest.TestCase):
+    def test_easy_position(self):
+        # 다음 턴에 B가 이겨야 한다
+        to_win_easy_position:List[C4Board.Column] = [C4Board.Column(), C4Board.Column(), C4Board.Column(),
+            C4Board.Column(), C4Board.Column(), C4Board.Column(), C4Board.Column()]
+
+        to_win_easy_position[0].push(C4Piece.B)
+        to_win_easy_position[1].push(C4Piece.R)
+        to_win_easy_position[0].push(C4Piece.B)
+        to_win_easy_position[1].push(C4Piece.R)
+        to_win_easy_position[0].push(C4Piece.B)
+        to_win_easy_position[1].push(C4Piece.R)
+        
+        test_board1:C4Board = C4Board(to_win_easy_position, C4Piece.B)
+        answer1:Move = find_best_move(test_board1, 3)
+        self.assertEqual(answer1, 0)
+
+    def test_block_position(self):
+        # R의 승리를 막아야 한다
+        to_block_position:List[C4Board.Column] = [C4Board.Column(), C4Board.Column(), C4Board.Column(),
+            C4Board.Column(), C4Board.Column(), C4Board.Column(), C4Board.Column()]
+        
+        to_block_position[0].push(C4Piece.B)
+        to_block_position[1].push(C4Piece.R)
+        to_block_position[0].push(C4Piece.B)
+        to_block_position[2].push(C4Piece.R)
+        to_block_position[1].push(C4Piece.B)
+        to_block_position[3].push(C4Piece.R)
+        
+        test_board2:C4Board = C4Board(to_block_position, C4Piece.B)
+        answer2:Move = find_best_move(test_board2, 3)
+        self.assertEqual(answer2, 4)
+
+    def test_hard_position(self):
+        # 남은 두 턴을 고려해서 최선의 이동을 찾는다 
+        to_win_hard_position:List[C4Board.Column] = [C4Board.Column(), C4Board.Column(), C4Board.Column(),
+            C4Board.Column(), C4Board.Column(), C4Board.Column(), C4Board.Column()]
+
+        to_win_hard_position[0].push(C4Piece.B)
+        to_win_hard_position[1].push(C4Piece.R)
+        to_win_hard_position[0].push(C4Piece.B)
+        to_win_hard_position[1].push(C4Piece.R)
+        to_win_hard_position[0].push(C4Piece.B)
+        to_win_hard_position[2].push(C4Piece.R)
+        to_win_hard_position[2].push(C4Piece.B)
+        to_win_hard_position[1].push(C4Piece.R)
+        to_win_hard_position[1].push(C4Piece.B)
+        to_win_hard_position[2].push(C4Piece.R)        
+        to_win_hard_position[2].push(C4Piece.B)
+        to_win_hard_position[0].push(C4Piece.R)
+        to_win_hard_position[2].push(C4Piece.B)
+        to_win_hard_position[1].push(C4Piece.R)
+        to_win_hard_position[1].push(C4Piece.B)
+        to_win_hard_position[0].push(C4Piece.R)
+        to_win_hard_position[2].push(C4Piece.B)
+        to_win_hard_position[0].push(C4Piece.R)
+        to_win_hard_position[3].push(C4Piece.B)
+        to_win_hard_position[4].push(C4Piece.R)
+        to_win_hard_position[5].push(C4Piece.B)
+        to_win_hard_position[6].push(C4Piece.R)
+        to_win_hard_position[3].push(C4Piece.B)
+        to_win_hard_position[4].push(C4Piece.R)
+        to_win_hard_position[6].push(C4Piece.B)
+        to_win_hard_position[5].push(C4Piece.R)
+        to_win_hard_position[3].push(C4Piece.B)
+        to_win_hard_position[4].push(C4Piece.R)
+        to_win_hard_position[6].push(C4Piece.B)
+        to_win_hard_position[5].push(C4Piece.R)
+        to_win_hard_position[3].push(C4Piece.B)
+        to_win_hard_position[5].push(C4Piece.R)
+        to_win_hard_position[4].push(C4Piece.B)
+        to_win_hard_position[6].push(C4Piece.R)
+        to_win_hard_position[4].push(C4Piece.B)
+        to_win_hard_position[3].push(C4Piece.R)
+
+        test_board3:C4Board = C4Board(to_win_hard_position, C4Piece.B)
+        answer3:Move = find_best_move(test_board3, 3)
+        self.assertEqual(answer3, 5)
+        
+if __name__ == "__main__":
+    unittest.main()
+```
+```terminal
+...
+----------------------------------------------------------------------
+Ran 3 tests in 1.384s
+
+OK
+```
+
 #### (3)
 **tictactoe_ai.py와 connectfour_ai.py의 코드는 거의 비슷하다. 이 두 코드를 두 게임 모두에서 사용할 수 있도록 두 메서드로 작성하여 리팩토링하라.**
 ```python
@@ -838,112 +940,11 @@ if __name__ == "__main__" :
     con = Ai_class(C4Board())
     con.play_game()
 ```
-```terminal
-<틱택토  게임>
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :1
-컴퓨터가 0(으)로 이동했습니다.
-O|X| 
------
- | | 
------
- | | 
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :2
-컴퓨터가 3(으)로 이동했습니다.
-O|X|X
------
-O| | 
------
- | | 
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :4
-컴퓨터가 6(으)로 이동했습니다.
-O|X|X
------
-O|X| 
------
-O| | 
-컴퓨터가 이겼습니다!
-
-<커넥트포 게임>
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :1
-컴퓨터가 3(으)로 이동했습니다.
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| |B| |R| | | |
-
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :5
-컴퓨터가 1(으)로 이동했습니다.
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| |R| | | | | |
-| |B| |R| |B| |
-
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :4
-컴퓨터가 3(으)로 이동했습니다.
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| |R| |R| | | |
-| |B| |R|B|B| |
-
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :4
-컴퓨터가 3(으)로 이동했습니다.
-| | | | | | | |
-| | | | | | | |
-| | | | | | | |
-| | | |R| | | |
-| |R| |R|B| | |
-| |B| |R|B|B| |
-
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :3
-컴퓨터가 4(으)로 이동했습니다.
-| | | | | | | |
-| | | | | | | |
-| | | |B| | | |
-| | | |R|R| | |
-| |R| |R|B| | |
-| |B| |R|B|B| |
-
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :6
-컴퓨터가 2(으)로 이동했습니다.
-| | | | | | | |
-| | | | | | | |
-| | | |B| | | |
-| | | |R|R| | |
-| |R| |R|B| | |
-| |B|R|R|B|B|B|
-
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :5
-컴퓨터가 1(으)로 이동했습니다.
-| | | | | | | |
-| | | | | | | |
-| | | |B| | | |
-| |R| |R|R| | |
-| |R| |R|B|B| |
-| |B|R|R|B|B|B|
-
-이동할 위치를 입력하세요(커넥트포 : 0~6, 틱택토 : 0~8) :5
-컴퓨터가 5(으)로 이동했습니다.
-| | | | | | | |
-| | | | | | | |
-| | | |B| |R| |
-| |R| |R|R|B| |
-| |R| |R|B|B| |
-| |B|R|R|B|B|B|
-
-컴퓨터가 이겼습니다!
-```
-```text
-** 리팩토링?
-```
 
 #### (4)
 **컴퓨터 플레어이가 자신과 게임할 수 있도록 connectfour_ai.py 코드를 변경해보자. 첫 번째 플레이어와 두 번째 플레이어 중 누가 더 많이 이기는가? 매번 같은 선수가 이기는가?**
+
+이전에 onnectfour_ai.py 코드에서 사용한 컴퓨터 플레이어의 코드를 반복하여 사용다.
 
 ```python
 from minimax import find_best_move
@@ -1173,34 +1174,6 @@ player2가 이겼습니다!
 
 #### (5)
 **connectfour.py에서 평가 방법을 최적화하여 같은 시간 내에 더 높은 탐색 깊이를 가능하게 하는 방법을 찾아보라(기존 코드를 프로파일링하거나 다른 방법을 사용해도 좋다).**
-```python
-# connectfour.py
-....
-
-    def _evaluate_segment(self, 
-                          segment:List[Tuple[int, int]], 
-                          player:Piece) -> float:
-        black_count, red_count = self._count_segment(segment)
-        score: float = 0
-        if int(max(red_count, black_count)) == 2: 
-            score: float = 1
-        elif int(max(red_count, black_count)) == 3:
-            score: float = 100
-        elif int(max(red_count, black_count)) == 4:
-            score: float = 1_000_000
-            
-        if red_count > black_count :
-            color: C4Piece = C4Piece.R
-        else :
-            color: C4Piece = C4Piece.B
-
-        if color != player :
-            return -score
-        return score
-
-....
-
-```
 
 #### (6)
 **합법적인 체스 이동 생성 및 체스 게임 상태 유지 관리를 위해 이 장에서 개발한 alphabeta() 함수를 파이썬 라이브러리와 함께 체스 AI를 개발하라.**
