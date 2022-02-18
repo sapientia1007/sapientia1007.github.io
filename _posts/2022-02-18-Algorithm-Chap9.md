@@ -330,6 +330,75 @@ ____
 
 #### (3)
 **전화번호 니모닉 프로그램에 사전 기능을 추가하여 유효한 단어가 포함된 순열만 반환하라.**
+```python
+from typing import Dict, List, Tuple, Iterable
+from itertools import product
+
+phone_mapping: Dict[str, Tuple[str, ...]] = {"1" : ("1",),
+                                             "2" : ("a", "b", "c"),
+                                             "3" : ("d", "e", "f"),
+                                             "4" : ("g", "h", "i"),
+                                             "5" : ("j", "k", "l"),
+                                             "6" : ("m", "n", "o"),
+                                             "7" : ("p", "q", "r", "s"),
+                                             "8" : ("t", "u", "v"),
+                                             "9" : ("w", "x", "y", "z"),
+                                             "0" : ("0",)}
+
+def possible_mnemonics(phone_number : str) -> Iterable[Tuple[str, ...]] :
+    letter_tuples : List[Tuple[str, ... ]] = []
+    for digit in phone_number :
+        letter_tuples.append(phone_mapping.get(digit, (digit,)))
+    return product(*letter_tuples)
+
+if __name__ == "__main__" :
+    word_list : list = list()
+    phone_number : str = input("전화번호를 입력해주세요 :")
+    print("가능한 니모닉 목록 : ")
+    for mnemonic in possible_mnemonics(phone_number) :
+        print("".join(mnemonic))
+        word_list.append("".join(mnemonic))
+
+    goal_word : str = input("찾고자 하는 단어를 입력해주세요 : ")
+    for word in word_list :
+        if goal_word in word : 
+            print(word)
+```
+```terminal
+전화번호를 입력해주세요 :2468
+가능한 니모닉 목록 : 
+agmt
+agmu
+agmv
+agnt
+...
+bgou
+bgov
+bhmt
+bhmu
+bhmv
+bhnt
+bhnu
+bhnv
+bhot
+bhou
+bhov
+bimt
+...
+ciot
+ciou
+ciov
+찾고자 하는 단어를 입력해주세요 : bh
+bhmt
+bhmu
+bhmv
+bhnt
+bhnu
+bhnv
+bhot
+bhou
+bhov
+```
 
 
 
