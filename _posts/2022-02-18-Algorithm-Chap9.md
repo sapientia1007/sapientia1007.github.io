@@ -373,7 +373,7 @@ if __name__ == "__main__" :
     for mnemonic in possible_mnemonics(phone_number) :
         mnemonic_word = "".join(mnemonic)
         file_path_list =[]
-        FileSearch('C:/Users/user/Desktop/9장/engdic')
+        FileSearch('C:/Users/engdic')
         eng_dic = {}
         for file_path in file_path_list:
             with open(file_path, 'r') as file:
