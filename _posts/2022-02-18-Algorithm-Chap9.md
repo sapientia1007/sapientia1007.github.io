@@ -330,6 +330,116 @@ ____
 
 #### (3)
 **전화번호 니모닉 프로그램에 사전 기능을 추가하여 유효한 단어가 포함된 순열만 반환하라.**
+```python
+from typing import Dict, List, Tuple, Iterable
+from itertools import product
+import os
+
+phone_mapping: Dict[str, Tuple[str, ...]] = {"1" : ("1",),
+                                             "2" : ("a", "b", "c"),
+                                             "3" : ("d", "e", "f"),
+                                             "4" : ("g", "h", "i"),
+                                             "5" : ("j", "k", "l"),
+                                             "6" : ("m", "n", "o"),
+                                             "7" : ("p", "q", "r", "s"),
+                                             "8" : ("t", "u", "v"),
+                                             "9" : ("w", "x", "y", "z"),
+                                             "0" : ("0",)}
+
+def possible_mnemonics(phone_number : str) -> Iterable[Tuple[str, ...]] :
+    letter_tuples : List[Tuple[str, ... ]] = []
+    for digit in phone_number :
+        letter_tuples.append(phone_mapping.get(digit, (digit,)))
+    return product(*letter_tuples)
+
+
+def FileSearch(dirname):
+    try:
+        filenames = os.listdir(dirname)
+        for filename in filenames:
+            full_filename = os.path.join(dirname, filename)
+            if os.path.isdir(full_filename):
+                Search(full_filename)
+            else:
+                ext = os.path.splitext(full_filename)[-1]
+                if ext == '.dic':
+                    full_filename = full_filename.replace("\\", "/")
+                    file_path_list.append(full_filename)
+    except PermissionError:
+        pass
+    
+if __name__ == "__main__" :
+    phone_number : str = input("전화번호를 입력해주세요 :")
+    for mnemonic in possible_mnemonics(phone_number) :
+        mnemonic_word = "".join(mnemonic)
+        file_path_list =[]
+        FileSearch('C:/Users/user/Desktop/9장/engdic')
+        eng_dic = {}
+        for file_path in file_path_list:
+            with open(file_path, 'r') as file:
+                read_line = file.readlines()
+            for r_line in read_line:
+                dic_line = r_line.split(':')
+                if len(dic_line) < 2:
+                    continue
+                dic_key = dic_line[0].strip() 
+                dic_value = dic_line[1]
+                if dic_key in eng_dic:
+                    continue
+                else:
+                    eng_dic[dic_key] = dic_value
+        input_data = mnemonic_word
+        diff_number = 0
+        search_result_list = []
+        for eng_key in eng_dic:
+            length_diff = len(eng_key) - len(input_data)
+            if abs(length_diff) > diff_number:
+                continue
+
+            if length_diff > 0:
+                not_match_count = diff_number
+                for match_count in range(len(input_data)):
+                    if input_data[match_count] == eng_key[match_count]:
+                        pass
+                    else:
+                        not_match_count += 1
+            elif length_diff == 0:
+                not_match_count = 0 
+                for match_count in range(len(input_data)):
+                    if input_data[match_count] == eng_key[match_count]:
+                        pass
+                    else:
+                        not_match_count += 1
+            elif length_diff < 0:
+                not_match_count = diff_number
+                for match_count in range(len(eng_key)):
+                    if input_data[match_count] == eng_key[match_count]:
+                        pass
+                    else:
+                        not_match_count += 1
+            if not_match_count == diff_number:
+                search_result_list.append(eng_key)
+        if len(search_result_list) < 1:
+            pass
+        else:
+            for search_data in search_result_list:
+                print(f'유효한 단어의 니모닉 : {mnemonic_word}')
+```
+```text
+dict 파일과 코드 참고 : https://blog.naver.com/smallfive/222056283961
+```
+```terminal
+전화번호를 입력해주세요 :27753
+유효한 단어의 니모닉 : apple
+
+...
+
+전화번호를 입력해주세요 :2327
+유효한 단어의 니모닉 : afar
+유효한 단어의 니모닉 : bear
+
+```
+
 
 
 
