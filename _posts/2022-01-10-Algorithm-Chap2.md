@@ -761,6 +761,8 @@ if __name__ == "__main__":
 ### 2.5 연습문제
 
 #### (1)
+**dna_search.py에서 숫자가 100만 개인 정렬된 리스트를 생성하라. 그리고 선형 검색의 linear_contains()와 이진 검색의 binary_contains() 함수를 사용하여 몇몇 숫자를 찾는 데 걸리는 시간을 측정하라.**
+
 ```python
 from generic_search import binary_contains, linear_contains
 import time
@@ -782,7 +784,12 @@ for num in search_list :
   end_time = time.time()
   print("{}을 이진색하는 실행 시간 : {}".format(num, end_time-start_time))
 ```
+
+
 #### (2)
+**dfs(), bfs(), astar() 함수에 카운터를 추가하여 동일한 미로를 검색하는 지점의 수를 확인하라. 통계적으로 의미 있는 결과를 얻기 위해 100개의 미로 샘플에 대해 조사한다.**
+
+
 ```python
 from generic_search import node_to_path, Node, dfs, bfs, astar
 from typing import Optional, List, Callable
@@ -912,7 +919,11 @@ def astar(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], 
                 frontier.push(Node(child, current_node, new_cost, heuristic(child)))
     return None, counter  # 모든 곳을 방문했지만 결국 목표 지점을 찾지 못했다.
 ```
+
+
 #### (3)
+**선교사와 식인종 수를 변형하여 문제를 풀어보라(힌트 : MCState 클래스에 __eq__() 및 __hash__() 특수 메서드를 구현한다).
+
 ```python
 from __future__ import annotations
 from typing import List, Optional
