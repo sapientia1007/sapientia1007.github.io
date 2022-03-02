@@ -420,8 +420,11 @@ if __name__ == "__main__":
 ### 3.8 연습 문제
 
 #### (1)
+**WordSearchConstraint 클래스를 수정하여 중복 단어를 허용하는 단어 검색을 구현하라.**
 
 #### (2)
+**아직 작성하지 않았다면, 3.6절에서 제시했던 회로판 레이아웃 문제를 해결하는 코드를 작성하라.**
+
 ```python
 from typing import NamedTuple, List, Dict, Optional, Tuple
 from csp import Constraint, CSP
@@ -486,6 +489,7 @@ if __name__ == "__main__":
 ```
 
 #### (3)
+**제약 충족 문제 해결 프레임워크를 이용하여 스도쿠 문제를 해결할 수 있는 프로그램을 작성하라.**
 ___
 ## 참고 : 
 고전 컴퓨터 알고리즘 인 파이썬(한빛미디어) - 데이비트 코펙 지음, 최길우 옮김 
