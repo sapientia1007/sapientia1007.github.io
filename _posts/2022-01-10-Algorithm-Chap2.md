@@ -922,7 +922,7 @@ def astar(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], 
 
 
 #### (3)
-**선교사와 식인종 수를 변형하여 문제를 풀어보라(힌트 : MCState 클래스에 __eq__() 및 __hash__() 특수 메서드를 구현한다).
+**선교사와 식인종 수를 변형하여 문제를 풀어보라(힌트 : MCState 클래스에 __eq__() 및 __hash__() 특수 메서드를 구현한다).**
 
 ```python
 from __future__ import annotations
