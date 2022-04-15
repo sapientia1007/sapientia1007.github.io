@@ -17,6 +17,7 @@ categories: Machine_Learning
 tags: Machine_Learning
 use_math: true
 sidebar: []
+toc : true
 ---
 
 ## Kaggle로 생존자 예측하기 (머신러닝)
