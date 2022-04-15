@@ -9,7 +9,7 @@ banner:
   image: http://jjhcom.github.io/assets/images/banners/titanic_img.jpg
   opacity: 0.618
   background: "#000"
-  height: "100vh"
+  height: "50vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
   subheading_style: "color: gold"
