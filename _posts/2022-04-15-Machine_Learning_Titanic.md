@@ -336,7 +336,7 @@ PassengerId	Survived
 위 결과는 처음에, `RandomForestClassifier`로 훈련했을 때 나온 등수이다.
 
 아래는 `SVC`로 훈련했을 때 나온 등수이다. 
-![rank2](http://jjhcom.github.io/assets/images/banners/rank2.jpg)
+![rank2](http://jjhcom.github.io/assets/images/banners/rank3.jpg)
 
 `RandomForestClassifier`보다 `SVC`로 훈련했을 때 성능이 더 좋아 성적이 좋았다는 것을 확인할 수 있다.
 
