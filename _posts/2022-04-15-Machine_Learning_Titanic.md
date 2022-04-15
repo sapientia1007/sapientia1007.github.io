@@ -121,13 +121,13 @@ All	        216     184	491	891
 pd.crosstab([train['Sex'],train['Survived']],train['Embarked'],margins=True)
 ```
 ```shell
-        Embarked	C	Q	S	All
-Sex	Survived				
-female	0	9	9	63	81
-        1	64	27	140	231
-male	0	66	38	364	468
-        1	29	3	77	109
-All	        168	77	644	889
+        Embarked    C   Q   S   All
+Sex     Survived
+female      0       9   9   63    81
+            1       64  27  140   231
+male        0       66  38  364   468
+            1       29  3   77    109
+All                 168 77  644   889
 ```
 위 결과로 확인할 수 있던 내용은 다음과 같다.
 - Southampton에서 탑승한 사람이 많았고, 생존자보다 사망자의 비율이 컸다.
