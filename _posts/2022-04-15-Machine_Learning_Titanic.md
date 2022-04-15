@@ -60,6 +60,7 @@ ax[1].set_title('Survived')
 plt.show()
 # 탑승객의 60%가 사망한것을 확인할 수 있음(Survived의 0 : 사망/ 1 : 생존)
 ```
+![res1](http://jjhcom.github.io/assets/images/banners/res1.png)
 
 ### 전처리 과정(Pre-Processing)
 
