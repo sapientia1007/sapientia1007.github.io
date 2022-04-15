@@ -331,6 +331,22 @@ PassengerId	Survived
 이렇게 만들어진 `csv 파일`을 캐글 사이트에 제출하여, **정확도에 대한 점수**를 확인한다.
 
 
+### 결과
+![rank1](http://jjhcom.github.io/assets/images/banners/rank1.jpg)
+위 결과는 처음에, `RandomForestClassifier`로 훈련했을 때 나온 등수이다.
+
+아래는 `SVC`로 훈련했을 때 나온 등수이다. 
+![rank2](http://jjhcom.github.io/assets/images/banners/rank2.jpg)
+
+`RandomForestClassifier`보다 `SVC`로 훈련했을 때 성능이 더 좋아 성적이 좋았다는 것을 확인할 수 있다.
+
+**데이터 분석**, **전처리**, **훈련** 등등 여러 과정이 아직 익숙하지 않아, 아직 코드가 깔끔하지 않아서 아쉽다는 생각이 든다.
+
+하지만, 이번에 직접 해보면서 *앞으로 어떻게 훈련과정을 해야할지* 다시 생각할 수 있었고, 앞으로 더 좋은 성능을 확인하기 위해 **더 많은 훈련 연습이 필요할 것 같다.**
+
+처음으로 도전해본 `Titanic Machine Learning 예측` 과정이므로, 아쉽지만 그래도 많은 것을 알 수 있었기 떄문에 만족한다.
+
+
 
 ---
 
