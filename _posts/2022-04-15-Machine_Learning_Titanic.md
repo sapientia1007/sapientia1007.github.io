@@ -19,9 +19,9 @@ use_math: true
 ---
 
 ## Kaggle로 Titanic 생존자 예측
- 
+
 - `Kaggle`에 있는 `Titanic 데이터`로 생존자를 **예측**하는 훈련을 하기 위해서 [Kaggle Titanic Machine Learning](https://www.kaggle.com/competitions/titanic/data)을 접속한다.
--  `Creat New Notebook` -> `Add Data` -> `titanic` 검색 -> `Competition Data` -> `Titanic- Machine Learning from Disaster` 선택 -> `Add`
+-  `Creat New Notebook`→`Add Data`→`titanic` 검색→`Competition Data`→`Titanic- Machine Learning from Disaster` 선택→`Add`
 -  `Kaggle 주피터 노트북`에 해당 타이타닉 데이터를 연결하여 **훈련**을 하고 해당 **Competition**에 **예측을 제출**한다.
 
 ---
@@ -51,16 +51,16 @@ train.head()
 ```
 
 위 데이터가 나타내는 의미는 다음과 같다.
-- Survived: 생존 여부 -> 0 : 사망, 1 : 생존
-- pclass: 객실 등급 -> Pclass가 낮은 수일수록 좋은 등급 
-- Sex: 성별
-- Age: 나이
-- Sibsp: 함께 탑승한 형제자매, 배우자의 수
-- Parch: 함께 탑승한 부모, 자식의 수
-- Ticket: 티켓 번호
-- Fare: 운임
-- Cabin: 객실 번호
-- Embarked: 탑승 장소 -> C : Cherbourg, Q : Queenstown, S  Southampton
+- **Survived** : 생존 여부 → 0 : 사망, 1 : 생존
+- **pclass** : 객실 등급 → Pclass가 낮은 수일수록 좋은 등급 
+- **Sex** : 성별
+- **Age** : 나이
+- **Sibsp** : 함께 탑승한 형제자매, 배우자의 수
+- **Parch** : 함께 탑승한 부모, 자식의 수
+- **Ticket** : 티켓 번호
+- **Fare** : 운임
+- **Cabin** : 객실 번호
+- **Embarked** : 탑승 장소 → C : Cherbourg, Q : Queenstown, S  Southampton
 
 
 불러온 데이터를 **훈련**하기 위해, 데이터들을 `시각화하여 확인`한다.
