@@ -40,7 +40,7 @@ test = pd.read_csv("/kaggle/input/titanic/test.csv")
 # train 데이터의 앞부분을 확인
 train.head()
 ```
-```code
+```shell
 	PassengerId	Survived	Pclass	Name	Sex	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked
 0	1	0	3	Braund, Mr. Owen Harris	male	22.0	1	0	A/5 21171	7.2500	NaN	S
 1	2	1	1	Cumings, Mrs. John Bradley (Florence Briggs Th...	female	38.0	1	0	PC 17599	71.2833	C85	C
@@ -48,6 +48,18 @@ train.head()
 3	4	1	1	Futrelle, Mrs. Jacques Heath (Lily May Peel)	female	35.0	1	0	113803	53.1000	C123	S
 4	5	0	3	Allen, Mr. William Henry	male	35.0	0	0	373450	8.0500	NaN	S
 ```
+
+위 데이터가 나타내는 의미는 다음과 같다.
+- Survived: 생존 여부 -> 0 : 사망, 1 : 생존
+- pclass: 객실 등급 -> Pclass가 낮은 수일수록 좋은 등급 
+- Sex: 성별
+- Age: 나이
+- Sibsp: 함께 탑승한 형제자매, 배우자의 수
+- Parch: 함께 탑승한 부모, 자식의 수
+- Ticket: 티켓 번호
+- Fare: 운임
+- Cabin: 객실 번호
+- Embarked: 탑승 장소 -> C : Cherbourg, Q : Queenstown, S  Southampton
 
 불러온 데이터를 훈련하기 위해, 데이터들을 시각화하여 확인한다.
 ```python
@@ -97,7 +109,32 @@ male	0	77	91	300	468
 1	45	17	47	109
 All		216	184	491	891
 ```
+위 결과를 통해서, **Pclass가 좋을수록 사망률이 낮다는 것**을 확인할 수 있다.
 
+즉, 객실의 등급이 높을수록 생존한 확률이 높다는 것이다.
+
+
+다음으로 **탑승 장소에 다른 생존율**을 확인한다.
+```python
+# (C = Cherbourg, Q = Queenstown, S = Southampton)을 의미
+pd.crosstab([train['Sex'],train['Survived']],train['Embarked'],margins=True)
+```
+```shell
+Embarked	C	Q	S	All
+Sex	Survived				
+female	0	9	9	63	81
+1	64	27	140	231
+male	0	66	38	364	468
+1	29	3	77	109
+All		168	77	644	889
+```
+위 결과로 확인할 수 있던 내용은 다음과 같다.
+- Southampton에서 탑승한 사람이 많았고, 생존자보다 사망자의 비율이 컸다.
+- Cherbourg에서 탑승한 사람 중에서는 생존한 사람의 비율이 가장 많았다.
+- Queenstown에서 탑승한 사람도 생존자보다 사망자의 비율이 컸다.
+
+
+위 모든 `데이터 분석`을 통하여, 
 
 ### 전처리 과정
 
