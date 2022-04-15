@@ -102,13 +102,13 @@ plt.show()
 pd.crosstab([train['Sex'],train['Survived']],train['Pclass'],margins=True)
 ```
 ```shell
-Pclass	1	2	3	All
+      Pclass	1	2	3	All
 Sex	Survived				
 female	0	3	6	72	81
-1	91	70	72	233
+        1	91	70	72	233
 male	0	77	91	300	468
-1	45	17	47	109
-All		216	184	491	891
+      1	45	17	47	109
+All		  216	184	491	891
 ```
 위 결과를 통해서, **Pclass가 좋을수록 사망률이 낮다는 것**을 확인할 수 있다.
 
