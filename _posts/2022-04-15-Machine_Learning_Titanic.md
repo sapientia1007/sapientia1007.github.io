@@ -30,5 +30,4 @@ sidebar: []
 
 ---
 
-## Kaggle에 업로드한 코드 : 
-https://www.kaggle.com/code/shimjh/titanic-assignment
+[Kaggle에 업로드한 코드](https://www.kaggle.com/code/shimjh/titanic-assignment)
