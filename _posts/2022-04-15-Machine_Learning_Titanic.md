@@ -63,7 +63,9 @@ train.head()
 - **Embarked** : 탑승 장소 → C : Cherbourg, Q : Queenstown, S  Southampton
 
 
-불러온 데이터를 **훈련**하기 위해, 데이터들을 `시각화하여 확인`한다.
+불러온 데이터를 **훈련**하기 위해, 데이터 분석을 먼저 해야한다. 
+
+분석을 위해서 데이터들을 `시각화하여 확인`한다.
 ```python
 import matplotlib.pyplot as plt
 %matplotlib inline
@@ -80,10 +82,13 @@ ax[0].set_ylabel('')
 sns.countplot('Survived',data=train,ax=ax[1])
 ax[1].set_title('Survived')
 plt.show()
-# 탑승객의 60%가 사망한것을 확인할 수 있음(Survived의 0 : 사망/ 1 : 생존)
+# 탑승객의 60%가 사망한것을 확인 가능(Survived의 0 : 사망/ 1 : 생존)
 ```
 ![res1](http://jjhcom.github.io/assets/images/banners/res1.png)
-**생존자**와 **사망자**의 비율을 시각화한것으로, **사망자의 비율이 더 많다는 것**을 알 수 있다.
+**생존자**와 **사망자**의 비율을 시각화한것으로, 위에서 언급한듯이, `0`은 **사망**을 의미하고, `1`은 **생존**을 의미한다.
+
+즉, 위 그래프로 **사망자의 비율이 더 많다는 것**을 알 수 있다.
+
 
 
 다음으로, **남녀 생존 비율**을 하며 시각화하여 확인한다.
@@ -96,7 +101,11 @@ ax[1].set_title('Survived (female)')
 plt.show()
 ```
 ![res2](http://jjhcom.github.io/assets/images/banners/res2.png)
-여성보다 **남성의 사망률이 더 크다는 것**을 확인할 수 있다.
+먼저 왼쪽에 있는 `남성의 생존 비율`을 확인했을 때, **남성**은 **사망 비율이 더 높다**는 것을 확인할 수 있다.
+
+다음으로, 오른쪽에 있는 `여성의 생존 비율`을 확인했을 때, **여성**은 **생존 비율이 더 높다**는 것을 확인할 수 있다.
+
+즉, 여성보다 **남성의 사망률이 더 크다는 것**을 알 수 있다.
 
 다음으로, **Pclass 등급에 따른 생존율**을 확인한다.
 ```python
@@ -111,9 +120,11 @@ male	0	77	91	300	468
         1	45	17	47	109
 All	        216     184	491	891
 ```
-위 결과를 통해서, **Pclass가 좋을수록 사망률이 낮다는 것**을 확인할 수 있다.
+위 결과를 통해서, **Pclass가 작을수록 사망률이 낮다는 것**을 확인할 수 있다.
 
-즉, 객실의 등급이 높을수록 생존한 확률이 높다는 것이다.
+Pclass가 작다는 것은 *객실의 등급이 좋다는 것을 의미*한다.
+
+즉, **객실의 등급이 높을수록 생존한 확률이 높다는 것**이다.
 
 
 다음으로 **탑승 장소에 따른 생존율**을 확인한다.
@@ -131,9 +142,9 @@ male        0       66  38  364   468
 All                 168 77  644   889
 ```
 위 결과로 확인할 수 있던 내용은 다음과 같다.
-- Southampton에서 탑승한 사람이 많았고, 생존자보다 사망자의 비율이 컸다.
-- Cherbourg에서 탑승한 사람 중에서는 생존한 사람의 비율이 가장 많았다.
-- Queenstown에서 탑승한 사람도 생존자보다 사망자의 비율이 컸다.
+- `Southampton`에서 **탑승한 사람이 가장 많았고**, **생존자보다 사망자의 비율이 컸다**.
+- `Cherbourg`에서 탑승한 사람 중에서는 **생존한 사람의 비율이 컸다**.
+- `Queenstown`에서 탑승한 사람도 **생존자보다 사망자의 비율이 컸다**.
 
 
 위에서 **분석한 데이터**를 통하여, 생존자를 예측할 것이다.
@@ -227,8 +238,8 @@ preprocess_pipeline = ColumnTransformer([
 
 `머신러닝 모델`에 제공할 수 있는 *수치 입력 기능을 출력*하는 **전처리 파이프라인**이 생성되었다.
 
+`fit_transfrom()`을 사용해서, train 데이터를 **학습**시킨다.
 ```python
-# 데이터를 변환
 X_train = preprocess_pipeline.fit_transform(train)
 X_train
 ```
@@ -248,7 +259,6 @@ array([[-0.56573646,  0.43279337, -0.47367361, ...,  0.        ,
          1.        ,  0.        ]])
 ```
 ```python
-# 생존 여부 확인
 y_train = train["Survived"]
 y_train
 ```
@@ -270,7 +280,7 @@ Name: Survived, Length: 891, dtype: int64
 
 위에서 변환한 데이터들을 **훈련**을 돌릴 것 이다.
 
-먼저, `RandomFroestClassifer`로 훈련을 돌려본다.
+먼저, `RandomFroestClassifer`로 분석 훈련을 돌려본다.
 ```python
 # RandomForestClassifer로 훈련
 from sklearn.ensemble import RandomForestClassifier
@@ -284,6 +294,7 @@ forest_clf.fit(X_train, y_train)
 X_test = preprocess_pipeline.transform(test)
 y_pred = forest_clf.predict(X_test)
 ```
+`cross_val_score()`로 **교차 검증**을 하여 **정확도**의 평균을 구한다.
 ```python
 from sklearn.model_selection import cross_val_score
 forest_scores = cross_val_score(forest_clf, X_train, y_train, cv=10)
@@ -292,7 +303,7 @@ forest_scores.mean()
 ```shell
 0.8092759051186016
 ```
-`RandomForestClassifier`로 돌렸을 때 약 **80%의 성능**이 나온다.
+위의 결과를 통해서 `RandomForestClassifier`로 돌렸을 때 약 **80%의 성능**이 나온다는 것을 알 수 있다.
 
 다음으로, `SVC`로 훈련을 돌려본다.
 ```python
@@ -304,9 +315,9 @@ svm_scores.mean()
 ```shell
 0.8249313358302123
 ```
-`SVC`로 돌렸을 때 약 **82%의 성능**이 나온다.
+`SVC`로 돌렸을 때는 약 **82%의 성능**이 나온다는 것을 알 수 있다.
 
-이는 `RandomForestClassifier`보다 **성능이 좋다는 것을 확인**할 수 있다.
+이는 `RandomForestClassifier`보다 `SVC`가 **성능이 좋다는 것을 확인**할 수 있다.
 
 즉, 성능이 더 좋은 `SVC`로 **테스트 셋에 대한 예측**을 수행할 것이다.
 ```python
@@ -315,7 +326,7 @@ X_test = preprocess_pipeline.transform(test)
 y_pred = svm_clf.predict(X_test)
 ```
 
-위 과정들로 얻은 데이터들의 필요한 값들로 **데이터프레임**을 형성하고, `csv 파일`로 형성한다.
+위 과정들로 얻은 데이터들의 값들로 **데이터프레임**을 형성하고, `csv 파일`로 형성한다.
 
 ```python
 submission = pd.DataFrame({"PassengerId": test["PassengerId"],"Survived": y_pred })
@@ -353,7 +364,7 @@ submission
 아래는 `SVC`로 훈련했을 때 나온 등수이다. 
 ![rank3](http://jjhcom.github.io/assets/images/banners/rank3.jpg)
 
-`RandomForestClassifier`보다 `SVC`로 훈련했을 때 성능이 더 좋아 성적이 좋았다는 것을 확인할 수 있다.
+`RandomForestClassifier`보다 `SVC`로 훈련했을 때 성능이 더 좋다는 것을 과정 중에 확인했고, 역시 성적도 더 좋다는 것을 확인할 수 있다.
 
 **데이터 분석**, **전처리**, **훈련** 등등 여러 과정이 아직 익숙하지 않아, 아직 코드가 깔끔하지 않아서 아쉽다는 생각이 든다.
 
@@ -365,4 +376,4 @@ submission
 
 ---
 
-[Kaggle에 업로드한 코드](https://www.kaggle.com/code/shimjh/titanic-assignment)
+[Kaggle에 직접 업로드한 코드](https://www.kaggle.com/code/shimjh/titanic-assignment)
