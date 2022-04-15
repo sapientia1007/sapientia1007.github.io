@@ -61,7 +61,8 @@ train.head()
 - Cabin: 객실 번호
 - Embarked: 탑승 장소 -> C : Cherbourg, Q : Queenstown, S  Southampton
 
-불러온 데이터를 훈련하기 위해, 데이터들을 시각화하여 확인한다.
+
+불러온 데이터를 **훈련**하기 위해, 데이터들을 `시각화하여 확인`한다.
 ```python
 import matplotlib.pyplot as plt
 %matplotlib inline
