@@ -9,7 +9,7 @@ banner:
   image: http://jjhcom.github.io/assets/images/banners/titanic_img.jpg
   opacity: 0.618
   background: "#000"
-  height: "65vh"
+  height: "75vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
   subheading_style: "color: gold"
@@ -18,7 +18,7 @@ tags: Machine_Learning
 use_math: true
 ---
 
-## Kaggle로 Titanic 생존자 예측(수정완료)
+## Kaggle로 Titanic 생존자 예측
 
 - `Kaggle`에 있는 `Titanic 데이터`로 생존자를 **예측**하는 훈련을 하기 위해서 [Kaggle Titanic Machine Learning](https://www.kaggle.com/competitions/titanic/data)을 접속한다.
 -  `Creat New Notebook`→`Add Data`→`titanic` 검색→`Competition Data`→`Titanic- Machine Learning from Disaster` 선택→`Add`
