@@ -102,7 +102,7 @@ plt.show()
 pd.crosstab([train['Sex'],train['Survived']],train['Pclass'],margins=True)
 ```
 ```shell
-      Pclass	1	2	3	All
+        Pclass	1	2	3	All
 Sex	Survived				
 female	0	3	6	72	81
         1	91	70	72	233
@@ -121,7 +121,7 @@ All	        216     184	491	891
 pd.crosstab([train['Sex'],train['Survived']],train['Embarked'],margins=True)
 ```
 ```shell
-    Embarked	C	Q	S	All
+        Embarked	C	Q	S	All
 Sex	Survived				
 female	0	9	9	63	81
         1	64	27	140	231
