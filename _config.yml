@@ -24,8 +24,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Computer Learning
-#email: jjhcom
+title: AllForCoding
+email: 179jh@naver.com
 author: jjhcom
 
 # Copyright setting
