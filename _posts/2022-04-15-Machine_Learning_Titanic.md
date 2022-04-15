@@ -21,8 +21,8 @@ use_math: true
 ## Kaggle로 Titanic 생존자 예측
 
 - `Kaggle`에 있는 `Titanic 데이터`로 생존자를 **예측**하는 훈련을 하기 위해서 [Kaggle Titanic Machine Learning](https://www.kaggle.com/competitions/titanic/data)을 접속한다.
--  `Creat New Notebook`→`Add Data`→`titanic` 검색→`Competition Data`→`Titanic- Machine Learning from Disaster` 선택→`Add`로 데이터를 불러온다.
--  `Kaggle 주피터 노트북`에 해당 타이타닉 데이터를 연결하여 **훈련**을 하고 해당 **Competition**에 **예측을 제출**한다.
+-  `Creat New Notebook`→`Add Data`→`titanic` 검색→`Competition Data`→`Titanic- Machine Learning from Disaster` 선택→`Add`로 데이터를 불러와서 Kaggle 주피터 노트북에 연결한다.
+-  `Kaggle 주피터 노트북`에 연결한 해당 타이타닉 데이터를 이용하여 **훈련**을 하고 해당 **Competition**에 **예측을 제출**한다.
 
 ---
 
