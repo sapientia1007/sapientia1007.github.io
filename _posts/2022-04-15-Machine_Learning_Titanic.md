@@ -21,7 +21,6 @@ sidebar: []
 
 ## Kaggle로 생존자 예측하기 (머신러닝)
 
-[Kaggle에 업로드한 코드](https://www.kaggle.com/code/shimjh/titanic-assignment)
 
  
 `Kaggle`에 있는 `Titanic 데이터`로 생존자를 **예측**하는 훈련을 하기 위해서 [Kaggle Titanic Machine Learning](https://www.kaggle.com/competitions/titanic/data)을 접속하여 `Creat New Notebook` -> `Add Data` -> `titanic` 검색 -> `Competition Data` -> `Titanic- Machine Learning from Disaster` 선택 -> `Add`로 `Kaggle 주피터 노트북`에 해당 타이타닉 데이터를 연결하여 **훈련**을 하고 해당 **Competition**에 **예측을 제출**한다.
@@ -29,3 +28,7 @@ sidebar: []
 ---
 
 
+---
+
+## Kaggle에 업로드한 코드 : 
+https://www.kaggle.com/code/shimjh/titanic-assignment
