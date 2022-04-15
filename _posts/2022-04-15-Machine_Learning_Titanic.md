@@ -60,7 +60,7 @@ train.head()
 - **Ticket** : 티켓 번호
 - **Fare** : 운임
 - **Cabin** : 객실 번호
-- **Embarked** : 탑승 장소 → C : Cherbourg, Q : Queenstown, S  Southampton
+- **Embarked** : 탑승 장소 → C : Cherbourg, Q : Queenstown, S : Southampton
 
 
 불러온 데이터를 **훈련**하기 위해, 데이터 분석을 먼저 해야한다. 
