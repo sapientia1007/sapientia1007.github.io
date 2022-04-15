@@ -115,7 +115,7 @@ All		216	184	491	891
 즉, 객실의 등급이 높을수록 생존한 확률이 높다는 것이다.
 
 
-다음으로 **탑승 장소에 다른 생존율**을 확인한다.
+다음으로 **탑승 장소에 따른 생존율**을 확인한다.
 ```python
 # (C = Cherbourg, Q = Queenstown, S = Southampton)을 의미
 pd.crosstab([train['Sex'],train['Survived']],train['Embarked'],margins=True)
