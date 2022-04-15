@@ -108,7 +108,7 @@ female	0	3	6	72	81
         1	91	70	72	233
 male	0	77	91	300	468
       1	45	17	47	109
-All		  216	184	491	891
+All		 216  184	491	891
 ```
 위 결과를 통해서, **Pclass가 좋을수록 사망률이 낮다는 것**을 확인할 수 있다.
 
@@ -121,13 +121,13 @@ All		  216	184	491	891
 pd.crosstab([train['Sex'],train['Survived']],train['Embarked'],margins=True)
 ```
 ```shell
-Embarked	C	Q	S	All
+    Embarked	C	Q	S	All
 Sex	Survived				
 female	0	9	9	63	81
-1	64	27	140	231
+        1	64	27	140	231
 male	0	66	38	364	468
-1	29	3	77	109
-All		168	77	644	889
+      1	29	3	77	109
+All	    168	77	644	889
 ```
 위 결과로 확인할 수 있던 내용은 다음과 같다.
 - Southampton에서 탑승한 사람이 많았고, 생존자보다 사망자의 비율이 컸다.
@@ -313,7 +313,7 @@ submission
 ```
 ```shell
 
-PassengerId	Survived
+  PassengerId	Survived
 0	892	0
 1	893	1
 2	894	0
