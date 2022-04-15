@@ -1,16 +1,6 @@
 ---
 layout: post
 title: Machine Learning - Titanic
-subtitle: Titanic Predictions
-categories: Machine_Learning
-tags: Machine_Learning
-use_math: true
----
-
-
----
-layout: post
-title: Machine Learning - Titanic
 subheading: Titanic Predictions
 banner:
   loop: true
