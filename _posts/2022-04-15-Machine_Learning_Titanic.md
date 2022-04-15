@@ -41,14 +41,28 @@ test = pd.read_csv("/kaggle/input/titanic/test.csv")
 # train 데이터의 앞부분을 확인
 train.head()
 ```
-```shell
-PassengerId	Survived	Pclass	Name	Sex	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked
-0	1	0	3	Braund, Mr. Owen Harris	male	22.0	1	0	A/5 21171	7.2500	NaN	S
-1	2	1	1	Cumings, Mrs. John Bradley (Florence Briggs Th...	female	38.0	1	0	PC 17599	71.2833	C85	C
-2	3	1	3	Heikkinen, Miss. Laina	female	26.0	0	0	STON/O2. 3101282	7.9250	NaN	S
-3	4	1	1	Futrelle, Mrs. Jacques Heath (Lily May Peel)	female	35.0	1	0	113803	53.1000	C123	S
-4	5	0	3	Allen, Mr. William Henry	male	35.0	0	0	373450	8.0500	NaN	S
+
+불러온 데이터를 훈련하기 위해, 데이터들을 시각화하여 확인한다.
+```python
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+sns.set()
 ```
+```python
+import warnings
+warnings.filterwarnings('ignore')
+f, ax = plt.subplots(1, 2, figsize=(18,8))
+train['Survived'].value_counts().plot.pie(explode=[0,0.1],autopct='%1.1f%%',ax=ax[0],shadow=True)
+ax[0].set_title('Survived')
+ax[0].set_ylabel('')
+sns.countplot('Survived',data=train,ax=ax[1])
+ax[1].set_title('Survived')
+plt.show()
+# 탑승객의 60%가 사망한것을 확인할 수 있음(Survived의 0 : 사망/ 1 : 생존)
+```
+
+### 전처리 과정(Pre-Processing)
 
 ---
 
