@@ -135,9 +135,202 @@ All		168	77	644	889
 - Queenstown에서 탑승한 사람도 생존자보다 사망자의 비율이 컸다.
 
 
-위 모든 `데이터 분석`을 통하여, 
+위에서 분석한 데이터를 통하여, 생존율을 예측할 것이다.
+
 
 ### 전처리 과정
+
+먼저 결측값이 있는지 확인한다.
+```python
+train.isnull().sum()
+```
+```shell
+PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64
+```
+위의 결과를 통해 `Age`, `Cabin`, `Embarked`에 **결측값**이 있다는 것을 확인할 수 있다.
+
+
+*성능 좋은 데이터 훈련*을 위해, **결측값을 처리**하는 `전처리 과정`이 필요하다.
+
+**전처리 과정**에도 많은 방법이 있지만, `Embarked`의 결측값은, 사람들이 가장 많이 탑승한 `Southampton`으로 가정하여 채운다.
+
+```python
+# 'Embarked'의 누락값을 제일 많이 탑승한 항구인 'Southampton'에서 탔다고 가정하여 누락값을 채운다
+train['Embarked'].fillna('S',inplace=True) 
+```
+
+이전에 분석했던 데이터들을 이용하여 예측할 것이므로, 이제 **예측 모델**을 생성할 것이다.
+
+
+### 예측 모델 생성 및 결과
+
+먼저, **변환기**들을 이용해 `수치형 데이터`들을 **전처리하기 위한 파이프라인**을 형성한다.
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.utils import shuffle
+```
+```python
+# 수치 속성을 위한 파이프라인부터 시작하여 전처리 파이프라인을 구축
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+
+num_pipeline = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler", StandardScaler())
+    ])
+ ```
+ ```python
+ # 범주 속성을 위한 파이프라인을 구축
+from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
+cat_pipeline = Pipeline([
+        ("ordinal_encoder", OrdinalEncoder()),    
+        ("imputer", SimpleImputer(strategy="most_frequent")),
+        ("cat_encoder", OneHotEncoder(sparse=False)),
+    ])
+```
+```python
+# 수치 및 범주형 파이프라인
+from sklearn.compose import ColumnTransformer
+
+num_attribs = ["Age", "SibSp", "Parch", "Fare"]
+cat_attribs = ["Pclass", "Sex", "Embarked"]
+
+preprocess_pipeline = ColumnTransformer([
+        ("num", num_pipeline, num_attribs),
+        ("cat", cat_pipeline, cat_attribs),
+    ])
+```
+```python
+# 데이터를 변환
+X_train = preprocess_pipeline.fit_transform(train)
+X_train
+```
+```shell
+array([[-0.56573646,  0.43279337, -0.47367361, ...,  0.        ,
+         0.        ,  1.        ],
+       [ 0.66386103,  0.43279337, -0.47367361, ...,  1.        ,
+         0.        ,  0.        ],
+       [-0.25833709, -0.4745452 , -0.47367361, ...,  0.        ,
+         0.        ,  1.        ],
+       ...,
+       [-0.1046374 ,  0.43279337,  2.00893337, ...,  0.        ,
+         0.        ,  1.        ],
+       [-0.25833709, -0.4745452 , -0.47367361, ...,  1.        ,
+         0.        ,  0.        ],
+       [ 0.20276197, -0.4745452 , -0.47367361, ...,  0.        ,
+         1.        ,  0.        ]])
+```
+```python
+# 생존 여부 확인
+y_train = train["Survived"]
+y_train
+```
+```shell
+0      0
+1      1
+2      1
+3      1
+4      0
+      ..
+886    0
+887    1
+888    0
+889    1
+890    0
+Name: Survived, Length: 891, dtype: int64
+```
+
+
+위에서 변환한 데이터들로 **훈련**을 돌릴 것 이다.
+
+먼저, `RandomFroestClassifer`로 훈련을 돌려본다.
+```python
+# RandomForestClassifer로 훈련
+from sklearn.ensemble import RandomForestClassifier
+forest_clf = RandomForestClassifier(n_estimators=100, random_state=42)
+forest_clf.fit(X_train, y_train)
+```
+
+위 **교육받은 모델**로 `테스트셋에 대한 예측`을 구할것이다.
+```python
+# 교육받은 모델로 테스트 셋에 대한 예측
+X_test = preprocess_pipeline.transform(test)
+y_pred = forest_clf.predict(X_test)
+```
+```python
+from sklearn.model_selection import cross_val_score
+forest_scores = cross_val_score(forest_clf, X_train, y_train, cv=10)
+forest_scores.mean()
+```
+```shell
+0.8092759051186016
+```
+`RandomForestClassifier`로 돌렸을 때 약 **80%의 성능**이 나온다.
+
+다음으로, `SVC`로 훈련을 돌려본다.
+```python
+from sklearn.svm import SVC
+svm_clf = SVC(gamma="auto")
+svm_scores = cross_val_score(svm_clf, X_train, y_train, cv=10)
+svm_scores.mean()
+```
+```shell
+0.8249313358302123
+```
+`SVC`로 돌렸을 때 약 **82%의 성능**이 나온다.
+
+이는 `RandomForestClassifier`보다 **성능이 좋다는 것을 확인**할 수 있다.
+
+즉, 성능이 더 좋은 `SVC`로 **테스트 셋에 대한 예측**을 수행할 것이다.
+```python
+svm_clf.fit(X_train, y_train)
+X_test = preprocess_pipeline.transform(test)
+y_pred = svm_clf.predict(X_test)
+```
+```python
+submission = pd.DataFrame({"PassengerId": test["PassengerId"],"Survived": y_pred })
+
+submission.to_csv('submission.csv', index=False)
+submission
+```
+```shell
+
+PassengerId	Survived
+0	892	0
+1	893	1
+2	894	0
+3	895	0
+4	896	1
+...	...	...
+413	1305	0
+414	1306	1
+415	1307	0
+416	1308	0
+417	1309	0
+418 rows × 2 columns
+```
+
+이렇게 만들어진 `csv 파일`을 캐글 사이트에 제출하여, **정확도에 대한 점수**를 확인한다.
+
+
 
 ---
 
