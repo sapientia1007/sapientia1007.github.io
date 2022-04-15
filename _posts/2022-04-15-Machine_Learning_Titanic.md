@@ -2,8 +2,8 @@
 layout: post
 title: Machine Learning - Titanic
 subtitle: Titanic Predictions
-categories: Machine Learning
-tags: Machine Learning
+categories: Machine_Learning
+tags: Machine_Learning
 use_math: true
 ---
 
