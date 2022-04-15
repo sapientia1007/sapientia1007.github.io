@@ -97,7 +97,7 @@ plt.show()
 ![res2](http://jjhcom.github.io/assets/images/banners/res2.png)
 여성보다 **남성의 사망률이 더 크다는 것**을 확인할 수 있다.
 
-**Pclass 등급에 따른 생존율**을 확인한다.
+다음으로, **Pclass 등급에 따른 생존율**을 확인한다.
 ```python
 pd.crosstab([train['Sex'],train['Survived']],train['Pclass'],margins=True)
 ```
@@ -135,12 +135,12 @@ All                 168 77  644   889
 - Queenstown에서 탑승한 사람도 생존자보다 사망자의 비율이 컸다.
 
 
-위에서 분석한 데이터를 통하여, 생존율을 예측할 것이다.
+위에서 **분석한 데이터**를 통하여, 생존자을 예측할 것이다.
 
 
 ### 전처리 과정
 
-먼저 결측값이 있는지 확인한다.
+먼저 **결측값**이 있는지 확인한다.
 ```python
 train.isnull().sum()
 ```
@@ -164,7 +164,9 @@ dtype: int64
 
 *성능 좋은 데이터 훈련*을 위해, **결측값을 처리**하는 `전처리 과정`이 필요하다.
 
-**전처리 과정**에도 많은 방법이 있지만, `Embarked`의 결측값은, 사람들이 가장 많이 탑승한 `Southampton`으로 가정하여 채운다.
+**전처리 과정**에도 많은 방법이 있지만, 이번에는 사용할 데이터의 결측값만 채우고 넘어갈 것이다.
+
+즉, 우리가 사용할 데이터인 **`Embarked`의 결측값은, 사람들이 가장 많이 탑승한 `Southampton`으로 가정하여 채운다.
 
 ```python
 # 'Embarked'의 누락값을 제일 많이 탑승한 항구인 'Southampton'에서 탔다고 가정하여 누락값을 채운다
@@ -218,6 +220,9 @@ preprocess_pipeline = ColumnTransformer([
         ("cat", cat_pipeline, cat_attribs),
     ])
 ```
+
+`머신러닝 모델`에 제공할 수 있는 *수치 입력 기능을 출력*하는 **전처리 파이프라인**이 생성되었다.
+
 ```python
 # 데이터를 변환
 X_train = preprocess_pipeline.fit_transform(train)
@@ -259,7 +264,7 @@ Name: Survived, Length: 891, dtype: int64
 ```
 
 
-위에서 변환한 데이터들로 **훈련**을 돌릴 것 이다.
+위에서 변환한 데이터들을 **훈련**을 돌릴 것 이다.
 
 먼저, `RandomFroestClassifer`로 훈련을 돌려본다.
 ```python
@@ -305,6 +310,9 @@ svm_clf.fit(X_train, y_train)
 X_test = preprocess_pipeline.transform(test)
 y_pred = svm_clf.predict(X_test)
 ```
+
+위 과정들로 얻은 데이터들의 필요한 값들로 **데이터프레임**을 형성하고, `csv 파일`로 형성한다.
+
 ```python
 submission = pd.DataFrame({"PassengerId": test["PassengerId"],"Survived": y_pred })
 
@@ -335,17 +343,17 @@ submission
 ![rank1](http://jjhcom.github.io/assets/images/banners/rank1.jpg)
 위 결과는 처음에, `RandomForestClassifier`로 훈련했을 때 나온 등수이다.
 
-아래는 `SVC`로 훈련했을 때 나온 등수이다. 
 
+아래는 `SVC`로 훈련했을 때 나온 등수이다. 
 ![rank3](http://jjhcom.github.io/assets/images/banners/rank3.jpg)
 
 `RandomForestClassifier`보다 `SVC`로 훈련했을 때 성능이 더 좋아 성적이 좋았다는 것을 확인할 수 있다.
 
 **데이터 분석**, **전처리**, **훈련** 등등 여러 과정이 아직 익숙하지 않아, 아직 코드가 깔끔하지 않아서 아쉽다는 생각이 든다.
 
-하지만, 이번에 직접 해보면서 *앞으로 어떻게 훈련과정을 해야할지* 다시 생각할 수 있었고, 앞으로 더 좋은 성능을 확인하기 위해 **더 많은 훈련 연습이 필요할 것 같다.**
+하지만, 이번에 직접 해보면서 *앞으로 어떻게 훈련과정을 해야할지* 다시 생각할 수 있었고, 앞으로 더 좋은 성능을 확인하기 위해 **더 많은 훈련 연습이 필요할 것 같다는 것**을 느꼈다.
 
-처음으로 도전해본 `Titanic Machine Learning 예측` 과정이므로, 아쉽지만 그래도 많은 것을 알 수 있었기 떄문에 만족한다.
+처음으로 도전해본 `Titanic Machine Learning 예측` 과정이므로, 아쉽지만 그래도 많은 것을 알 수 있었기 때문에 만족한다.
 
 
 
