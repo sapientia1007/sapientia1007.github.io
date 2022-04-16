@@ -191,7 +191,7 @@ train['Embarked'].fillna('S',inplace=True)
 
 ### 예측 모델 생성 및 결과
 
-먼저, **변환기**들을 이용해 `수치형 데이터`들을 **전처리하기 위한 파이프라인**을 형성한다.
+다음으로, **변환기**들을 이용해 `수치형 데이터`들을 **전처리하기 위한 파이프라인**을 형성한다.
 
 ```python
 from sklearn.linear_model import LogisticRegression
