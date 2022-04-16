@@ -190,14 +190,6 @@ train['Embarked'].fillna('S',inplace=True)
 다음으로, **변환기**들을 이용해 `수치형 데이터`들을 **전처리하기 위한 파이프라인**을 형성한다.
 
 ```python
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.utils import shuffle
-```
-```python
 # 수치 속성을 위한 파이프라인부터 시작하여 전처리 파이프라인을 구축
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
@@ -276,6 +268,15 @@ Name: Survived, Length: 891, dtype: int64
 ### 예측 모델 생성
 
 위에서 변환한 데이터들을 **훈련**을 돌릴 것 이다.
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.utils import shuffle
+```
 
 먼저, `RandomFroestClassifer`로 분석 훈련을 돌려본다.
 ```python
