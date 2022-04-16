@@ -186,8 +186,6 @@ dtype: int64
 train['Embarked'].fillna('S',inplace=True) 
 ```
 
-이전에 분석했던 데이터들을 이용하여 예측할 것이므로, 이제 **예측 모델**을 생성할 것이다.
-
 
 ---
 
