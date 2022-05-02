@@ -1,13 +1,13 @@
 ---
 layout: post
 title: Machine_Learning_Study 1
-subtitle: Chap1/2/11
+subtitle: Section 1/2/11
 categories: Machine_Learning_Study
 tags: Study
 use_math : true
 ---
 
-## Chap 1 - Giving Computers the Ability to Learn from Data
+## Section 1 - Giving Computers the Ability to Learn from Data
 
 **머신러닝**은 데이터를 활용하는 알고리즘의 과학과 적용인 모든 컴퓨터 과학의 가장 흥미로운 분야이다.
 
