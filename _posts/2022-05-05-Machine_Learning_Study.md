@@ -166,9 +166,48 @@ def plot_decision_regions(X, y, classifier, resolution=0.02):
 예측 클래스 레이블인 랩을 xx1 및 xx2와 동일한 치수의 그리드로 재구성한 후, 이제 Matplotlib의 등고선도를 통해 등고선도를 그릴 수 있다. 이 함수는 그리드 배열의 각 예측 클래스에 대해 서로 다른 결정 영역을 다른 색상으로 매핑한다.
 ```
 
-지도 기계 학습 알고리즘의 핵심 요소 중 하나는 학습 프로세스 동안 최적화되어야 하는 정의된 목적 함수이다. 이 객관적 함수는 종종 우리가 최소화하고자 하는 손실 또는 비용 함수이다
+지도 기계 학습 알고리즘의 핵심 요소 중 하나는 학습 프로세스 동안 최적화되어야 하는 정의된 목적 함수이다.
 
+이 객관적 함수는 종종 우리가 최소화하고자 하는 손실 또는 비용 함수이다.
 
+따라서, **gredient descent**라는 매우 간단하지만 강력한 최적화 알고리즘을 사용하여 Iris 데이터 세트의 예를 분류하기 위해 손실 함수를 최소화하는 가중치를 찾을 수 있다.
+
+perceptron 규칙과 Adaline은 매우 유사하므로, 앞에서 정의한 perceptron 구현을 취할 것이고, 무게와 편향 매개변수가 현재가 되도록 적합 방법을 바꿀 것이다. 
+
+radient descent을 통해 손실 함수를 최소화하여 업데이트된다.
+
+```python
+class AdalineGD : 
+  def __init__(Self, eta=0.01, n_iter=50, random_state=1) :
+    self.eta = eta
+    self.n_iter = n_iter
+    self.random_state = random_state
+  
+  def fit(self, X, y) :
+    rgen = np.random.RandomState(self.random_state)
+    self.w_ rgen.normal(loc=0.0, scale=0.01, size=X.shape[1])
+    self.b_ = np.float_(0.)
+    self.losses_ = []
+    
+    for i in range(self.n_iter) :
+      net_input = self.net_input(X)
+      output = self.activation(net_input)
+      errors = (y - output)
+      self.w_ += self.eta * 2.0 * X.T.dot(errors) / X.shape[0]
+      self.b_ += self.eta * 2.0 * errors.mean()
+      loss = (errors**2).mean()
+      self.losses_.append(loss)
+    return self
+
+  def net_input(self, X) :
+    return np.dot(X, self.w_) + self.b_
+    
+  def activation(self, X) :
+    return X
+  
+  def predict(self, X) :
+    return np.where(self.activation(self.net_input(X)) >= 0.5, 1, 0)
+    
 
 
 
