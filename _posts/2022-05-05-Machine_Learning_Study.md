@@ -127,18 +127,46 @@ calss Perceptron :
   def predict(self, X) :
     return np.where(self.net_input(X) >= 0.0, 1, 0)
 ```
-이 perceptron 구현을 사용하여, 이제 주어진 perceptron 객체를 사용하여 새로운 perceptron 객체를 초기화할 수 있다. 
+이 **perceptron 구현**을 사용하여, 이제 주어진 perceptron 객체를 사용하여 새로운 perceptron 객체를 **초기화**할 수 있다. 
+- perceptron 구현을 테스트하기 위해, 다음의 분석과 예제를 제한할 것이다.  
+- 이 장의 나머지 부분에는 두 개의 형상 변수가 포함된다. 
+- 비록 perceptron 법칙은 2차원으로 제한하고, 꽃받침 길이와 꽃잎 길이, 두 가지 특징만을 고려하여, 학습 목적을 위해 산점도에서 훈련된 모델의 결정 영역을 시각화한다. 
+- 우리는 또한 Iris 데이터 세트에서 setosa와 versicolor 두 가지 꽃 클래스만 고려할 것이다. 
+- perceptron은 이진 분류기이다. 하지만 perceptron 알고리즘은 다중 클래스 분류로 확장될 수 있다.
+- 다음으로, 50개의 Iris-setosa와 50개의 Iris-versicolor 꽃에 해당하는 첫 번째 100개의 클래스 레이블을 추출하고 클래스 레이블을 2개의 정수 클래스 레이블인 1(versicolor)과 0(setosa)로 변환한다. 
+- 이 2차원 특징 부분 공간에서 선형 결정 경계는 setosa와 vertisicolor를 분리하기에 충분해야 한다.
 
-우리의 perceptron 구현을 테스트하기 위해, 다음의 분석과 예제를 제한할 것이다.  
+```python
+from matplotlib.colors import ListedColormap
+def plot_decision_regions(X, y, classifier, resolution=0.02):
+  markers = ('o', 's', '^', 'v', '<')
+  colors = ('red', 'blue', 'lightgreen', 'gray', 'cyan')
+  cmap = ListedColormap(colors[:len(np.unique(y))])
+ 
+  x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+  x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+  xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution), np.arange(x2_min, x2_max, resolution))
+  lab = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
+  lab = lab.reshape(xx1.shape)
+  plt.contourf(xx1, xx2, lab, alpha=0.3, cmap=cmap)
+  plt.xlim(xx1.min(), xx1.max())
+  plt.ylim(xx2.min(), xx2.max())
+ 
+  for idx, cl in enumerate(np.unique(y)):
+    plt.scatter(x=X[y == cl, 0], y=X[y == cl, 1], alpha=0.8,
+    c=colors[idx], marker=markers[idx], label=f'Class {cl}', edgecolor='black')
+```
+```text
+먼저, 우리는 여러 가지 색상과 마커를 정의하고 나열된 색상 맵을 통해 색상 목록에서 색상 맵을 생성한다. 
 
-이 장의 나머지 부분에는 두 개의 형상 변수(치수)가 포함된다. 
+그런 다음 두 기능에 대한 최소 및 최대 값을 결정하고 이러한 기능 벡터를 사용하여 NumPy meshgrid 함수를 통해 한 쌍의 그리드 배열 xx1과 xx2를 생성한다. 
 
-비록 perceptron 법칙은 2차원으로 제한하고, 꽃받침 길이와 꽃잎 길이, 두 가지 특징만을 고려하여, 학습 목적을 위해 산점도에서 훈련된 모델의 결정 영역을 시각화한다. 
+두 가지 특징 차원에 대해 perceptron 분류기를 훈련시켰기 때문에, 예측 방법을 사용하여 해당 그리드 포인트의 클래스 레이블인 랩을 예측할 수 있도록 그리드 어레이를 평평하게 하고 Iris 훈련 하위 집합과 동일한 수의 열을 갖는 매트릭스를 생성해야 한다.
 
-우리는 또한 Iris 데이터 세트에서 setosa와 versicolor 두 가지 꽃 클래스만 고려할 것이다. 
+예측 클래스 레이블인 랩을 xx1 및 xx2와 동일한 치수의 그리드로 재구성한 후, 이제 Matplotlib의 등고선도를 통해 등고선도를 그릴 수 있다. 이 함수는 그리드 배열의 각 예측 클래스에 대해 서로 다른 결정 영역을 다른 색상으로 매핑한다.
+```
 
-perceptron은 이진 분류기이다. 하지만 perceptron 알고리즘은 다중 클래스 분류로 확장될 수 있다.
-    
+지도 기계 학습 알고리즘의 핵심 요소 중 하나는 학습 프로세스 동안 최적화되어야 하는 정의된 목적 함수이다. 이 객관적 함수는 종종 우리가 최소화하고자 하는 손실 또는 비용 함수이다
 
 
 
