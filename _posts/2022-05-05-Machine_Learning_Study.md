@@ -93,6 +93,55 @@ Chap 1에서는 기계 학습의 세 가지 유형으로 지도 학습, 비지�
 
 ## Section 2 - Training Simple Machine Learning Algorithms for Classification
 
+우리는 알고리즘적으로 기술된 첫 번째 머신러닝 알고리즘 중 두 가지인 **perceptron**과 **적응형 선형 뉴런**의 분석을 사용한다.
+
+인공지능(AI)을 설계하기 위해 생물학적 뇌가 어떻게 작동하는지를 이해하기 위해 Warren McCulloch과 Walter Pitts는 1943년에 소위 맥컬록 피트(MCP) 뉴런의 첫 번째 개념을 발표했다.
+
+```python
+# Python에서 perceptron을 수행하는 코드
+import numpy as np
+calss Perceptron : 
+  def __init__(self, eta=0.01, n_iter=50, random_state=1) :
+    self.eta = eta
+    self.n_iter = n_iter
+    self.random_state = random_state
+    
+  def fit(self, X, y) :
+    regn = np.random.RandomState(self.random_state)
+    self.w_ = rgen.normal(loc=0.0, scale=0.01, size=X.shape[1])
+    self.b_ = np.float_(0.)
+    slef.errors_ =[]
+    for _ in range(self.n_iter) :
+      errors = 0
+      for xi, target in zip(X, y) :
+        update = self.eta * (target - self.predict(xi))
+        self.w_ += update * xi
+        self.b_ += update
+        errors += int(update != 0.0)
+      self.errors_.append(errors)
+    return self
+    
+  def net_input(self, X) :
+    return np.dot(X, self.w_) + self.b_
+    
+  def predict(self, X) :
+    return np.where(self.net_input(X) >= 0.0, 1, 0)
+```
+이 perceptron 구현을 사용하여, 이제 주어진 perceptron 객체를 사용하여 새로운 perceptron 객체를 초기화할 수 있다. 
+
+우리의 perceptron 구현을 테스트하기 위해, 다음의 분석과 예제를 제한할 것이다.  
+
+이 장의 나머지 부분에는 두 개의 형상 변수(치수)가 포함된다. 
+
+비록 perceptron 법칙은 2차원으로 제한하고, 꽃받침 길이와 꽃잎 길이, 두 가지 특징만을 고려하여, 학습 목적을 위해 산점도에서 훈련된 모델의 결정 영역을 시각화한다. 
+
+우리는 또한 Iris 데이터 세트에서 setosa와 versicolor 두 가지 꽃 클래스만 고려할 것이다. 
+
+perceptron은 이진 분류기이다. 하지만 perceptron 알고리즘은 다중 클래스 분류로 확장될 수 있다.
+    
+
+
+
 
 
 
