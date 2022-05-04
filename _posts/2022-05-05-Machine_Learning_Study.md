@@ -363,7 +363,7 @@ class NeuralNetMLP:
     d_loss__d_w_h = np.dot((d_loss__a_h * d_a_h__d_z_h).T, d_z_h__d_w_h)
     d_loss__d_b_h = np.sum((d_loss__a_h * d_a_h__d_z_h), axis=0)
     return (d_loss__dw_out, d_loss__db_out, d_loss__d_w_h, d_loss__d_b_h)
-    ```
+```
     
 ___
 
