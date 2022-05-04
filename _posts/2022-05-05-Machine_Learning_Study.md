@@ -311,10 +311,20 @@ X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=10000, random_
 X_tratin, X_valid, y_train, y_valid = train_test_split(X_temp, y_temp, test_size=5000, random_state=123, stratify=y_temp)
 ```
 
+이 하위 섹션에서는 이제 **MNIST 데이터 세트에서 이미지를 분류**하기 위해 처음부터 `MLP를 구현`할 것이다. 
+
+단순히 유지하기 위해, 숨겨진 계층이 하나만 있는 MLP를 구현할 것이다. 
+
+
+
 ```python
 # 다층 퍼셉트론 수행
 
 from neuralnet import NeuralNetMLP
+
+# 코드에는 역전파 알고리즘과 같이 우리가 아직 이야기하지 않은 부분이 포함될 것이다.
+
+# 따라서, 로지스틱 시그모이드 활성화를 계산하고 정수 클래스 레이블 배열을 원-핫 인코딩 레이블로 변환하기 위한 두 가지 도우미 함수에서 시작하는 MLP 구현을 살펴볼 것이다.
 import numpy as np
 
 def sigmoid(z) :
