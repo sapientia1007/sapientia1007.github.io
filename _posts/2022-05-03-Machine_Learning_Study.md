@@ -1,13 +1,13 @@
 ---
 layout: post
 title: Machine_Learning_Study 1
-subtitle: Section 1/2/11
+subtitle: Chapter 1/2/11
 categories: Machine_Learning_Study
 tags: Study
 use_math : true
 ---
 
-## Section 1 - Giving Computers the Ability to Learn from Data
+## Chap 1 - Giving Computers the Ability to Learn from Data
 
 **머신러닝**은 데이터를 활용하는 알고리즘의 과학과 적용인 모든 컴퓨터 과학의 가장 흥미로운 분야이다.
 
@@ -94,7 +94,7 @@ Chap 1에서는 기계 학습의 세 가지 유형으로 `지도 학습`, `비�
 비지도 학습은 레이블이 없는 데이터에서 구조를 발견하는 데 유용한 기술을 제공할 뿐만 아니라 기능 전처리 단계에서 데이터 압축에도 유용할 수 있다.
 
 
-## Section 2 - Training Simple Machine Learning Algorithms for Classification
+## Chap 2 - Training Simple Machine Learning Algorithms for Classification
 
 우리는 알고리즘적으로 기술된 첫 번째 머신러닝 알고리즘 중 두 가지인 **perceptron**과 **적응형 선형 뉴런**의 분석을 사용한다.
 
@@ -246,7 +246,7 @@ Gradient descent은 형상 스케일링의 혜택을 받는 많은 알고리즘 
 
 
 
-## Section 11 - Implementing a Multilayer Artificial Neural Network from Scratch
+## Chap 11 - Implementing a Multilayer Artificial Neural Network from Scratch
 
 **딥러닝**은 **인공 신경망 네트워크(NNs)** 와 연관되어 있는 머신 러닝의 하위분야로서 이해할 수 있다.
 
