@@ -7,7 +7,8 @@ tags: Study
 use_math : true
 ---
 
-## Chap 1 - Giving Computers the Ability to Learn from Data
+## Chap 1
+**Giving Computers the Ability to Learn from Data**
 
 **머신러닝**은 데이터를 활용하는 알고리즘의 과학과 적용인 모든 컴퓨터 과학의 가장 흥미로운 분야이다.
 
@@ -92,7 +93,8 @@ ___
 
 ___
 
-## Chap 2 - Training Simple Machine Learning Algorithms for Classification
+## Chap 2
+**Training Simple Machine Learning Algorithms for Classification**
 
 우리는 알고리즘적으로 기술된 첫 번째 머신러닝 알고리즘 중 두 가지인 **perceptron**과 **적응형 선형 뉴런**의 분석을 사용한다.
 
@@ -241,7 +243,8 @@ ___
 ___
 
 
-## Chap 11 - Implementing a Multilayer Artificial Neural Network from Scratch
+## Chap 11 
+**Implementing a Multilayer Artificial Neural Network from Scratch**
 
 **딥러닝**은 **인공 신경망 네트워크(NNs)** 와 연관되어 있는 머신 러닝의 하위분야로서 이해할 수 있다.
 
