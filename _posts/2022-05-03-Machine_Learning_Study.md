@@ -130,14 +130,18 @@ calss Perceptron :
   def predict(self, X) :
     return np.where(self.net_input(X) >= 0.0, 1, 0)
 ```
-이 **perceptron 구현**을 사용하여, 이제 주어진 perceptron 객체를 사용하여 새로운 perceptron 객체를 **초기화**할 수 있다. 
+이 **퍼셉트론 구현**을 사용하여, 우리는 이제 주어진 **학습 속도 eta(𝜂)** 와 **에폭 수 n_iter(훈련 데이터 세트 위로 전달)** 를 사용하여 *새로운 퍼셉트론 객체를 초기화*할 수 있다.
 - perceptron 구현을 테스트하기 위해, 다음의 분석과 예제를 제한할 것이다.  
 - 이 장의 나머지 부분에는 두 개의 형상 변수가 포함된다. 
 - 비록 perceptron 법칙은 2차원으로 제한하고, 꽃받침 길이와 꽃잎 길이, 두 가지 특징만을 고려하여, 학습 목적을 위해 산점도에서 훈련된 모델의 결정 영역을 시각화한다. 
 - 우리는 또한 Iris 데이터 세트에서 setosa와 versicolor 두 가지 꽃 클래스만 고려할 것이다. 
 - perceptron은 이진 분류기이다. 하지만 perceptron 알고리즘은 다중 클래스 분류로 확장될 수 있다.
-- 다음으로, 50개의 Iris-setosa와 50개의 Iris-versicolor 꽃에 해당하는 첫 번째 100개의 클래스 레이블을 추출하고 클래스 레이블을 2개의 정수 클래스 레이블인 1(versicolor)과 0(setosa)로 변환한다. 
-- 이 2차원 특징 부분 공간에서 선형 결정 경계는 setosa와 vertisicolor를 분리하기에 충분해야 한다.
+
+
+다음으로, 50개의 Iris-setosa와 50개의 Iris-versicolor 꽃에 해당하는 첫 번째 100개의 클래스 레이블을 추출하고 클래스 레이블을 2개의 정수 클래스 레이블인 1(versicolor)과 0(setosa)로 변환한다. 
+
+
+이 2차원 특징 부분 공간에서 선형 결정 경계는 setosa와 vertisicolor를 분리하기에 충분해야 한다.
 
 ```python
 from matplotlib.colors import ListedColormap
@@ -180,6 +184,9 @@ radient descent을 통해 손실 함수를 최소화하여 업데이트된다.
 
 이 장과 이 책의 뒷부분에서 관련 개념에 대해 이야기할 때 더 명확해지고 혼란을 피하기 위해, 우리는 이 프로세스를 **전체 배치 기울기 하강**이라고 지칭할 것이다.
 
+
+
+퍼셉트론 규칙과 아달라인은 매우 유사하므로, 우리는 앞서 정의한 퍼셉트론 구현을 취하여 이제 **기울기 강하**를 통해 **손실 함수를 최소화**함으로써 **가중치와 편향 매개변수가 업데이트**되도록 `fit method`를 변경할 것이다.
 ```python
 class AdalineGD : 
   def __init__(Self, eta=0.01, n_iter=50, random_state=1) :
