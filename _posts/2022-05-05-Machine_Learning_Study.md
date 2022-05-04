@@ -277,6 +277,39 @@ MLP 모델을 학습하는 맥락에서 그것이 어떻게 적합한지 이해�
 
 교육 데이터 세트는 250명의 서로 다른 사람들, 50퍼센트의 고등학생들, 그리고 50퍼센트의 인구 조사국 직원들로부터 손으로 쓴 숫자로 구성되어 있다.
 
+```python
+# MNIST 훈련 코드
+from sklearn.datasets import fetch_openml
+X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
+
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots(nrows=2, ncols=5, sharex=True, sharey= True)
+ax = ax.flatten()
+for i in range(10) : 
+  img = X[y ==i][0].reshape(28, 28)
+  ax[i].imshow(img, cmap="Greys")
+ ax[0].set_xticks([])
+ax[0].set_yticks([])
+plt.tight_layout()
+plt.show()
+
+fig, ax = plt.subplots(nrows=5, ncols=5, sharex=True, sharey=True)
+ax = ax.flatten()
+
+for i in range(25):
+  img = X[y == 7][i].reshape(28, 28)
+  ax[i].imshow(img, cmap='Greys')
+ax[0].set_xticks([])
+ax[0].set_yticks([])
+plt.tight_layout()
+plt.show()
+```
+```python
+from sklearn.model_selection import train_test_split
+X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=10000, random_state=123, stratify=y)
+X_tratin, X_valid, y_train, y_valid = train_test_split(X_temp, y_temp, test_size=5000, random_state=123, stratify=y_temp)
+```
+
 
 ___
 
