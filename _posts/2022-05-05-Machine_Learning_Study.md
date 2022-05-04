@@ -375,6 +375,11 @@ class NeuralNetMLP:
     return (d_loss__dw_out, d_loss__db_out, d_loss__d_w_h, d_loss__d_b_h)
 ```
     
+ 
+ 
+ .....
+ 
+    
     
 이번 섹션에서는 현재 머신러닝 연구에서 가장 뜨거운 주제인 **다층 인공 NN 뒤의 기본 개념**을 학습했다. 
 
