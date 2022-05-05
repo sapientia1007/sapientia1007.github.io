@@ -191,6 +191,60 @@ feature_df.head()
 
 5 rows × 380 columns
 
+
+```python
+oversample = SMOTE()
+transformed_feature_df, transformed_label_df = oversample.fit_resample(feature_df, labels_df)
+print(f'new label count: {transformed_label_df.value_counts()}')
+print(f'old label count: {df.cuisine.value_counts()}')
+```
+
+```
+new label count: thai        799
+indian      799
+japanese    799
+chinese     799
+korean      799
+Name: cuisine, dtype: int64
+old label count: korean      799
+indian      598
+chinese     442
+japanese    320
+thai        289
+Name: cuisine, dtype: int64
+```
+
+```python
+transformed_df = pd.concat([transformed_label_df,transformed_feature_df],axis=1, join='outer')
+transformed_df.head()
+```
+|  |	cuisine | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot	| armagnac | artemisia | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast |	yogurt |	 zucchini |
+| --- | ---------- | ------- | ------ | -------- | ----- | ---------- | ----- | ------------ | ------- | -------- | --- | ------- | ----------- | ---------- | ----------------------- | ---- | ---- | --- | ----- | ------ | -------- |
+|0|	indian	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+|1|	indian	|1	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+|2|	indian	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+|3|	indian	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+|4|	indian	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	1|	0|
+|...|	...	|...	|...	|...	|...	|...	|...	|...	|...	|...	|...	|...	|...	|...	|...	|...	|...	...|	...|	...|	...|
+|3990|	thai	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+|3991|	thai	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+|3992|	thai	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+|3993|	thai	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+|3994|	thai	|0	|0	|0	|0	|0	|0	|0	|0	|0	|...	|0	|0	|0	|0	|0	|0	|0|	0|	0|	0|
+
+3995 rows × 381 columns
+```python
+transformed_df.info()
+transformed_df.to_csv("../data/cleaned_cuisines.csv")
+```
+```
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3995 entries, 0 to 3994
+Columns: 381 entries, cuisine to zucchini
+dtypes: int64(380), object(1)
+memory usage: 11.6+ MB
+```
+
 ## Classifiers 1
 
 ## Classifiers 2 
