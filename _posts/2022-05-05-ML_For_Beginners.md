@@ -7,7 +7,7 @@ tags: Machine_Learning
 use_math: true
 ---
 
-(작성중)
+(계속 작성중)
 
 ## Introduction
 고전적인 머신러닝의 기본적인 초점 **분류**에 대해 알아볼 것이다.
