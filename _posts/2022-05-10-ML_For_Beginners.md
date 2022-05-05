@@ -91,6 +91,13 @@ df.head()
 # info()를 호출하여 데이터에 대한 정보를 가져오기
 df.info()
 ```
+```
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 2448 entries, 0 to 2447
+Columns: 385 entries, Unnamed: 0 to zucchini
+dtypes: int64(384), object(1)
+memory usage: 7.2+ MB
+```
 
 
 
