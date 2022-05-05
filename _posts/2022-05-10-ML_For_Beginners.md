@@ -65,6 +65,7 @@ pip install imblearn
 ```
 
 ```python
+# 데이터를 가져오는 데 필요한 패키지를 가져오고 시각화할 수 있으며, imblearn에서 SMOT도 가져올 수 있다.
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -72,7 +73,10 @@ import numpy as np
 from imblearn.over_sampling import SMOTE
 ```
 ```python
+# 데이터 가져와서 읽기
+# read_csv()를 사용하여 해당 csv파일의 내용을 읽고 변수 df에 저장
 df  = pd.read_csv('../data/cuisines.csv')
+# 앞에서부터 5개의 데이터를 확인
 df.head()
 ```
 |     | Unnamed: 0 | cuisine | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
@@ -84,6 +88,7 @@ df.head()
 | 4   | 69         | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 1      | 0        |
 
 ```python
+# info()를 호출하여 데이터에 대한 정보를 가져오기
 df.info()
 ```
 
