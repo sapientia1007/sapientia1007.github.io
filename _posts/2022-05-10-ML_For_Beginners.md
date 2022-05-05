@@ -99,11 +99,95 @@ dtypes: int64(384), object(1)
 memory usage: 7.2+ MB
 ```
 
+```python
+df.cuisine.value_counts().plot.barh()
+```
+
+결과 사진(res1)
+
+```python
+thai_df = df[(df.cuisine == "thai")]
+japanese_df = df[(df.cuisine == "japanese")]
+chinese_df = df[(df.cuisine == "chinese")]
+indian_df = df[(df.cuisine == "indian")]
+korean_df = df[(df.cuisine == "korean")]
+
+print(f'thai df: {thai_df.shape}')
+print(f'japanese df: {japanese_df.shape}')
+print(f'chinese df: {chinese_df.shape}')
+print(f'indian df: {indian_df.shape}')
+print(f'korean df: {korean_df.shape}')
+```
+```
+thai df: (289, 385)
+japanese df: (320, 385)
+chinese df: (442, 385)
+indian df: (598, 385)
+korean df: (799, 385)
+```
+
+```python
+def create_ingredient_df(df):
+    ingredient_df = df.T.drop(['cuisine','Unnamed: 0']).sum(axis=1).to_frame('value')
+    ingredient_df = ingredient_df[(ingredient_df.T != 0).any()]
+    ingredient_df = ingredient_df.sort_values(by='value', ascending=False,
+    inplace=False)
+    return ingredient_df
+```
+
+```python
+thai_ingredient_df = create_ingredient_df(thai_df)
+thai_ingredient_df.head(10).plot.barh()
+```
+
+
+결과사진(res2)
+
+```python
+japanese_ingredient_df = create_ingredient_df(japanese_df)
+japanese_ingredient_df.head(10).plot.barh()
+```
+
+결과사진(res3)
+
+```python
+chinese_ingredient_df = create_ingredient_df(chinese_df)
+chinese_ingredient_df.head(10).plot.barh()
+```
+
+결과사진(res4)
+
+```python
+indian_ingredient_df = create_ingredient_df(indian_df)
+indian_ingredient_df.head(10).plot.barh()
+```
+
+결과사진(res5)
+
+```python
+korean_ingredient_df = create_ingredient_df(korean_df)
+korean_ingredient_df.head(10).plot.barh()
+```
+
+결과사진(res6)
 
 
 
+```python
+feature_df= df.drop(['cuisine','Unnamed: 0','rice','garlic','ginger'], axis=1)
+labels_df = df.cuisine #.unique()
+feature_df.head()
+```
 
 
+|    | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | artemisia | artichoke | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
+| --- | ---------- | ------- | ------ | -------- | ----- | ---------- | ----- | ------------ | ------- | -------- | --- | ------- | ----------- | ---------- | ----------------------- | ---- | ---- | --- | ----- | ------ | -------- |
+| 0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	... |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |
+| 1 |	1 | 	0 | 	0 |	0 |	0 |	0 | 	0 |	0 |	0 |	0 |	... |	0 |	0 |	0 |	0 |	0 | 	0 |	0 |	0 |	0 |	0 |
+| 2 |	0 |	0 |	0 |	0 | 	0 |	0 |	0 |	0 |	0 |	0 |	... |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 | 
+| 3 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	... |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |
+| 4 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	... |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	0 |	1 |	0 |
+5 rows × 380 columns
 
 ## Classifiers 1
 
