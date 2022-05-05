@@ -99,14 +99,18 @@ Columns: 385 entries, Unnamed: 0 to zucchini
 dtypes: int64(384), object(1)
 memory usage: 7.2+ MB
 ```
+**요리 당 데이터의 분포를 알아보기**
 
 ```python
-df.cuisine.value_counts().plot.barh()
+# barh() 호출하여 데이터를 막대 그래프로 출력
+df.cuisine.value_counts().plot.barh() # 데이터 분포가 고르지 않음 
 ```
+
 
 결과 사진(res1)
 
 ```python
+# 요리 당 얼마나 많은 데이터 사용할 수 있는지 확인
 thai_df = df[(df.cuisine == "thai")]
 japanese_df = df[(df.cuisine == "japanese")]
 chinese_df = df[(df.cuisine == "chinese")]
@@ -127,16 +131,24 @@ indian df: (598, 385)
 korean df: (799, 385)
 ```
 
+이제 데이터를 더 깊이 파고들어 요리 당 전형적인 재료가 무엇인지 배울 수 있다.
+
+음식 사이에 혼란을 일으키는 반복적인 데이터를 지워야 하는데, 이 문제에 대해 알아볼 것이다.
+
+파이썬에서 `creat_ingredient()` 함수를 만들어 성분 데이터 프레임을 생성한다.
+
+이 기능은 도움이 되지 않는 열을 삭제하는 것, 즉 떨어뜨리는 것부터 시작하여 성분을 개수에 따라 정렬한다.
+
 ```python
 def create_ingredient_df(df):
     ingredient_df = df.T.drop(['cuisine','Unnamed: 0']).sum(axis=1).to_frame('value')
     ingredient_df = ingredient_df[(ingredient_df.T != 0).any()]
-    ingredient_df = ingredient_df.sort_values(by='value', ascending=False,
-    inplace=False)
+    ingredient_df = ingredient_df.sort_values(by='value', ascending=False, inplace=False)
     return ingredient_df
 ```
 
 ```python
+# 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Thai)
 thai_ingredient_df = create_ingredient_df(thai_df)
 thai_ingredient_df.head(10).plot.barh()
 ```
@@ -145,6 +157,7 @@ thai_ingredient_df.head(10).plot.barh()
 결과사진(res2)
 
 ```python
+# 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Japanese)
 japanese_ingredient_df = create_ingredient_df(japanese_df)
 japanese_ingredient_df.head(10).plot.barh()
 ```
@@ -152,6 +165,7 @@ japanese_ingredient_df.head(10).plot.barh()
 결과사진(res3)
 
 ```python
+# 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Chinese)
 chinese_ingredient_df = create_ingredient_df(chinese_df)
 chinese_ingredient_df.head(10).plot.barh()
 ```
@@ -159,6 +173,7 @@ chinese_ingredient_df.head(10).plot.barh()
 결과사진(res4)
 
 ```python
+# 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Indian)
 indian_ingredient_df = create_ingredient_df(indian_df)
 indian_ingredient_df.head(10).plot.barh()
 ```
@@ -166,6 +181,7 @@ indian_ingredient_df.head(10).plot.barh()
 결과사진(res5)
 
 ```python
+# 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Korean)
 korean_ingredient_df = create_ingredient_df(korean_df)
 korean_ingredient_df.head(10).plot.barh()
 ```
@@ -175,6 +191,7 @@ korean_ingredient_df.head(10).plot.barh()
 
 
 ```python
+# drop()을 호출하여 구별되는 요리 사이에 혼란을 일으키는 가장 일반적인 재료 삭제 -> 'rice', 'garlic', 'ginger'
 feature_df= df.drop(['cuisine','Unnamed: 0','rice','garlic','ginger'], axis=1)
 labels_df = df.cuisine #.unique()
 feature_df.head()
@@ -191,13 +208,24 @@ feature_df.head()
 
 5 rows × 380 columns
 
+이제 데이터를 정리했으므로 `SMOTE`, 즉 "Synthetic Minority Over-sampling Technique(합성 소수 과표본 기법)"을 사용하여 균형을 잡을 것이다.
 
 ```python
+# fit_resample()을 호출하면 이 전략은 보간을 통해 새 샘플을 생성
 oversample = SMOTE()
 transformed_feature_df, transformed_label_df = oversample.fit_resample(feature_df, labels_df)
+
+# 성분 당 레이블 수 확인
 print(f'new label count: {transformed_label_df.value_counts()}')
 print(f'old label count: {df.cuisine.value_counts()}')
 ```
+데이터의 균형을 유지함으로써 데이터를 분류할 때 더 나은 결과를 얻을 수 있다.
+
+이진분류기를 생각해보자
+
+대부분의 데이터가 하나의 클래스인 경우 ML 모델은 단지 더 많은 데이터가 있다는 이유로 해당 클래스를 더 자주 예측한다.
+
+데이터의 균형을 맞추려면 왜곡된 데이터가 필요하며 이러한 불균형을 제거하는 데 도움이 된다.
 
 ```
 new label count: thai        799
@@ -215,7 +243,9 @@ Name: cuisine, dtype: int64
 ```
 
 ```python
+# 레이블 및 기능을 포함한 균형 잡힌 데이터를 파일로 내보낼 수 있는 새 데이터 프레임에 저장
 transformed_df = pd.concat([transformed_label_df,transformed_feature_df],axis=1, join='outer')
+# 데이터를 한 번 더 살펴보기
 transformed_df.head()
 ```
 |  |	cuisine | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot	| armagnac | artemisia | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast |	yogurt |	 zucchini |
@@ -234,7 +264,9 @@ transformed_df.head()
 
 3995 rows × 381 columns
 ```python
+# 데이터 정보 확인
 transformed_df.info()
+# 다음 교육에서 사용할 수 있도록 데이터 복사본을 저장
 transformed_df.to_csv("../data/cleaned_cuisines.csv")
 ```
 ```
@@ -244,6 +276,8 @@ Columns: 381 entries, cuisine to zucchini
 dtypes: int64(380), object(1)
 memory usage: 11.6+ MB
 ```
+
+**데이터 폴더를 살펴보고 이진 또는 다중 클래스 분류에 적합한 데이터 셋이 있는지 확인**
 
 ## Classifiers 1
 
