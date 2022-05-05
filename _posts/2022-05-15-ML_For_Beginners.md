@@ -108,7 +108,7 @@ df.cuisine.value_counts().plot.barh() # 데이터 분포가 고르지 않음
 ```
 
 
-결과 사진(res1)
+![res_1](http://jjhcom.github.io/assets/images/banners/res_1.png)
 
 ```python
 # 요리 당 얼마나 많은 데이터 사용할 수 있는지 확인
@@ -155,7 +155,7 @@ thai_ingredient_df.head(10).plot.barh()
 ```
 
 
-결과사진(res2)
+![res_2](http://jjhcom.github.io/assets/images/banners/res_2.png)
 
 ```python
 # 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Japanese)
@@ -163,7 +163,7 @@ japanese_ingredient_df = create_ingredient_df(japanese_df)
 japanese_ingredient_df.head(10).plot.barh()
 ```
 
-결과사진(res3)
+![res_3](http://jjhcom.github.io/assets/images/banners/res_3.png)
 
 ```python
 # 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Chinese)
@@ -171,7 +171,8 @@ chinese_ingredient_df = create_ingredient_df(chinese_df)
 chinese_ingredient_df.head(10).plot.barh()
 ```
 
-결과사진(res4)
+![res_4](http://jjhcom.github.io/assets/images/banners/res_4.png)
+
 
 ```python
 # 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Indian)
@@ -179,7 +180,8 @@ indian_ingredient_df = create_ingredient_df(indian_df)
 indian_ingredient_df.head(10).plot.barh()
 ```
 
-결과사진(res5)
+![res_5](http://jjhcom.github.io/assets/images/banners/res_5.png)
+
 
 ```python
 # 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Korean)
@@ -187,7 +189,7 @@ korean_ingredient_df = create_ingredient_df(korean_df)
 korean_ingredient_df.head(10).plot.barh()
 ```
 
-결과사진(res6)
+![res_6](http://jjhcom.github.io/assets/images/banners/res_6.png)
 
 
 
