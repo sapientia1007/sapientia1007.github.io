@@ -22,6 +22,7 @@ use_math: true
 
 
 - **로지스틱 회귀 분석**을 사용하면 "이진 범주"를 발견할 수 있다.
+  - [분류 참고 영상](https://www.youtube.com/watch?v=eg8DJYwdMyg&feature=youtu.be)
 
 **분류**는 *데이터 포인트의 레이블이나 클래스를 결정하기 위해* 다양한 알고리즘을 사용한다.
 
