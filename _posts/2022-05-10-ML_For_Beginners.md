@@ -46,6 +46,35 @@ use_math: true
 - 주어진 요리가 fenugreek(호로파)를 사용할 가능성이 있는지 결정하기 위해 무엇?
 - 스타 아니스, 아티초크, 콜리플라워, 고추냉이가 가득한 식료품 봉지의 선물로 전형적인 인도 요리를 만들 수 있는지를 확인하기 위해 무엇?
 
+우리는 몇 가지 잠재적 국가 요리를 다룰 수 있기 때문에, 우리가 요리 데이터 셋에 대해 묻고 싶은 질문은 사실 다중 클래스 질문이다.
+
+성분 배치가 주어졌을 때, 이 많은 등급 중 어떤 데이터가 적합할까?
+
+`Scikit-learn`은 해결하려는 문제의 종류에 따라 데이터를 분류하는데 사용할 수 있는 몇 가지의 다른 알고리즘들을 제공한다.
+
+
+### 연습
+이 프로젝트를 시작하기 전에 가장 먼저 해야 할 일은 데이터를 정리하고 균형을 맞춰 더 나은 결과는 얻는 것이다.
+
+가장 먼저 설치해야 할것은 데이터의 균형을 더 잘 조정할 수 있도록 지원하는 `Scikit-learn`의 패키지인 `imblearn`이다.
+
+```python
+# imblearn 설치하기 위해 pip install
+
+pip install imblearn
+```
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import numpy as np
+from imblearn.over_sampling import SMOTE
+```
+```python
+df  = pd.read_csv('../data/cuisines.csv')
+df.head()
+```
 |     | Unnamed: 0 | cuisine | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
 | --- | ---------- | ------- | ------ | -------- | ----- | ---------- | ----- | ------------ | ------- | -------- | --- | ------- | ----------- | ---------- | ----------------------- | ---- | ---- | --- | ----- | ------ | -------- |
 | 0   | 65         | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
@@ -53,6 +82,16 @@ use_math: true
 | 2   | 67         | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
 | 3   | 68         | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
 | 4   | 69         | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 1      | 0        |
+
+```python
+df.info()
+```
+
+
+
+
+
+
 
 ## Classifiers 1
 
