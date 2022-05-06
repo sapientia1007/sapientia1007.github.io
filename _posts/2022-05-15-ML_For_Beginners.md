@@ -925,6 +925,101 @@ with open("./model.onnx", "wb") as f:
             <button onClick="startInference()">What kind of cuisine can you make?</button>
         </div> 
 ```
+- 각 확인란에는 값이 지정
+  - 이는 데이터 세트에 따라 성분이 발견되는 지수를 반영
+  - 예를 들어, 알파벳 목록에서 'Apple'은 다섯 번째 열을 차지하기 때문에, 0에서 숫자를 시작할 때 값은 '4'
+- 성분 스프레드 시트를 참조하여 특정 성분의 색인을 찾기 가능
+- `index.html`에서 작업을 계속하고, 최종 종료 `</div>` 뒤에 모델이 호출되는 스크립트 블록 추가
+
+
+**Onnx Runtime 실행**
+```html
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.9.0/dist/ort.min.js"></script> 
+```
+*Onnx Runtime은 **최적화** 및 사용할 API를 포함한 광범위한 하드웨어 플랫폼에서 **Onnx 모델을 실행할 수 있도록**하는데 사용*
+
+**Runtime이 설치되면, 호출 가능**
+```html
+<script>
+    const ingredients = Array(380).fill(0);
+    
+    const checks = [...document.querySelectorAll('.checkbox')];
+    
+    checks.forEach(check => {
+        check.addEventListener('change', function() {
+            // toggle the state of the ingredient
+            // based on the checkbox's value (1 or 0)
+            ingredients[check.value] = check.checked ? 1 : 0;
+        });
+    });
+
+    function testCheckboxes() {
+        // validate if at least one checkbox is checked
+        return checks.some(check => check.checked);
+    }
+
+    async function startInference() {
+
+        let atLeastOneChecked = testCheckboxes()
+
+        if (!atLeastOneChecked) {
+            alert('Please select at least one ingredient.');
+            return;
+        }
+        try {
+            // create a new session and load the model.
+            
+            const session = await ort.InferenceSession.create('./model.onnx');
+
+            const input = new ort.Tensor(new Float32Array(ingredients), [1, 380]);
+            const feeds = { float_input: input };
+
+            // feed inputs and run
+            const results = await session.run(feeds);
+
+            // read from results
+            alert('You can enjoy ' + results.label.data[0] + ' cuisine today!')
+
+        } catch (e) {
+            console.log(`failed to inference ONNX model`);
+            console.error(e);
+        }
+    }
+           
+</script>
+```
+**위의 코드의 의미**
+1. 성분 확인란이 선택되었는지 여부에 따라 380개의 가능한 값(0 또는 1)을 설정하여 모형으로 전송하여 추론했다.
+2. 응용프로그램이 시작될 때 호출되는 init 함수로 확인되었는지 결정하는 방법과 확인란 배열을 만들었다.
+  - 확인란을 선택하면 선택한 성분을 반영하도록 성분 배열이 변경된다.
+3. 확인란이 선택되었는지 확인하는 testCheckboxes 함수를 만들었다.
+4. 버튼을 눌렀을 때, 체크된 체크박스가 있다면, startInference기능을 사용하여 추론을 시작한다.
+5. 추론 루틴에는 다음과 같이 포함되어 있다.
+  - 모델의 미동기 로드 설정
+  - 모델에 보낼 텐서 구조 생성
+  - 모델을 교육할 때 만든 float_input 입력을 반영하는 'feeds' 생성(Netron을 사용하여 해당 이름 확인 가능)
+  - 이러한 'feeds'를 모델에 보내고 응답을 기다리는 중
+
+
+**앱 테스트**
+
+`index.html` 파일이 있는 폴더에서 Visul Studio Code에서 터미널 세션을 연다
+
+http-server가 전체적으로 설치되어 있는지 확인하고 프롬포트에 `http-server`을 입력한다.
+
+로컬 호스트가 열리면 웹 앱을 볼 수 있다.
+
+다양한 재료에 따라 어떤 요리를 추천하는지 확인한다.
+
+**몇 개의 필드가 있는 추천 웹 앱을 구축했다!**
+
+🎈 **만든 웹 앱은 매우 작으므로 `ingredient_indexes` 데이터에서 성분과 해당 인덱스를 사용하여 계속 구축할 수 있다. 어떤 맛의 조합이 주어진 국민 요리를 만드는 데 효과가 있을지 확인해본다.**
+
+
+
+
+
+
 
 
 
