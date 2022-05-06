@@ -702,15 +702,237 @@ weighted avg       0.72      0.71      0.71      1199
 
 🎈**각 기술에는 조정할 수 있는 매개변수가 있는데, 각 인자의 기본 인자를 조사하고 모델의 품질에 대해 이러한 인자를 조정하는 것이 무엇을 의미하는지 생각해 봐야 한다**
 
-
-
-
-
-
-
-
-
 ## Applied
+
+- 이전 교육에서 배운 몇가지 기술과 이 시리즈에서 사용된 맛있는 요리 데이터 세트를 사용하여 **분류 모델을 구축**한다.
+- 또한, `Onnx의 웹 런타임`을 활용하여 **저장된 모델을 사용**할 수 있는 **작은 웹 앱**을 만들 것이다.
+- 머신러닝의 가장 유용한 실용 중 하나는 **추천 시스템을 구축**하는 것이고, 이 방향으로 가는 첫 단계를 학습해볼 것이다.
+  - [적용 참고 영상](https://www.youtube.com/watch?v=17wdM9AHMfg)
+
+배우게 될 방법
+- 모델을 작성하고 이를 Onnx 모델로 저장하는 방법
+- Netron을 사용하여 모델을 검사하는 방법
+- 추론을 위해 웹 앱에서 모델을 사용하는 방법
+
+### 모델 구축하기
+- 응용 ML 시스템을 구축하는 것은 비즈니스 시스템에 이러한 기술을 활용하는 데 있어 중요한 부분이다.
+- Onnx를 사용하여 웹 응용 프로그램 내에서 모델을 사용할 수 있으므로 필요한 경우 오프라인 컨텍스트 모델을 사용할 수 있다.
+- 이전 수업에서, UFO 목격에 대한 회귀 모형을 만들고 그것을 "pickled"하여 플라스크 앱에 사용했다.
+  - 이 구조는 매우 유용하지만, Full-Stack 파이썬 앱이며, 요구사항은 자바스크립트 애플리케이션 사용을 포함할 수 있다.
+
+
+### 연습
+**분류 모델 훈련**
+
+우리가 사용했던 정제된 요리 데이터를 사용하여 **분류 모델을 훈련**시킨다.
+```python
+# 필요한 라이브러리 불러오기
+# skl2onnx는 Scikit-learn 모델을 Onnx 형식으로 변환하기 위해 사용
+!pip install skl2onnx
+import pandas as pd 
+```
+
+```python
+# CSV 파일을 읽어와서 데이터 확인
+data = pd.read_csv('cleaned_cuisines.csv')
+data.head()
+```
+
+|     | Unnamed: 0| cuisine | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
+| --- | ---------- | ------- | ------ | -------- | ----- | ---------- | ----- | ------------ | ------- | -------- | --- | ------- | ----------- | ---------- | ----------------------- | ---- | ---- | --- | ----- | ------ | -------- |
+| 0   | 0      | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 1   | 1        | indian  | 1      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 2   | 2        | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 3   | 3        | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 4   | 4       | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 1      | 0        |
+
+```python
+# 처음 두개의 불필요한 열을 삭제하고, 남아있는 데이터를 'X'로 저장
+X = data.iloc[:,2:]
+X.head()
+```
+
+|     | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
+|   |  ------- | ------ | -------- | ----- | ---------- | ----- | ------------ | ------- | -------- | --- | ------- | ----------- | ---------- | ----------------------- | ---- | ---- | --- | ----- | ------ | -------- |
+| 0   | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 1   | 1      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 2    | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 3    | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 4  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 1      | 0        |
+
+```python
+# 레이블을 'y'로 저장
+y = data[['cuisine']]
+y.head()
+```
+
+|  | cuisine |
+|---|--------|
+|0 |	indian |
+|1 |	indian |
+|2 |	indian |
+|3 |	indian |
+|4 |	indian |
+
+```python
+# 정확도가 좋았던 'SVC 라이브러리'를 사용하여 훈련
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score,precision_score,confusion_matrix,classification_report
+```
+
+```python
+# 훈련과 테스트 셋으로 데이터 분리
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3)
+```
+
+```python
+# SVC분류기 모델을 구축
+model = SVC(kernel='linear', C=10, probability=True,random_state=0)
+model.fit(X_train,y_train.values.ravel())
+```
+
+```
+SVC(C=10, kernel='linear', probability=True, random_state=0)
+```
+
+```python
+# predict()를 호출하면서 모델을 테스트
+y_pred = model.predict(X_test)
+
+# 모델의 품질 확인하기 위해 확인
+print(classification_report(y_test,y_pred))
+```
+
+```
+              precision    recall  f1-score   support
+
+     chinese       0.67      0.70      0.68       243
+      indian       0.89      0.85      0.87       238
+    japanese       0.83      0.72      0.77       237
+      korean       0.81      0.75      0.78       226
+        thai       0.71      0.84      0.77       255
+
+    accuracy                           0.77      1199
+   macro avg       0.78      0.77      0.78      1199
+weighted avg       0.78      0.77      0.77      1199
+```
+
+### Onnx로 모델 전환 
+
+**적절한 텐서 수**로 변환해야 한다.
+
+이 데이터 집합에는 380개의 성분이 나열되어 있으므로 `FloatTensorType`에 이 숫자를 기록해야 한다.
+
+```python
+# 380개의 수를 tensor를 사용하여 변환 
+from skl2onnx import convert_sklearn
+from skl2onnx.common.data_types import FloatTensorType
+
+initial_type = [('float_input', FloatTensorType([None, 380]))]
+options = {id(model): {'nocl': True, 'zipmap': False}}
+```
+
+```python
+# onx를 생성하고 'model.onnx'로 저장
+onx = convert_sklearn(model, initial_types=initial_type, options=options)
+with open("./model.onnx", "wb") as f:
+    f.write(onx.SerializeToString())
+```
+
+*변환 스크립트에서 옵션을 전달할 수 있다.*
+  - *이 경우, 'nocl'을 True로, 'zipmap'을 False로 전달*
+- *이 모델은 분류 모델이기 때문에 필수는 아니지만, 사전 목록을 생성하는 ZipMap을 제거할 수 있다.*
+- *'nocl'은 모델에 포함된 클래스 정보를 참조한다.*
+- *'nocl'을 True로 지정하면, 모델 크기를 줄인다.*
+
+
+### 모델 확인
+
+`Onnx 모델`은 비쥬얼 스튜디오 코드에서 잘 보이지 않지만, 많은 연구자들이 **모델을 시각화**하기 위해 사용하는 매우 좋은 무료 소프트웨어이다.
+- *`Netron`*을 다운로드하고 `model.onnx`파일을 연다.
+  - *380개의 입력과 분류기가 나열된 단순 모델을 시각화 할 수 있다*
+
+![applied1](http://jjhcom.github.io/assets/images/banners/applied1.png)
+
+`Netron`은 **모델을 보는 데 유용한 도구**이다.
+
+이제 웹 앱에서 이 깔끔한 모델을 사용할 준비가 되었다. 냉장고 안을 볼 때 유용하게 사용할 수 있는 앱을 만들고, 모델에 의해 결정되는 대로, 주어진 요리를 요리하기 위해 어떤 남은 재료의 조합을 사용할 수 있는지 알아볼 것이다.
+
+### 추천 웹 앱 구축
+
+웹 앱에서 직접 모델을 사용할 수 있다.
+
+또한, 이 구조는 필요한 경우 **로컬** 및 **오프라인**에서도 실행될 수 있다.
+
+`model.onnx` 파일을 저장한 폴더와 동일한 폴더에 `index.html`를 생성하면서 시작해볼 것이다.
+
+
+**index.html 파일에 마크업 추가**
+```html
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>Cuisine Matcher</title>
+    </header>
+    <body>
+        ...
+    </body>
+</html>
+```
+
+**본문 태그 내에서 작업하면서, 일부 성분을 반영하는 확인 목록을 보여주기 위해 약간의 마크업 추가**
+```html
+<h1>Check your refrigerator. What can you create?</h1>
+        <div id="wrapper">
+            <div class="boxCont">
+                <input type="checkbox" value="4" class="checkbox">
+                <label>apple</label>
+            </div>
+        
+            <div class="boxCont">
+                <input type="checkbox" value="247" class="checkbox">
+                <label>pear</label>
+            </div>
+        
+            <div class="boxCont">
+                <input type="checkbox" value="77" class="checkbox">
+                <label>cherry</label>
+            </div>
+
+            <div class="boxCont">
+                <input type="checkbox" value="126" class="checkbox">
+                <label>fenugreek</label>
+            </div>
+
+            <div class="boxCont">
+                <input type="checkbox" value="302" class="checkbox">
+                <label>sake</label>
+            </div>
+
+            <div class="boxCont">
+                <input type="checkbox" value="327" class="checkbox">
+                <label>soy sauce</label>
+            </div>
+
+            <div class="boxCont">
+                <input type="checkbox" value="112" class="checkbox">
+                <label>cumin</label>
+            </div>
+        </div>
+        <div style="padding-top:10px">
+            <button onClick="startInference()">What kind of cuisine can you make?</button>
+        </div> 
+```
+
+
+
+
+
+
+
+
 
 
 ___
