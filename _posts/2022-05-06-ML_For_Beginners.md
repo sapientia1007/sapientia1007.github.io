@@ -9,6 +9,8 @@ use_math: true
 
 (작성중)
 
+**아래 모든 자료는 [ML-For-Begginers의 문서](https://github.com/codingalzi/ML-For-Beginners/tree/main/4-Classification)를 참고하여 작성했습니다**
+
 ## Introduction
 고전적인 머신러닝의 기본적인 초점 **분류**에 대해 알아볼 것이다.
 
@@ -1017,7 +1019,7 @@ http-server가 전체적으로 설치되어 있는지 확인하고 프롬포트�
 
 **몇 개의 필드가 있는 추천 웹 앱을 구축했다!**
 
-🎈 **만든 웹 앱은 매우 작으므로 `ingredient_indexes` 데이터에서 성분과 해당 인덱스를 사용하여 계속 구축할 수 있다. 어떤 맛의 조합이 주어진 국민 요리를 만드는 데 효과가 있을지 확인해본다.**
+🎈 **만든 웹 앱은 매우 작으므로 ingredient_indexes 데이터에서 성분과 해당 인덱스를 사용하여 계속 구축할 수 있다. 어떤 맛의 조합이 주어진 국민 요리를 만드는 데 효과가 있을지 확인해본다.**
 
 
 
