@@ -343,14 +343,33 @@ cuisines_feature_df.head()
 | 3    | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
 | 4  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 1      | 0        |
 
-모델을 훈련할 준비가 됐다 !
 
 ### 분류기 선택
 
+데이터가 깨끗해지고, 훈련 준비가 되었으므로 작업에 사용할 **알고리즘**을 결정해야 한다.
+
+`Scikit-learn` 그룹은 **지도 학습**에서 분류되며, 이 범주에서 분류할 수 있는 다양한 방법을 찾을 수 있다.
+
+**모든 분류 기법이 포함된 방법**
+- Linear Models (선형 모델)
+- Support Vector Machines (서포트 벡터 머신)
+- Stochastic Gradient Descent (확률적 경사 하강법)
+- Nearest Neighbors (NN)
+- Gaussian Processes (가우시안 프로세스)
+- Decision Trees (의사 결정 트리)
+- Ensemble methods (voting Classifier) (앙상블 기법)
+- Multiclass and multioutput algorithms (multiclass and multilabel classification, multiclass-multioutput classification) (다중 클래스 및 다중 출력 알고리즘)
+  - 신경망을 사용하여 데이터를 분류할 수도 있지만, 이 범위를 벗어난다.
 
 
+종종 여러 개를 훑어보고 좋은 결과는 찾는 것이 **테스트하는 방법**이다.
+
+`Scikit-learn`은 `KNeighbors`, `SVC`, `GaussianProcessClassifier`, `DecisionTreeClassifier`, `RandomForestClassifier`, `MLPClassifier`, `AdaBoostClassifier`, `GaussianNB` 그리고 `QuadraticDiscrinationAnalysis`를 **비교**하고 **시각화된 결과**를 보면서, **생성된 데이터세트**에 대해 나란히 비교한다.
 
 
+(classifiers1)
+    Scikit-learn의 설명서에서 생성된 그림
+    AutoML은 이러한 비교를 클라우드에서 실행하여 데이터에 가장 적합한 알고리즘을 선택할 수 있도록 함으로써 이 문제를 해결
 
 
 
