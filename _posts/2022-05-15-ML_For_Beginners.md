@@ -290,6 +290,7 @@ memory usage: 11.6+ MB
 - 이렇게 하는 동안, **분류 작업**에 알고리즘을 활용할 수 있는 몇 가지 방법에 대해 자세히 알아볼 수 있다.
 
 ### 연습
+**국민 요리 예언**
 ```python
 # 파일 불러오기 
 import pandas as pd
@@ -394,8 +395,112 @@ cuisines_feature_df.head()
 - `Scikit-learn`에서는 `로지스틱 회귀 분석`을 사용하는 여러 가지 방법이 있다.
 -  전달할 매개 변수를 살펴봐야 한다.
 - 기본적으로 `Scikit-learn`에게 `로지스틱 회귀 분석`을 수행하도록 요청할때 지정해야 하는 중요한 두가지의 매개 변수가 있다.  
-  - `multi_class`
-  - `solver`
+  - `multi_class` : 특정 동작을 적용 
+  - `solver` : 사용할 알고리즘
+  - 모든 `solver`와 `multi_class의 값`를 쌍으로 구성할 수 있는 것은 아니다.
+
+**멀티 클래스**사례에서의 **훈련 알고리즘**
+- `multi_class` 옵션이 `ovr`로 지정되었을 때 **OVR 체계 사용**
+- `multi_class` 옵션이 `multinominal`로 지정되면 **교차 엔트로피 손실을 사용**
+  - 현재 `multinominal` 옵션은 `lbfgs`, `sag`, `saga`, `newton-cg` solvers에만 지원된다.
+
+
+📌 여기서 **'scheme'** 은 `ovr`이나 `multinominal`일 수 있다.
+- 로지스틱 회귀는 실제로 이진 분류기를 지원하도록 설계되었기 때문에, 이러한 체계를 통해 다중 클래스 분류 작업을 더 잘 처리할 수 있다.
+
+📌 **'solver'** 는 *'최적화 문제에 사용할 알고리즘'*으로 정의된다.
+
+📌 `Scikit-learn`은 `solvers`가 다양한 종류의 데이터 구조에서 나타나는 **다양한 문제를 처리하는 방법**을 설명하는 **표를 제공**한다.
+
+(classifiers3)
+
+### 연습 
+**데이터 나누기**
+
+이전 수업에서 후자에 대해 알게 된 이후, 첫번째 교육 시행을 위해 **로지스틱 회귀 분석**에 초점을 맞출 수 있다.
+
+```python
+# train_test_split()을 호출하여 데이터를 훈련, 테스트 그룹으로 나눈다,
+X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisines_label_df, test_size=0.3)
+```
+
+**로지스틱 회귀 분석 적용**
+다중 클래스 케이스를 사용 중이므로, 사용할 `scheme`과 설정할 `solver`를 선택해야 한다.
+
+**훈련**을 위해, `다중 클래스 설정`과 `liblinear solver`을 함께 **로지스틱 회귀 분석**을 사용한다.
+
+```python
+# multi_class를 'ovr'로 지정하고, solvr를 'linbear'로 설정한 "로지스틱 회귀 분석" 생성
+lr = LogisticRegression(multi_class='ovr',solver='liblinear')
+model = lr.fit(X_train, np.ravel(y_train))
+
+accuracy = model.score(X_test, y_test)
+print ("Accuracy is {}".format(accuracy))
+```
+*종종 기본값으로 설정된 `lbfgs`와 같은 다른 solver를 사용해도 된다*
+
+```
+Accuracy is 0.8065054211843202
+```
+**정확도**가 약 80%를 넘는다.
+
+```python
+# 하나의 데이터 행을 테스트하면서 모델이 작동하는 것을 확인
+print(f'ingredients: {X_test.iloc[50][X_test.iloc[50]!=0].keys()}')
+print(f'cuisine: {y_test.iloc[50]}')
+```
+```
+ingredients: Index(['chicken', 'cilantro'], dtype='object')
+cuisine: thai
+```
+*다른 행 번호를 사용해서도 결과 확인*
+
+```python
+# 예측의 정확성 확인
+test= X_test.iloc[50].values.reshape(-1, 1).T
+proba = model.predict_proba(test)
+classes = model.classes_
+resultdf = pd.DataFrame(data=proba, columns=classes)
+
+topPrediction = resultdf.T.sort_values(by=[0], ascending = [False])
+topPrediction.head()
+```
+
+|              |                0 |
+| -------- | ------------ |
+| indian   |  0.715851   |
+| chinese |  0.229475   |
+| japanese |  0.029763 |
+| korean   |  0.017277  |
+| thai      |  0.007634   |
+
+**인도 요리**가 가장 좋은 추측이며, 그럴 확률이 약 71%로 높다.
+
+*모델이 왜 인도 요리가 가장 좋다고 확신하는지 설명할 수 있다*
+
+```python
+# 회귀 분석 수업에서 했던 것처럼 분류 보고서를 인쇄하여 더 자세히 확인 
+y_pred = model.predict(X_test)
+print(classification_report(y_test,y_pred))
+```
+```
+              precision    recall  f1-score   support
+
+     chinese       0.78      0.70      0.73       252
+      indian       0.91      0.93      0.92       242
+    japanese       0.75      0.78      0.76       225
+      korean       0.83      0.81      0.82       243
+        thai       0.77      0.83      0.80       237
+
+    accuracy                           0.81      1199
+   macro avg       0.81      0.81      0.81      1199
+weighted avg       0.81      0.81      0.81      1199
+```
+
+🎈 **정리된 데이터를 사용하여 일련의 재료를 기반으로 국가 요리를 예측할 수 있는 기계 학습 모델을 구착했다. Scikit-learn이 제공하는 다양한 데이터 분류 옵션을 읽어보는 것도 좋다. 'solver'의 개념을 더 깊이 파고들어서 이면에서 무슨일이 벌어지는지 이해할 수 있을 것이다.**
+
+
+
 
 ## Classifiers 2 
 
