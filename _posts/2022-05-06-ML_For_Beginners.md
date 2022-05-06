@@ -9,7 +9,7 @@ use_math: true
 
 (작성중)
 
-**아래 모든 자료는 [ML-For-Begginers의 문서](https://github.com/codingalzi/ML-For-Beginners/tree/main/4-Classification)를 참고하여 작성했습니다**
+💥 **아래 모든 자료는 [ML-For-Begginers의 문서](https://github.com/codingalzi/ML-For-Beginners/tree/main/4-Classification)를 참고하여 작성했습니다**
 
 ## Introduction
 고전적인 머신러닝의 기본적인 초점 **분류**에 대해 알아볼 것이다.
