@@ -284,6 +284,77 @@ memory usage: 11.6+ MB
 
 ## Classifiers 1
 
+### 요리 분류기
+- "Introduction"에서 저장한 모든 음식에 대한 **균형 잡힌 깨끗한 데이터로 가득 찬 데이터 세트**를 사용할 것이다.
+- 이 데이터 세트를 **다양한 분류기**와 함께 사용하여 *재료 그룹을 기반*으로 **특정 국가 음식을 예측**할 수 있다.
+- 이렇게 하는 동안, **분류 작업**에 알고리즘을 활용할 수 있는 몇 가지 방법에 대해 자세히 알아볼 수 있다.
+
+### 연습
+```python
+# 파일 불러오기 
+import pandas as pd
+cuisines_df = pd.read_csv("cleaned_cuisines.csv")
+cuisines_df.head()
+```
+
+
+|     | Unnamed: 0| cuisine | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
+| --- | ---------- | ------- | ------ | -------- | ----- | ---------- | ----- | ------------ | ------- | -------- | --- | ------- | ----------- | ---------- | ----------------------- | ---- | ---- | --- | ----- | ------ | -------- |
+| 0   | 0      | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 1   | 1        | indian  | 1      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 2   | 2        | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 3   | 3        | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 4   | 4       | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 1      | 0        |
+
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import accuracy_score,precision_score,confusion_matrix,classification_report, precision_recall_curve
+from sklearn.svm import SVC
+import numpy as np
+
+# 훈련을 위해 두개의 데이터프레임으로 X와 Y좌표를 나눈다.
+# 요리는 라벨 데이터프레임이 될 수 있다.
+cuisines_label_df = cuisines_df['cuisine']
+cuisines_label_df.head()
+```
+```
+0    indian
+1    indian
+2    indian
+3    indian
+4    indian
+Name: cuisine, dtype: object
+```
+
+
+```python
+# 'unnamed: 0'의 열과 요리 열을 'drop()'을 호출하여 삭제 -> 나머지 데이터를 교육 가능한 기능으로 저장
+cuisines_feature_df = cuisines_df.drop(['Unnamed: 0', 'cuisine'], axis=1)
+cuisines_feature_df.head()
+```
+
+|     | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
+|   |  ------- | ------ | -------- | ----- | ---------- | ----- | ------------ | ------- | -------- | --- | ------- | ----------- | ---------- | ----------------------- | ---- | ---- | --- | ----- | ------ | -------- |
+| 0   | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 1   | 1      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 2    | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 3    | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 0      | 0        |
+| 4  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 1      | 0        |
+
+모델을 훈련할 준비가 됐다 !
+
+### 분류기 선택
+
+
+
+
+
+
+
+
+
 ## Classifiers 2 
 
 ## Applied
