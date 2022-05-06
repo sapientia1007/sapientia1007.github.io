@@ -7,7 +7,7 @@ tags: Machine_Learning
 use_math: true
 ---
 
-(계속 작성중)
+(작성중)
 
 ## Introduction
 고전적인 머신러닝의 기본적인 초점 **분류**에 대해 알아볼 것이다.
@@ -367,7 +367,8 @@ cuisines_feature_df.head()
 
 `Scikit-learn`은 `KNeighbors`, `SVC`, `GaussianProcessClassifier`, `DecisionTreeClassifier`, `RandomForestClassifier`, `MLPClassifier`, `AdaBoostClassifier`, `GaussianNB` 그리고 `QuadraticDiscrinationAnalysis`를 **비교**하고 **시각화된 결과**를 보면서, **생성된 데이터세트**에 대해 나란히 비교한다.
 
-(classifiers1)
+![classifiers1](http://jjhcom.github.io/assets/images/banners/classifiers1.png)
+
 
     - Scikit-learn의 설명서에서 생성된 그림
     - AutoML은 이러한 비교를 클라우드에서 실행하여 데이터에 가장 적합한 알고리즘을 선택할 수 있도록 함으로써 이 문제를 해결
@@ -376,7 +377,7 @@ cuisines_feature_df.head()
 
 이때, **다중 클래스 문제**에 대해 몇 가지 **선택사항**이 있다는 것을 발견한다.
 
-(classifiers2)
+![classifiers2](http://jjhcom.github.io/assets/images/banners/classifiers2.png)
 
 ## 추론
 
@@ -412,7 +413,7 @@ cuisines_feature_df.head()
 
 📌 `Scikit-learn`은 `solvers`가 다양한 종류의 데이터 구조에서 나타나는 **다양한 문제를 처리하는 방법**을 설명하는 **표를 제공**한다.
 
-(classifiers3)
+![classifiers3](http://jjhcom.github.io/assets/images/banners/classifiers3.png)
 
 ### 연습 
 **데이터 나누기**
