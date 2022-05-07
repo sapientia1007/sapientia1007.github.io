@@ -857,7 +857,7 @@ with open("./model.onnx", "wb") as f:
 ### 모델 확인
 
 `Onnx 모델`은 비쥬얼 스튜디오 코드에서 잘 보이지 않지만, 많은 연구자들이 **모델을 시각화**하기 위해 사용하는 매우 좋은 무료 소프트웨어이다.
-- *`Netron`*을 다운로드하고 `model.onnx`파일을 연다.
+- `*Netron*`을 다운로드하고 `model.onnx`파일을 연다.
   - *380개의 입력과 분류기가 나열된 단순 모델을 시각화 할 수 있다*
 
 ![applied1](http://jjhcom.github.io/assets/images/banners/applied1.png)
