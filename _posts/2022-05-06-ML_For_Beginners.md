@@ -296,6 +296,8 @@ memory usage: 11.6+ MB
 # 파일 불러오기 
 import pandas as pd
 cuisines_df = pd.read_csv("cleaned_cuisines.csv")
+
+# 맨 앞 5개의 데이터 확인
 cuisines_df.head()
 ```
 
@@ -319,6 +321,7 @@ import numpy as np
 # 훈련을 위해 두개의 데이터프레임으로 X와 Y좌표를 나눈다.
 # 요리는 라벨 데이터프레임이 될 수 있다.
 cuisines_label_df = cuisines_df['cuisine']
+# 데이터 확인
 cuisines_label_df.head()
 ```
 ```
@@ -332,9 +335,9 @@ Name: cuisine, dtype: object
 
 
 ```python
-# 'unnamed: 0'의 열과 요리 열을 'drop()'을 호출하여 삭제 -> 나머지 데이터를 교육 가능한 기능으로 저장
+# 'Unnamed: 0'의 열과 'cuisine' 열을 'drop()'을 호출하여 삭제 -> 나머지 데이터를 교육 가능한 형상으로 저장
 cuisines_feature_df = cuisines_df.drop(['Unnamed: 0', 'cuisine'], axis=1)
-cuisines_feature_df.head()
+cuisines_feature_df.head() # 'Unnamed: 0'과 'cuisine' 
 ```
 
 |     | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
@@ -379,6 +382,7 @@ cuisines_feature_df.head()
 이때, **다중 클래스 문제**에 대해 몇 가지 **선택사항**이 있다는 것을 발견한다.
 
 ![classifiers2](http://jjhcom.github.io/assets/images/banners/classifiers2.png)
+  > 다중 클래스 분류 옵션을 자세히 설명하는 Microsoft 알고리즘 차트 시트의 분류
 
 ### 추론
 
@@ -455,7 +459,7 @@ print(f'cuisine: {y_test.iloc[50]}')
 ingredients: Index(['chicken', 'cilantro'], dtype='object')
 cuisine: thai
 ```
-*다른 행 번호를 사용해서도 결과 확인*
+*다른 행 번호를 사용해서도 결과 확인해봐도 된다.*
 
 ```python
 # 예측의 정확성 확인
@@ -478,7 +482,7 @@ topPrediction.head()
 
 **인도 요리**가 가장 좋은 추측이며, 그럴 확률이 약 71%로 높다.
 
-*모델이 왜 인도 요리가 가장 좋다고 확신하는지 설명할 수 있다*
+*모델이 왜 인도 요리가 가장 좋다고 확신하는지 설명할 수 있는지 생각해봐야 한다.*
 
 ```python
 # 회귀 분석 수업에서 했던 것처럼 분류 보고서를 인쇄하여 더 자세히 확인 
