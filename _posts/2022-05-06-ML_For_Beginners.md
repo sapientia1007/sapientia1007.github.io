@@ -141,6 +141,7 @@ korean df: (799, 385)
 이 기능은 **도움이 되지 않는 열을 삭제**하는 것부터 시작하여 **성분을 개수에 따라 정렬**한다.
 
 ```python
+# 도움이 되지 않는 열을 삭제하고 성분을 개수에 따라 정렬하혀 성분 데이터 프레임을 생성하는 함수 작성
 def create_ingredient_df(df):
     ingredient_df = df.T.drop(['cuisine','Unnamed: 0']).sum(axis=1).to_frame('value')
     ingredient_df = ingredient_df[(ingredient_df.T != 0).any()]
@@ -194,7 +195,7 @@ korean_ingredient_df.head(10).plot.barh()
 
 
 ```python
-# drop()을 호출하여 구별되는 요리 사이에 혼란을 일으키는 가장 일반적인 재료 삭제 -> 'rice', 'garlic', 'ginger'
+# drop()을 호출하여 구별되는 요리 사이에 혼란을 일으키는 가장 일반적인 재료 삭제 -> 'rice', 'garlic', 'ginger'와 같은 일반적인 재료
 feature_df= df.drop(['cuisine','Unnamed: 0','rice','garlic','ginger'], axis=1)
 labels_df = df.cuisine #.unique()
 feature_df.head()
@@ -218,7 +219,7 @@ feature_df.head()
 oversample = SMOTE()
 transformed_feature_df, transformed_label_df = oversample.fit_resample(feature_df, labels_df)
 
-# 성분 당 레이블 수 확인
+# 성분 당 레이블 수 확인 -> 정제된 균형이 맞는 데이터가 출력
 print(f'new label count: {transformed_label_df.value_counts()}')
 print(f'old label count: {df.cuisine.value_counts()}')
 ```
@@ -226,7 +227,7 @@ print(f'old label count: {df.cuisine.value_counts()}')
 
 **이진분류기**를 생각해보면, 대부분의 **데이터가 `하나`의 클래스**인 경우 *ML 모델은 단지 더 많은 데이터가 있다*는 이유로 **해당 클래스를 더 자주 예측**한다.
 
-**데이터의 균형**을 맞추려면 왜곡된 데이터가 필요하며 이러한 **불균형을 제거**하는 데 도움이 된다.
+**데이터의 균형**을 맞추는 것은 왜곡된 데이터가 있고, 이러한 *왜곡 데이터와 같은* **불균형을 제거**하는 데 도움이 된다.
 
 ```
 new label count: thai        799
@@ -246,7 +247,7 @@ Name: cuisine, dtype: int64
 ```python
 # 레이블 및 기능을 포함한 균형 잡힌 데이터를 파일로 내보낼 수 있는 새 데이터 프레임에 저장
 transformed_df = pd.concat([transformed_label_df,transformed_feature_df],axis=1, join='outer')
-# 데이터를 한 번 더 살펴보기
+# 데이터를 한 번 더 살펴보기(맨 앞 5가지의 데이터 확인)
 transformed_df.head()
 ```
 
