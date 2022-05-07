@@ -74,7 +74,7 @@ from imblearn.over_sampling import SMOTE
 ```python
 # 데이터 가져와서 읽기
 # read_csv()를 사용하여 해당 csv파일의 내용을 읽고 변수 df에 저장
-df  = pd.read_csv('../data/cuisines.csv')
+df  = pd.read_csv('cuisines.csv')
 # 앞에서부터 5개의 데이터를 확인
 df.head()
 ```
