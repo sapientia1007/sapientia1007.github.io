@@ -1030,4 +1030,4 @@ with open("./model.onnx", "wb") as f:
 ___
 
 ## 참고 :
-💥 **위의 모든 자료는 [ML-For-Beginners의 문서](https://github.com/codingalzi/ML-For-Beginners/tree/main/4-Classification)를 참고하여 작성했습니다**
+💥 **위의 모든 내용은 [ML-For-Beginners의 자료](https://github.com/codingalzi/ML-For-Beginners/tree/main/4-Classification)를 참고하여 작성했습니다**
