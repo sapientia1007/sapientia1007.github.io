@@ -518,7 +518,7 @@ weighted avg       0.81      0.81      0.81      1199
 
 이전에는, `Microsoft`의 차트시트를 사용하여 **데이를 분류할 때 사용할 수 있는 다양한 옵션**에 대해서 배웠다.
 
-`Scikit-learn`은 유사하지만, *추정기(분류기)의 범위를 더 좁히는*데 도움이 될 수 있는 **세분화된 커니 시트**를 제공한다.
+`Scikit-learn`은 유사하지만, *추정기(분류기)의 범위를 더 좁히는*데 도움이 될 수 있는 **세분화된 시트(granular cheat sheet)**를 제공한다.
 
 ![classifiers4](http://jjhcom.github.io/assets/images/banners/classifiers4.png)
 
@@ -533,7 +533,7 @@ weighted avg       0.81      0.81      0.81      1199
 - 10만개 미만의 샘플을 가지고 있다
 - 선형 SVC를 선택할 수 있다
 - 수치 데이터를 가지고 있어서 작동이 되지 않는다면, KNeighbors Classifier을 사용해볼 수 있다.
-- 그래도 작동이 됮 ㅣ않는다면, SVC 및 앙상블 분류기를 사용해 볼 수 있따.
+- 그래도 작동이 되지 않는다면, SVC 및 앙상블 분류기를 사용해 볼 수 있다.
 
 
 ### 연습
@@ -569,12 +569,12 @@ X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisine
 ```python
 C = 10
 
-# 다른 분류기 생성
+# 다양한 분류기 생성
 classifiers = {'Linear SVC': SVC(kernel='linear', C=C, probability=True,random_state=0)}
 ```
 
 ```python
-# 선형 SVC를 사용하여 모델을 교육하고 확인
+# 선형 SVC를 사용하여 모델을 교육하고 확인 -> 대략 81%로의 
 n_classifiers = len(classifiers)
 
 for index, (name, classifier) in enumerate(classifiers.items()):
@@ -600,7 +600,7 @@ Accuracy (train) for Linear SVC: 81.1%
 weighted avg       0.81      0.81      0.81      1199
 ```
 ### K-Neighbors 분류기
-`K-Neighbors`는 ML 방법의 "neighvors" 계열의 일부로, **지도 학습**과 **비지도 학습** 모두에 사용할 수 있다.
+`K-Neighbors`는 ML 방법의 "neighbors" 계열의 일부로, **지도 학습**과 **비지도 학습** 모두에 사용할 수 있다.
 
 이 방법에서는, 일반화된 레이블이 그 데이터에 대해 예측할 수 있도록 미리 정의된 점이 생성되고 데이터는  이 점 주변에 수집된다.
 
