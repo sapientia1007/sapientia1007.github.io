@@ -574,7 +574,7 @@ classifiers = {'Linear SVC': SVC(kernel='linear', C=C, probability=True,random_s
 ```
 
 ```python
-# 선형 SVC를 사용하여 모델을 교육하고 확인 -> 대략 81%로의 
+# 선형 SVC를 사용하여 모델을 교육하고 확인 -> 대략 81%로의 정확성
 n_classifiers = len(classifiers)
 
 for index, (name, classifier) in enumerate(classifiers.items()):
@@ -610,7 +610,7 @@ weighted avg       0.81      0.81      0.81      1199
 *이전의 분류기도 좋았고, 데이터에 잘 작동했지만, 더 좋은 정확도를 얻을 수 있으므로 `K-Neighbors 분류기`를 시도해볼 것이다.*
 
 ```python
-# 분류기 배열에 줄을 추가 -> 좋지 않은 결과가 나온다
+# 분류기 배열에 줄을 추가하여 훈련하고 확인 -> 71%로 좋지 않은 결과가 나온다
 classifiers = {'Linear SVC': SVC(kernel='linear', C=C, probability=True,random_state=0), 'KNN classifier': KNeighborsClassifier(C)}
 ```
 
@@ -641,7 +641,7 @@ weighted avg       0.76      0.73      0.73      1199
 **Support Vector Classifier 적용**
 
 ```python
-# K-Neighbors 항목 뒤에 쉼표를 추가 -> 좋은 결과
+# Support Vector Classifier 적용하여 훈련하고 확인-> 약 84%로 좋은 결과
 classifiers = {'Linear SVC': SVC(kernel='linear', C=C, probability=True,random_state=0), 'KNN classifier': KNeighborsClassifier(C), 'SVC': SVC()}
 ```
 ```
@@ -661,7 +661,7 @@ weighted avg       0.84      0.84      0.84      1199
 
 ### 앙상블 분류기
 
-**앙상블 분류기** 특히, `Random Forest`와 `AdaBoost`를 사용하여 성능을 확인해볼 것이다.
+**앙상블 분류기**는 특히, `Random Forest`와 `AdaBoost`를 사용하여 성능을 확인해볼 것이다.
 
 ```python
 # 랜덤 포레스트의 경우 성능이 좋다
