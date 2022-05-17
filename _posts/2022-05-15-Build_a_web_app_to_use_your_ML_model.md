@@ -15,4 +15,4 @@ ___
 ## 참고 :
 💥 **위의 모든 내용은 [ML-For-Beginners의 자료](https://github.com/codingalzi/ML-For-Beginners/tree/main/3-Web-App)를 참고하여 작성했습니다**
 
-💥 외의 참고 자료 : [Flask Web Framework](https://opentutorials.org/course/4904)
+💥 추가 참고 자료 : [Flask Web Framework](https://opentutorials.org/course/4904)
