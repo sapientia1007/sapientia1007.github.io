@@ -47,9 +47,9 @@ use_math: true
 이 자료에서는 `NUFORC(The National UFO Reporting Center)`가 수집한 **80000개의 UFO 목격 데이터**를 사용한다.
 
   > 이 자료에 담겨있는 UFO 목격 데이터의 예시
-
+  >
   > - "A man emerges from a beam of light that shines on a grassy field at night and he runs towards the Texas Instruments parking lot".
-
+  >
   > - "the lights chased us".
 
 `ufos.csv 스프레드시트`는 목격이 발생한 **도시**, **주**, **국가**, **객체의 모양**, **위도**, **경도**에 대한 열이 포함되어 있다.
