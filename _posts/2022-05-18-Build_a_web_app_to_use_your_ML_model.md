@@ -39,6 +39,51 @@ use_math: true
 
 ❗ 제작자들에 의해 'micro-framework'로 정의되는 `Flask`는 **파이썬과 웹 페이지를 구축**하기 위한 **템플릿 엔진**을 사용하는 <u>웹 프레임워크의 기본 기능을 제공한다.</u>
 
+❗ <u>Python 객체 구조를 직렬화하고 역암호화</u>하는 Python 모듈을 `Pickle`이라고 한다. 모델을 **`pickle`** 할 때 **웹에서 사용**하기 위해서는 **모델을 직렬화하거나 구조를 평평하게 만든다**. 피클 파일에는 '.pkl'이라는 접미사가 있다.
+
+
+### 연습 - 데이터 정제
+
+이 자료에서는 `NUFORC(The National UFO Reporting Center)`가 수집한 **80000개의 UFO 목격 데이터**를 사용한다.
+
+이 자료에 담겨있는 UFO 목격 데이터의 예시
+- "A man emerges from a beam of light that shines on a grassy field at night and he runs towards the Texas Instruments parking lot".
+- "the lights chased us".
+
+`ufos.csv 스프레드시트`는 목격이 발생한 **도시**, **주**, **국가**, **객체의 모양**, **위도**, **경도**에 대한 열이 포함되어 있다.
+
+*`pandas`, `matplotlib`, `numpy`를 사용하고, `ufos 스프레드시트`를 사용할 것이다.`*
+
+```python
+import pandas as pd
+import numpy as np
+
+ufos = pd.read_csv('./data/ufos.csv')
+ufos.head()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ___
 
 ## 참고 :
