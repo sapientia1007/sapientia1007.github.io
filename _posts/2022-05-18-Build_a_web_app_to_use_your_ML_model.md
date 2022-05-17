@@ -71,6 +71,8 @@ ufos.head()
 4	10/10/1960 20:00	kaneohe	hi	us	light	900.0	15 minutes	AS a Marine 1st Lt. flying an FJ4B fighter/att...	1/22/2004	21.418056	-157.803611
 ```
 
+`ufos 데이터`를 작은 데이터프레임으로 변환하고, `Country 필드`의 고유값을 확인할 것이다.
+
 ```python
 # 특정 데이터로 데이터 프레임을 형성 후 'Country' 필드의 고유한 값 확인하기
 ufos = pd.DataFrame({'Seconds': ufos['duration (seconds)'], 'Country': ufos['country'],'Latitude': ufos['latitude'],'Longitude': ufos['longitude']})
@@ -81,6 +83,7 @@ ufos.Country.unique()
 array(['us', nan, 'gb', 'ca', 'au', 'de'], dtype=object)
 ```
 
+누락값을 삭제하고, `Seconds`데이터에서 원하는 정보만 저장할 것이다. 
 ```python
 # 누락값 삭제
 ufos.dropna(inplace=True)
@@ -125,7 +128,24 @@ ufos.head()
 
 ### 연습 - 모델 구축 
 
+이제 데이터를 **교육** 및 **테스트** 그룹으로 나누어 **모델을 교육**할 준비를 할 수 있다.
 
+`X 벡터`로 훈련할 세 가지 기능을 선택하면 해당 벡터가 국가가 된다.
+
+초, 위도, 경도를 입력하고 반환할 국가 ID를 얻으려고 한다.
+
+```python
+from sklearn.model_selection import train_test_split
+
+# 데이터 선별 
+Selected_features = ['Seconds','Latitude','Longitude']
+
+X = ufos[Selected_features]
+y = ufos['Country']
+
+# 교육 및 테스트 셋으로 분리
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+```
 
 
 
