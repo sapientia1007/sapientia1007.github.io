@@ -212,6 +212,15 @@ C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X do
 
 ### 연습 - Flask app 구축
 
+...(작성중)
+
+
+### 도전해보기
+🎈 *노트북을 사용하여* **모델**을 `Flask app`으로 가져오는 대신, `Flask app` 내에서 **모델을 교육**할 수 있다.
+
+🎈 데이터가 정리된 후, 노트북에서 **Python 코드를 변환**하여 `train`이라는 경로를 통해 **앱 내에서 모델을 교육**해본다.
+
+🎈 또한, 이 방법을 추구하는 장단점이 무엇일지 생각해본다.
 
 
 
