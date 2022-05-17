@@ -7,14 +7,14 @@ tags: Machine_Learning
 use_math: true
 ---
 
-### INTRO
+### 학습하기
 
 📕 이 섹션에서는 ML 항목에 적용된 `Scikit-learn 모델`을 웹 응용 프로그램 내에서 예측하는 데 사용할 수 있는 파일로 저장하는 방법을 알아볼 것이다. 
   - 모델이 저장되면 **Flask**에 내장된 **웹 앱**에서 모델을 사용하는 방법을 배울 수 있다.
 
-📕 이 섹션에서 학습할 내용 :
-- **훈련 모델**을 **"pickle"** 하는 방법
-- **Flask App**에서 **모델을 사용**하는 방법 
+📕 이 섹션에서 학습할 내용은 다음과 같다.
+- **훈련 모델**을 **"pickle"** 하는 방법을 알아볼 것이다.
+- **Flask App**에서 **모델을 사용**하는 방법을 알아볼 것이다.
 
 ###  고려 사항 
 
@@ -46,9 +46,9 @@ use_math: true
 
 이 자료에서는 `NUFORC(The National UFO Reporting Center)`가 수집한 **80000개의 UFO 목격 데이터**를 사용한다.
 
-이 자료에 담겨있는 UFO 목격 데이터의 예시
-- "A man emerges from a beam of light that shines on a grassy field at night and he runs towards the Texas Instruments parking lot".
-- "the lights chased us".
+  이 자료에 담겨있는 UFO 목격 데이터의 예시
+  - "A man emerges from a beam of light that shines on a grassy field at night and he runs towards the Texas Instruments parking lot".
+  - "the lights chased us".
 
 `ufos.csv 스프레드시트`는 목격이 발생한 **도시**, **주**, **국가**, **객체의 모양**, **위도**, **경도**에 대한 열이 포함되어 있다.
 
