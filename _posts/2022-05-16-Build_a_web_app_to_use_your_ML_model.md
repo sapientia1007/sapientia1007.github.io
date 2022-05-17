@@ -52,7 +52,7 @@ use_math: true
 
 `ufos.csv 스프레드시트`는 목격이 발생한 **도시**, **주**, **국가**, **객체의 모양**, **위도**, **경도**에 대한 열이 포함되어 있다.
 
-*`pandas`, `matplotlib`, `numpy`를 사용하고, `ufos 스프레드시트`를 사용할 것이다.`*
+`pandas`, `matplotlib`, `numpy`를 사용하고, `ufos 스프레드시트`를 사용할 것이다.
 
 ```python
 import pandas as pd
