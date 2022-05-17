@@ -199,8 +199,7 @@ pickle.dump(model, open(model_filename,'wb'))
 model = pickle.load(open('ufo-model.pkl','rb'))
 print(model.predict([[50,44,-12]]))
 
-# 이 과정에서 UserWarning에 발생하는데, X가 feature 이름을 가진 데이터 프레임이기 때문이다. 
-# 이는 feature 이름 없이 값만 사용하면 경고가 발생하지 않는다. 
+# 이 과정에서 UserWarning에 발생하는데, 이는 데이터 프레임에 있는 데이터를 사용하여 모델을 적합시키고, 값만 사용하여 예측하기 때문에 나타난다고 예측할 수 있다.
 # 하지만 오류가 아닌 '경고'이므로 일단 넘어가보도록 한다. 
 ```
 ```
