@@ -198,9 +198,13 @@ pickle.dump(model, open(model_filename,'wb'))
 
 model = pickle.load(open('ufo-model.pkl','rb'))
 print(model.predict([[50,44,-12]]))
+
+# 이 과정에서 UserWarning에 발생하는데, X가 feature 이름을 데이터 프레임이지만, feature 이름 없이 값만 사용하면 경고가 발생하지 않는다. 하지만 '경고'이므로 넘어가보도록 한다. 
 ```
 ```
-[1]
+[3]
+C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  "X does not have valid feature names, but"
 ```
 
 
