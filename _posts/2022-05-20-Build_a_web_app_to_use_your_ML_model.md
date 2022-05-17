@@ -206,6 +206,7 @@ print(model.predict([[50,44,-12]]))
 C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
   "X does not have valid feature names, but"
 ```
+이 모델의 결과가 **3**을 반환했다. 이 **3**은 <u>영국의 국가 코드</u>이다.
 
 
 
