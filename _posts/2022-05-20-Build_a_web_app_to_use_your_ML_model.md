@@ -154,7 +154,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.linear_model import LogisticRegression
 
 # 로지스틱 회귀로 정확도 예측 -> 약 97%
-model = LogisticRegression(max_iter=1000) # max_iter을 설정하지 않으면 오류가 발생하여 max_iter을 설정했다.
+model = LogisticRegression(max_iter=1000) # max_iter을 설정하지 않으면 ConvergenceWarning이 발생하여 max_iter=1000을 설정했다.
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
@@ -208,7 +208,7 @@ C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X do
 ```
 이 모델의 결과가 **3**을 반환했다. 이 **3**은 <u>영국의 국가 코드</u>이다.
 
-
+### 연습 - Flask app 구축
 
 
 
