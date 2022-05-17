@@ -58,9 +58,77 @@ use_math: true
 import pandas as pd
 import numpy as np
 
-ufos = pd.read_csv('./data/ufos.csv')
+# 데이터 불러오기
+ufos = pd.read_csv('./ufos.csv')
 ufos.head()
 ```
+```
+	datetime	city	state	country	shape	duration (seconds)	duration (hours/min)	comments	date posted	latitude	longitude
+0	10/10/1949 20:30	san marcos	tx	us	cylinder	2700.0	45 minutes	This event took place in early fall around 194...	4/27/2004	29.883056	-97.941111
+1	10/10/1949 21:00	lackland afb	tx	NaN	light	7200.0	1-2 hrs	1949 Lackland AFB&#44 TX. Lights racing acros...	12/16/2005	29.384210	-98.581082
+2	10/10/1955 17:00	chester (uk/england)	NaN	gb	circle	20.0	20 seconds	Green/Orange circular disc over Chester&#44 En...	1/21/2008	53.200000	-2.916667
+3	10/10/1956 21:00	edna	tx	us	circle	20.0	1/2 hour	My older brother and twin sister were leaving ...	1/17/2004	28.978333	-96.645833
+4	10/10/1960 20:00	kaneohe	hi	us	light	900.0	15 minutes	AS a Marine 1st Lt. flying an FJ4B fighter/att...	1/22/2004	21.418056	-157.803611
+```
+
+```python
+# 특정 데이터로 데이터 프레임을 형성 후 'Country' 필드의 고유한 값 확인하기
+ufos = pd.DataFrame({'Seconds': ufos['duration (seconds)'], 'Country': ufos['country'],'Latitude': ufos['latitude'],'Longitude': ufos['longitude']})
+
+ufos.Country.unique()
+```
+```
+array(['us', nan, 'gb', 'ca', 'au', 'de'], dtype=object)
+```
+
+```python
+# 누락값 삭제
+ufos.dropna(inplace=True)
+
+# ufos의 'Seconds' 데이터에서 1초~60초 사이의 목격 정보만 가져오기
+ufos = ufos[(ufos['Seconds'] >= 1) & (ufos['Seconds'] <= 60)]
+
+ufos.info()
+```
+```
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 25863 entries, 2 to 80330
+Data columns (total 4 columns):
+ #   Column     Non-Null Count  Dtype  
+---  ------     --------------  -----  
+ 0   Seconds    25863 non-null  float64
+ 1   Country    25863 non-null  object 
+ 2   Latitude   25863 non-null  float64
+ 3   Longitude  25863 non-null  float64
+dtypes: float64(3), object(1)
+memory usage: 1010.3+ KB
+```
+
+Scikit-learn의 `LabelEncoder 라이브러리`를 가져와서 **국가의 텍스트 값**을 **숫자로 변환**한다.
+
+```python
+from sklearn.preprocessing import LabelEncoder
+
+# 'Country' 데이터의 텍스트 값을 숫자로 변환하여 저장 
+ufos['Country'] = LabelEncoder().fit_transform(ufos['Country'])
+
+ufos.head()
+```
+```
+	Seconds	Country	Latitude	Longitude
+2	20.0	3	53.200000	-2.916667
+3	20.0	4	28.978333	-96.645833
+14	30.0	4	35.823889	-80.253611
+23	60.0	4	45.582778	-122.352222
+24	3.0	3	51.783333	-0.783333
+```
+
+### 연습 - 모델 구축 
+
+
+
+
+
 
 
 
