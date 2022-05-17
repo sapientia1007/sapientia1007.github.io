@@ -147,9 +147,61 @@ y = ufos['Country']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 ```
 
+**로지스틱 회귀**를 사용하여 **모델을 훈련**할 것이다.
+
+```python
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.linear_model import LogisticRegression
+
+# 로지스틱 회귀로 훈련 후 정확도 예측 -> 약 96%
+model = LogisticRegression()
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+
+print(classification_report(y_test, predictions))
+print('Predicted labels: ', predictions)
+print('Accuracy: ', accuracy_score(y_test, predictions))
+```
+```
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        41
+           1       0.83      0.23      0.36       250
+           2       1.00      1.00      1.00         8
+           3       1.00      1.00      1.00       131
+           4       0.96      1.00      0.98      4743
+
+    accuracy                           0.96      5173
+   macro avg       0.96      0.85      0.87      5173
+weighted avg       0.96      0.96      0.95      5173
+
+Predicted labels:  [4 4 4 ... 3 4 4]
+Accuracy:  0.960371157935434
+```
+
+**국가**와 **위도/경도**의 `상관관계`가 **정확도**이기 때문에, **정확도**는 약 **96%** 로 나쁘지 않은 결과이다. 
+
+생성한 모델은 *위도 및 경도에서 국가를 추론할 수 있을 만큼* 혁명적인 것은 아니지만, 정제하고 추출한 **원래 데이터**로부터 훈련하고 웹 앱에서 모델을 구축하는 것은 좋은 연습이다.
 
 
+### 연습 - 모델 Pickle
 
+모델을 'Pickle'할 것이다.
+
+피클이 완료되면, **피클 모델**을 로드하여 **초, 위도, 경도의 값을 포함**한 **샘플 데이터 배열**과 비교하여 테스트한다.
+
+```python
+# Pickle 과정 : Pickle -> .pkl의 확장자를 가진 피클 모델 로드 -> 테스트
+import pickle
+model_filename = 'ufo-model.pkl'
+pickle.dump(model, open(model_filename,'wb'))
+
+model = pickle.load(open('ufo-model.pkl','rb'))
+print(model.predict([[50,44,-12]]))
+```
+```
+[1]
+```
 
 
 
