@@ -26,6 +26,18 @@ use_math: true
   - `TensorFlow`
   - `PyTorch`
   - `Lobe.ai`, `Azure Custom Vision`
+- 웹 브라우저에서 모델 자체를 교육할 수 있는 **전체 Flask web app**을 만들 수 있다.
+  - 이 작업은 JavaScript Context에서 Tensorflow.js를 사용하여 수행할 수 있다.
+
+**Python 기반 노트북으로 작업해왔기때문에 이런 노트북에서 Python이 구축한 웹 앱에서 읽을 수 있는 형식으로 훈련된 모델을 내보내기 위해 필요한 단계를 알아볼 것이다.**
+
+### 도구
+
+이 작업을 수행하기 위해서는 **두 가지의 도구**가 필요하다.
+- **Flask**
+- **Pickle**
+
+❗ 제작자들에 의해 'micro-framework'로 정의되는 `Flask`는 **파이썬과 웹 페이지를 구축**하기 위한 **템플릿 엔진**을 사용하는 __웹 프레임워크의 기본 기능을 제공한다.__ 
 
 ___
 
