@@ -153,8 +153,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.linear_model import LogisticRegression
 
-# 로지스틱 회귀로 훈련 후 정확도 예측 -> 약 96%
-model = LogisticRegression()
+# 로지스틱 회귀로 정확도 예측 -> 약 97%
+model = LogisticRegression(max_iter=1000) # max_iter을 설정하지 않으면 오류가 발생하여 max_iter을 설정했다.
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
@@ -166,20 +166,20 @@ print('Accuracy: ', accuracy_score(y_test, predictions))
               precision    recall  f1-score   support
 
            0       1.00      1.00      1.00        41
-           1       0.83      0.23      0.36       250
+           1       0.85      0.47      0.60       250
            2       1.00      1.00      1.00         8
            3       1.00      1.00      1.00       131
-           4       0.96      1.00      0.98      4743
+           4       0.97      1.00      0.98      4743
 
-    accuracy                           0.96      5173
-   macro avg       0.96      0.85      0.87      5173
-weighted avg       0.96      0.96      0.95      5173
+    accuracy                           0.97      5173
+   macro avg       0.96      0.89      0.92      5173
+weighted avg       0.97      0.97      0.97      5173
 
 Predicted labels:  [4 4 4 ... 3 4 4]
-Accuracy:  0.960371157935434
+Accuracy:  0.9702300405953992
 ```
 
-**국가**와 **위도/경도**의 `상관관계`가 **정확도**이기 때문에, **정확도**는 약 **96%** 로 나쁘지 않은 결과이다. 
+**국가**와 **위도/경도**의 `상관관계`가 **정확도**이기 때문에, **정확도**는 약 **97%** 로 나쁘지 않은 결과이다. 
 
 생성한 모델은 *위도 및 경도에서 국가를 추론할 수 있을 만큼* 혁명적인 것은 아니지만, 정제하고 추출한 **원래 데이터**로부터 훈련하고 웹 앱에서 모델을 구축하는 것은 좋은 연습이다.
 
