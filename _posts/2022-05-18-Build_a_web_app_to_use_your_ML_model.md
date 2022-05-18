@@ -215,16 +215,16 @@ C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X do
 
 모델을 호출하기 위해 **Flask app**을 구축하고 비슷한 결과를 반환할 수 있지만, 더 시각적으로 만족스러운 방식이다. 
 
-(1). 📑`ufo-model.pkl` 파일과 📑`notebook.ipynb`이 있는 곳에 📂`web-app`이라 불리는 폴더를 생성한다.
+(1) 📑`ufo-model.pkl` 파일과 📑`notebook.ipynb`이 있는 곳에 📂`web-app`이라 불리는 폴더를 생성한다.
 
 ![res_1](http://jjhcom.github.io/assets/images/banners/ml_assignment1.jpg)
 
-(2). 방금 생성한 📂`web-app` 폴더에 📂`css`폴더를 가진 📂`static`폴더를 생성하고, 📂`templates`폴더를 생성한다.
+(2) 방금 생성한 📂`web-app` 폴더에 📂`css`폴더를 가진 📂`static`폴더를 생성하고, 📂`templates`폴더를 생성한다.
 
 ![res_2](http://jjhcom.github.io/assets/images/banners/ml_assignment2.jpg)
 ![res_3](http://jjhcom.github.io/assets/images/banners/ml_assignment3.jpg)
 
-(3). 📂`web-app` 폴더에 📑`requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열한다.*
+(3) 📂`web-app` 폴더에 📑`requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열한다.*
 
 ![res_4](http://jjhcom.github.io/assets/images/banners/ml_assignment4.jpg)
 
@@ -235,16 +235,17 @@ pandas
 numpy
 flask
 ```
-(4). 터미널에서 📂`web-app`으로 이동해서 📑**파일을 동작**시킨다.
 
-(5). 터미널에서 `pip install` 명령어로 📑`requirements.txt`에 있는 **라이브러리를 설치**한다.
+(4) 터미널에서 📂`web-app`으로 이동해서 📑**파일을 동작**시킨다.
+
+(5) 터미널에서 `pip install` 명령어로 📑`requirements.txt`에 있는 **라이브러리를 설치**한다.
 ```
 pip install -r requirements.txt
 ```
 
 ![res_5](http://jjhcom.github.io/assets/images/banners/ml_assignment5.jpg)
 
-(6). 앱을 완성하기 위해 3개의 📑파일을 더 만들 것이다.
+(6) 앱을 완성하기 위해 3개의 📑파일을 더 만들 것이다.
   - 이 경로에 📑`app.py`를 형성한다.
   - 📂`templates` 디렉터리에 📑`index.html`을 형성한다.
   - 📂`static/css` 디렉터리에 📑`style.css`를 형성한다.
@@ -255,7 +256,7 @@ pip install -r requirements.txt
 
 ![res_12](http://jjhcom.github.io/assets/images/banners/ml_assignment12.jpg)
 
-(7). `style.css`파일에 아래와 같이 작성한다.
+(7) `style.css`파일에 아래와 같이 작성한다.
 
 ```
 body {
@@ -289,7 +290,7 @@ input {
 }
 ```
 
-(8). `index.html`파일에 아래와 같이 작성한다.
+(8) `index.html`파일에 아래와 같이 작성한다.
 
 ```
 <!DOCTYPE html>
@@ -324,7 +325,7 @@ input {
 </html>
 ```
 
-(9). 모델의 소비와 예측 표시를 주도하는 python 파일을 구축하기 위해 📑`app.py`에 아래와 같이 추가한다.
+(9) 모델의 소비와 예측 표시를 주도하는 python 파일을 구축하기 위해 📑`app.py`에 아래와 같이 추가한다.
 
 ```python
 import numpy as np
