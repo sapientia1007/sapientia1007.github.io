@@ -361,10 +361,10 @@ if __name__ == "__main__":
 만들어진 웹 앱의 결과는 다음와 같다.
 ![res_7](http://jjhcom.github.io/assets/images/banners/ml_assignment7)
 이전에 코드로 예측했던 정보들을 이용하여 같은 결과가 나오는지 확인해볼 것이다.
-이전에 '초 = 50 / 위도 = 44 / 경도 = -12'를 입력했을 때 영국의 국가 코드 '3'을 반환했다.
+이전에 'Seconds = 50 / Latitude = 44 / Longitude = -12'를 입력했을 때 영국의 국가 코드 '3'을 반환했다.
 ![res_8](http://jjhcom.github.io/assets/images/banners/ml_assignment8)
 ![res_9](http://jjhcom.github.io/assets/images/banners/ml_assignment9)
-이 웹앱에서는 UK, 즉 똑같이 영국을 예측한다.
+이 웹앱에서는 UK를 반환하는데, 똑같이 영국을 예측한다.
 
 Falsk와 Pickled 모델을 사용하여 이러한 방식으로 모델을 사용하는 것은 비교적 간단하다.
 
