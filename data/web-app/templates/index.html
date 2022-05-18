@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>🛸 UFO 목격 예측하기! 👽</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+
+  <body>
+    <div class="grid">
+
+      <div class="box">
+
+        <p>'초의 수', '위도', '경도'에 따라 어느 나라가 UFO를 목격했다고 보고했을까?</p>
+
+        <form action="{{ url_for('predict')}}" method="post">
+          <input type="number" name="seconds" placeholder="Seconds" required="required" min="0" max="60" />
+          <input type="text" name="latitude" placeholder="Latitude" required="required" />
+          <input type="text" name="longitude" placeholder="Longitude" required="required" />
+          <button type="submit" class="btn"> UFO 목격 나라를 예측 </button>
+        </form>
+
+        <p>{{ prediction_text }}</p>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>
