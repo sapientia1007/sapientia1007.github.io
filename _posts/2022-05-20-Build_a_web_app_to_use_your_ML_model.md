@@ -299,6 +299,44 @@ input {
 </html>
 ```
 
+9. 모델의 소비와 예측 표시를 주도하는 python 파일을 구축하기 위해 `app.py`에 추가한다.
+```python
+import numpy as np
+from flask import Flask, request, render_template
+import pickle
+
+app = Flask(__name__)
+
+model = pickle.load(open("./ufo-model.pkl", "rb"))
+
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+@app.route("/predict", methods=["POST"])
+def predict():
+
+    int_features = [int(x) for x in request.form.values()]
+    final_features = [np.array(int_features)]
+    prediction = model.predict(final_features)
+
+    output = prediction[0]
+
+    countries = ["Australia", "Canada", "Germany", "UK", "US"]
+
+    return render_template(
+        "index.html", prediction_text="Likely country: {}".format(countries[output])
+    )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+> 📌  **Flask**를 사용하는 웹앱을 동작하는 동안 'debug=True'를 추가할 때, 서버의 재시작을 필요로 하는 것 없이 응용프로그램에 대한 변경 사항이 즉시 반영된다. 즉, 프로덕션 앱에서 이 모드를 활성화하지 않는 것을 추천한다.
+
+
 
 ...(작성중)
 
