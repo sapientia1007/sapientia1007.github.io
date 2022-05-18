@@ -215,13 +215,19 @@ C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X do
 
 모델을 호출하기 위해 **Flask app**을 구축하고 비슷한 결과를 반환할 수 있지만, 더 시각적으로 만족스러운 방식이다. 
 
-1. `ufo-model.pkl` 파일과 `notebook.ipynb`이 있는 곳에 `web-app`이라 불리는 폴더를 생성한다.
+1. 📑`ufo-model.pkl` 파일과 📑`notebook.ipynb`이 있는 곳에 📂`web-app`이라 불리는 폴더를 생성한다.
+
 ![res_1](http://jjhcom.github.io/assets/images/banners/ml_assignment1.jpg)
-2. 방금 생성한 `web-app` 폴더에 `css`폴더를 가진 `static`폴더를 생성하고, `templates`폴더 생성한다.
+
+2. 방금 생성한 📂`web-app` 폴더에 📂`css`폴더를 가진 📂`static`폴더를 생성하고, 📂`templates`폴더를 생성한다.
+
 ![res_2](http://jjhcom.github.io/assets/images/banners/ml_assignment2.jpg)
 ![res_3](http://jjhcom.github.io/assets/images/banners/ml_assignment3.jpg)
-3. `web-app` 폴더에 `requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열한다.*
+
+3. 📂`web-app` 폴더에 📑`requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열한다.*
+
 ![res_4](http://jjhcom.github.io/assets/images/banners/ml_assignment4.jpg)
+
 - `requirements.txt`파일에 아래와 같이 작성한다.
 ```
 scikit-learn
@@ -229,19 +235,25 @@ pandas
 numpy
 flask
 ```
-4. 터미널에서 `web-app`으로 이동해서 파일을 동작시킨다.
-5. 터미널에서 `pip install` 명령어로 `requirements.txt`에 있는 라이브러리를 설치한다.
+4. 터미널에서 📂`web-app`으로 이동해서 📑**파일을 동작**시킨다.
+5. 터미널에서 `pip install` 명령어로 📑`requirements.txt`에 있는 **라이브러리를 설치**한다.
 ```
 pip install -r requirements.txt
 ```
+
 ![res_5](http://jjhcom.github.io/assets/images/banners/ml_assignment5.jpg)
-6. 앱을 완성하기 위해 3개의 더 많은 파일을 만들 것이다.
-  - 이 경로에 `app.py`를 형성한다.
-  - `templates` 디렉터리에 `index.html`을 형성한다.
-  - `static/css` 디렉터리에 `style.css`를 형성한다.
+
+6. 앱을 완성하기 위해 3개의 📑파일을 더 만들 것이다.
+  - 이 경로에 📑`app.py`를 형성한다.
+  - 📂`templates` 디렉터리에 📑`index.html`을 형성한다.
+  - 📂`static/css` 디렉터리에 📑`style.css`를 형성한다.
+
 ![res_10](http://jjhcom.github.io/assets/images/banners/ml_assignment10.jpg)
+
 ![res_11](http://jjhcom.github.io/assets/images/banners/ml_assignment11.jpg)
+
 ![res_12](http://jjhcom.github.io/assets/images/banners/ml_assignment12.jpg)
+
 7. `style.css`파일에 아래와 같이 작성한다.
 ```
 body {
@@ -308,7 +320,7 @@ input {
 </html>
 ```
 
-9. 모델의 소비와 예측 표시를 주도하는 python 파일을 구축하기 위해 `app.py`에 추가한다.
+9. 모델의 소비와 예측 표시를 주도하는 python 파일을 구축하기 위해 📑`app.py`에 아래와 같이 추가한다.
 ```python
 import numpy as np
 from flask import Flask, request, render_template
@@ -343,38 +355,50 @@ def predict():
 if __name__ == "__main__":
     app.run(debug=True)
 ```
-> 📌  **Flask**를 사용하는 웹앱을 동작하는 동안 'debug=True'를 추가할 때, 서버의 재시작을 필요로 하는 것 없이 응용프로그램에 대한 변경 사항이 즉시 반영된다. 즉, 프로덕션 앱에서 이 모드를 활성화하지 않는 것을 추천한다.
+> 📌  **Flask**를 사용하는 웹앱을 동작하는 동안 'debug=True'를 추가할 때, *서버의 재시작을 필요로 하는 것 없이* **응용프로그램에 대한 변경 사항이 즉시 반영**된다. 
+> 
+> 따라서 프로덕션 앱에서 이 모드를 활성화하지 않는 것을 추천한다.
 
-만약 python(python3) 파일 `app.py`를 동작시킨다면, 웹 서버는 로컬에서 시작되고 UFO가 목격된 위치에 대해 궁금증의 답을 얻는 짧은 양식을 작성할 수 있다. 
+만약 python(python3) **파일 📑`app.py`를 동작**시킨다면, <u>웹 서버는 로컬에서 시작</u>되고 **UFO가 목격된 위치에 대해 궁금증의 답**을 얻는 짧은 양식을 작성할 수 있다. 
 
-`app.py` 살펴보기
-1. 첫번째, 먼저 종속성이 로드되고 앱이 시작된다.
-2. 모델을 가져온다.
-3. index.html이 홈 경로에 렌더링한다.
+📕 `app.py` 살펴보기
+1. 첫번째, 먼저 **종속성**이 로드되고 **앱이 시작**된다.
+2. **모델**을 가져온다.
+3. `index.html`이 홈 경로에 **렌더링**한다.
 
 ![res_6](http://jjhcom.github.io/assets/images/banners/ml_assignment6.jpg)
 
-`/predict 경로`에 양식이 게시될 때 다음과 같은 몇 가지 일이 발생한다.
-1. 폼 변수가 수집되고 numpy 배열로 변환된다. 그런 다음 이러한 정보가 모델로 전송되고 예측이 반환된다.
-2. 표시할 국가는 예측 국가 코드에서 읽을 수 있는 텍스트로 다시 렌더링되며, 이 값은 template에 렌더링되도록 index.html로 전송된다.
+📕 `/predict` 경로에 **예측 양식**이 게시될 때 다음과 같은 몇 가지 일이 발생한다.
+1. 폼 변수가 수집되고 **numpy 배열**로 변환된다. 그런 다음 **이러한 정보가 모델로 전송되고 예측이 반환**된다.
+2. **표시할 국가**는 예측 국가 코드에서 **읽을 수 있는 텍스트**로 다시 렌더링되며, 이 값은 `template`에 **렌더링**되도록 `index.html`로 전송된다.
 
-만들어진 웹 앱의 결과는 다음와 같다.
+
+### 웹 앱 결과
+
+만들어진 **웹 앱**의 결과는 다음와 같다.
+
 ![res_7](http://jjhcom.github.io/assets/images/banners/ml_assignment7.jpg)
-이전에 코드로 예측했던 정보들을 이용하여 같은 결과가 나오는지 확인해볼 것이다.
-이전에 'Seconds = 50 / Latitude = 44 / Longitude = -12'를 입력했을 때 영국의 국가 코드 '3'을 반환했다.
+
+이전에 코드로 **예측했던 정보**들을 이용하여 **같은 결과가 나오는지 확인**해볼 것이다.
+
+이전에 '`Seconds = 50` / `Latitude = 44` / `Longitude = -12`'를 입력했을 때 **영국의 국가 코드 '3'을 반환**했다.
+
 ![res_8](http://jjhcom.github.io/assets/images/banners/ml_assignment8.jpg)
 ![res_9](http://jjhcom.github.io/assets/images/banners/ml_assignment9.jpg)
-이 웹앱에서는 UK를 반환하는데, 똑같이 영국을 예측한다.
 
-Falsk와 Pickled 모델을 사용하여 이러한 방식으로 모델을 사용하는 것은 비교적 간단하다.
+이 웹앱에서는 **UK**를 반환하는데, 똑같이 **영국을 예측**한다.
 
-가장 어려운 것은 예측하기 위해 모델로 전송되어야 하는 데이터가 어떤 형태인지 이해하는 것이다.
 
-그것은 어떻게 그 모델이 훈련되는지에 따라 달려 있다.
 
-예측을 얻기 위해 세 개의 데이터 포이트가 입력되어야 한다.
-
-전문적인 환경에서, 모델을 교육하는 사람과 웹이나 모바일 앱에서 모델을 소비하는 사람 사이에 얼마나 좋은 의사소통이 중요한지 알 수 있다.
+> `Flask`와 `Pickled 모델`을 사용하여 이러한 방식으로 모델을 사용하는 것은 비교적 간단하다.
+>
+> 가장 어려운 것은 예측하기 위해 *모델로 전송되어야 하는 데이터가 어떤 형태*인지 이해하는 것이다.
+>
+> 그것은 **어떻게 그 모델이 훈련**되는지에 따라 달려 있다.
+>
+> **예측**을 얻기 위해 **세 개의 데이터 포인트**가 입력되어야 한다.
+>
+> 전문적인 환경에서, 모델을 교육하는 사람과 웹이나 모바일 앱에서 모델을 소비하는 사람 사이에 얼마나 좋은 의사소통이 중요한지 알 수 있다.
 
 
 
