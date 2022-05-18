@@ -236,6 +236,7 @@ numpy
 flask
 ```
 (4). 터미널에서 📂`web-app`으로 이동해서 📑**파일을 동작**시킨다.
+
 (5). 터미널에서 `pip install` 명령어로 📑`requirements.txt`에 있는 **라이브러리를 설치**한다.
 ```
 pip install -r requirements.txt
