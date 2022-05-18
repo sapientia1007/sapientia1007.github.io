@@ -255,6 +255,7 @@ pip install -r requirements.txt
 ![res_12](http://jjhcom.github.io/assets/images/banners/ml_assignment12.jpg)
 
 7. `style.css`파일에 아래와 같이 작성한다.
+
 ```
 body {
 	width: 100%;
@@ -286,7 +287,9 @@ input {
 	display: inline-block;
 }
 ```
+
 8. `index.html`파일에 아래와 같이 작성한다.
+
 ```
 <!DOCTYPE html>
 <html>
@@ -321,6 +324,7 @@ input {
 ```
 
 9. 모델의 소비와 예측 표시를 주도하는 python 파일을 구축하기 위해 📑`app.py`에 아래와 같이 추가한다.
+
 ```python
 import numpy as np
 from flask import Flask, request, render_template
@@ -355,6 +359,7 @@ def predict():
 if __name__ == "__main__":
     app.run(debug=True)
 ```
+
 > 📌  **Flask**를 사용하는 웹앱을 동작하는 동안 'debug=True'를 추가할 때, *서버의 재시작을 필요로 하는 것 없이* **응용프로그램에 대한 변경 사항이 즉시 반영**된다. 
 > 
 > 따라서 프로덕션 앱에서 이 모드를 활성화하지 않는 것을 추천한다.
