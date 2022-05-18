@@ -216,8 +216,9 @@ C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X do
 모델을 호출하기 위해 **Flask app**을 구축하고 비슷한 결과를 반환할 수 있지만, 더 시각적으로 만족스러운 방식이다. 
 
 1. `ufo-model.pkl` 파일과 `notebook.ipynb`이 있는 곳에 `web-app`이라 불리는 폴더를 생성한다.
-2. 방금 생성한 `web-app` 폴더에 `static` 폴더, `css`폴더 그리고 `templates`폴더를 를 생성한다.
-3. `web-app` 폴더에 `requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열*
+2. 방금 생성한 `web-app` 폴더에 `css`폴더를 가진 `static`폴더를 생성하고, `templates`폴더 생성한다.
+3. `web-app` 폴더에 `requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열한다.*
+  - `requirements.txt`파일에 아래와 같이 작성한다.
 ```
 scikit-learn
 pandas
