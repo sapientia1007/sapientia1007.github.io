@@ -213,6 +213,93 @@ C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X do
 
 ### 연습 - Flask app 구축
 
+모델을 호출하기 위해 **Flask app**을 구축하고 비슷한 결과를 반환할 수 있지만, 더 시각적으로 만족스러운 방식이다. 
+
+1. `ufo-model.pkl` 파일과 `notebook.ipynb`이 있는 곳에 `web-app`이라 불리는 폴더를 생성한다.
+2. 방금 생성한 `web-app` 폴더에 `static` 폴더, `css`폴더 그리고 `templates`폴더를 를 생성한다.
+3. `web-app` 폴더에 `requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열*
+```
+scikit-learn
+pandas
+numpy
+flask
+```
+4. 터미널에서 `web-app`으로 이동해서 파일을 동작시킨다.
+5. 터미널에서 `pip install` 명령어로 `requirements.txt`에 있는 라이브러리를 설치한다.
+```
+pip install -r requirements.txt
+```
+6. 앱을 완성하기 위해 3개의 더 많은 파일을 만들 것이다.
+  - 이 경로에 `app.py`를 형성한다.
+  - `templates` 디렉터리에 `index.html`을 형성한다.
+  - `static/css` 디렉터리에 `style.css`를 형성한다.
+7. `style.css`파일에 아래와 같이 작성한다.
+```
+body {
+	width: 100%;
+	height: 100%;
+	font-family: 'Helvetica';
+	background: black;
+	color: #fff;
+	text-align: center;
+	letter-spacing: 1.4px;
+	font-size: 30px;
+}
+
+input {
+	min-width: 150px;
+}
+
+.grid {
+	width: 300px;
+	border: 1px solid #2d2d2d;
+	display: grid;
+	justify-content: center;
+	margin: 20px auto;
+}
+
+.box {
+	color: #fff;
+	background: #2d2d2d;
+	padding: 12px;
+	display: inline-block;
+}
+```
+8. `index.html`파일에 아래와 같이 작성한다.
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>🛸 UFO 목격 예측하기! 👽</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+
+  <body>
+    <div class="grid">
+
+      <div class="box">
+
+        <p>'초의 수', '위도', '경도'에 따라 어느 나라가 UFO를 목격했다고 보고했을까?</p>
+
+        <form action="{{ url_for('predict')}}" method="post">
+          <input type="number" name="seconds" placeholder="Seconds" required="required" min="0" max="60" />
+          <input type="text" name="latitude" placeholder="Latitude" required="required" />
+          <input type="text" name="longitude" placeholder="Longitude" required="required" />
+          <button type="submit" class="btn"> UFO 목격 나라를 예측 </button>
+        </form>
+
+        <p>{{ prediction_text }}</p>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>
+```
+
+
 ...(작성중)
 
 
