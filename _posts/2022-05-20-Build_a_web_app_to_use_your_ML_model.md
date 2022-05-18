@@ -216,12 +216,12 @@ C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X do
 모델을 호출하기 위해 **Flask app**을 구축하고 비슷한 결과를 반환할 수 있지만, 더 시각적으로 만족스러운 방식이다. 
 
 1. `ufo-model.pkl` 파일과 `notebook.ipynb`이 있는 곳에 `web-app`이라 불리는 폴더를 생성한다.
-![res_1](http://jjhcom.github.io/assets/images/banners/ml_assignment1)
+![res_1](http://jjhcom.github.io/assets/images/banners/ml_assignment1.jpg)
 2. 방금 생성한 `web-app` 폴더에 `css`폴더를 가진 `static`폴더를 생성하고, `templates`폴더 생성한다.
-![res_2](http://jjhcom.github.io/assets/images/banners/ml_assignment2)
-![res_3](http://jjhcom.github.io/assets/images/banners/ml_assignment3)
+![res_2](http://jjhcom.github.io/assets/images/banners/ml_assignment2.jpg)
+![res_3](http://jjhcom.github.io/assets/images/banners/ml_assignment3.jpg)
 3. `web-app` 폴더에 `requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열한다.*
-![res_4](http://jjhcom.github.io/assets/images/banners/ml_assignment4)
+![res_4](http://jjhcom.github.io/assets/images/banners/ml_assignment4.jpg)
 - `requirements.txt`파일에 아래와 같이 작성한다.
 ```
 scikit-learn
@@ -234,14 +234,14 @@ flask
 ```
 pip install -r requirements.txt
 ```
-![res_5](http://jjhcom.github.io/assets/images/banners/ml_assignment5)
+![res_5](http://jjhcom.github.io/assets/images/banners/ml_assignment5.jpg)
 6. 앱을 완성하기 위해 3개의 더 많은 파일을 만들 것이다.
   - 이 경로에 `app.py`를 형성한다.
   - `templates` 디렉터리에 `index.html`을 형성한다.
   - `static/css` 디렉터리에 `style.css`를 형성한다.
-![res_10](http://jjhcom.github.io/assets/images/banners/ml_assignment10)
-![res_11](http://jjhcom.github.io/assets/images/banners/ml_assignment11)
-![res_12](http://jjhcom.github.io/assets/images/banners/ml_assignment12)
+![res_10](http://jjhcom.github.io/assets/images/banners/ml_assignment10.jpg)
+![res_11](http://jjhcom.github.io/assets/images/banners/ml_assignment11.jpg)
+![res_12](http://jjhcom.github.io/assets/images/banners/ml_assignment12.jpg)
 7. `style.css`파일에 아래와 같이 작성한다.
 ```
 body {
@@ -352,18 +352,18 @@ if __name__ == "__main__":
 2. 모델을 가져온다.
 3. index.html이 홈 경로에 렌더링한다.
 
-![res_6](http://jjhcom.github.io/assets/images/banners/ml_assignment6)
+![res_6](http://jjhcom.github.io/assets/images/banners/ml_assignment6.jpg)
 
 `/predict 경로`에 양식이 게시될 때 다음과 같은 몇 가지 일이 발생한다.
 1. 폼 변수가 수집되고 numpy 배열로 변환된다. 그런 다음 이러한 정보가 모델로 전송되고 예측이 반환된다.
 2. 표시할 국가는 예측 국가 코드에서 읽을 수 있는 텍스트로 다시 렌더링되며, 이 값은 template에 렌더링되도록 index.html로 전송된다.
 
 만들어진 웹 앱의 결과는 다음와 같다.
-![res_7](http://jjhcom.github.io/assets/images/banners/ml_assignment7)
+![res_7](http://jjhcom.github.io/assets/images/banners/ml_assignment7.jpg)
 이전에 코드로 예측했던 정보들을 이용하여 같은 결과가 나오는지 확인해볼 것이다.
 이전에 'Seconds = 50 / Latitude = 44 / Longitude = -12'를 입력했을 때 영국의 국가 코드 '3'을 반환했다.
-![res_8](http://jjhcom.github.io/assets/images/banners/ml_assignment8)
-![res_9](http://jjhcom.github.io/assets/images/banners/ml_assignment9)
+![res_8](http://jjhcom.github.io/assets/images/banners/ml_assignment8.jpg)
+![res_9](http://jjhcom.github.io/assets/images/banners/ml_assignment9.jpg)
 이 웹앱에서는 UK를 반환하는데, 똑같이 영국을 예측한다.
 
 Falsk와 Pickled 모델을 사용하여 이러한 방식으로 모델을 사용하는 것은 비교적 간단하다.
