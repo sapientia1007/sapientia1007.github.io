@@ -232,6 +232,7 @@ C:\Users\user\anaconda3\lib\site-packages\sklearn\base.py:451: UserWarning: X do
 (2) 방금 생성한 📂`web-app` 폴더에 📂`css`폴더를 가진 📂`static`폴더를 생성하고, 📂`templates`폴더를 생성한다.
 
 ![res_2](http://jjhcom.github.io/assets/images/banners/ml_assignment2.jpg)
+
 ![res_3](http://jjhcom.github.io/assets/images/banners/ml_assignment3.jpg)
 
 (3) 📂`web-app` 폴더에 📑`requirements.txt`파일을 만든다. *자바스크립트 앱의 패키지처럼, 이 파일은 앱에 필요한 의존성을 나열한다.*
