@@ -53,8 +53,7 @@ use_math: true
   > - "the lights chased us".
 
 `ufos.csv 스프레드시트`는 목격이 발생한 **도시**, **주**, **국가**, **객체의 모양**, **위도**, **경도**에 대한 열이 포함되어 있다.
-
-`pandas`, `matplotlib`, `numpy`를 사용하고, `ufos 스프레드시트`를 사용할 것이다.
+<br> `pandas`, `matplotlib`, `numpy`를 사용하고, `ufos 스프레드시트`를 사용할 것이다. </br>
 
 ```python
 import pandas as pd
@@ -144,10 +143,8 @@ ufos.head()
 ### 연습 - 모델 구축 
 
 이제 데이터를 **교육** 및 **테스트** 그룹으로 나누어 **모델을 교육**할 준비를 할 수 있다.
-
-`X 벡터`로 <u>훈련할 세 가지 기능</u>을 선택하면 **해당 벡터**가 `국가`가 된다.
-
-*초, 위도, 경도를 입력*하고 **반환할 국가 ID**를 얻으려고 한다.
+<br> `X 벡터`로 <u>훈련할 세 가지 기능</u>을 선택하면 **해당 벡터**가 `국가`가 된다. </br>
+<br> *초, 위도, 경도를 입력*하고 **반환할 국가 ID**를 얻으려고 한다. </br>
 
 ```python
 from sklearn.model_selection import train_test_split
