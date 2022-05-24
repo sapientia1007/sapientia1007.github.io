@@ -29,7 +29,7 @@ use_math: true
 - 웹 브라우저에서 모델 자체를 교육할 수 있는 **전체 Flask web app**을 만들 수 있다.
   - 이 작업은 JavaScript Context에서 Tensorflow.js를 사용하여 수행할 수 있다.
 
-**Python 기반 노트북으로 작업해왔기때문에 이런 노트북에서 Python이 구축한 웹 앱에서 읽을 수 있는 형식으로 훈련된 모델을 내보내기 위해 필요한 단계를 알아볼 것이다.**
+**🚩 Python 기반 노트북으로 작업해왔기때문에 이런 노트북에서 Python이 구축한 웹 앱에서 읽을 수 있는 형식으로 훈련된 모델을 내보내기 위해 필요한 단계를 알아볼 것이다.**
 
 ### 도구
 
@@ -166,7 +166,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.linear_model import LogisticRegression
 
 # 로지스틱 회귀로 정확도 예측 -> 약 97%
-model = LogisticRegression(max_iter=1000) # max_iter을 설정하지 않으면 ConvergenceWarning이 발생하여 max_iter=1000을 설정했다.
+model = LogisticRegression(max_iter=1000) # max_iter을 설정하지 않으면 ConvergenceWarning이 발생하여 최상의 모델을 만들기 max_iter=1000을 설정했다.
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
@@ -385,7 +385,7 @@ if __name__ == "__main__":
 
 ![res_6](http://jjhcom.github.io/assets/images/banners/ml_assignment6.jpg)
 
-📕 `/predict` 경로에 **예측 양식**이 게시될 때 발생하는 일 확인하기
+📕 **`/predict` 경로에 예측 양식이 게시될 때 발생하는 일 확인하기**
 1. 폼 변수가 수집되고 **numpy 배열**로 변환된다. 그런 다음 **이러한 정보가 모델로 전송되고 예측이 반환**된다.
 2. **표시할 국가**는 예측 국가 코드에서 **읽을 수 있는 텍스트**로 다시 렌더링되며, 이 값은 `template`에 **렌더링**되도록 `index.html`로 전송된다.
 
@@ -402,7 +402,7 @@ if __name__ == "__main__":
 ![res_8](http://jjhcom.github.io/assets/images/banners/ml_assignment8.jpg)
 ![res_9](http://jjhcom.github.io/assets/images/banners/ml_assignment9.jpg)
 
-이 웹앱에서는 **UK**를 반환하는데, 똑같이 **영국을 예측**한다는 것을 알 수 있다. .
+이 웹앱에서는 **UK**를 반환하는데, 똑같이 **영국을 예측**한다는 것을 알 수 있다.
 
 
 
