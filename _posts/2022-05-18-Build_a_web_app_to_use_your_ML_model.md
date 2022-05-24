@@ -166,7 +166,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.linear_model import LogisticRegression
 
 # 로지스틱 회귀로 정확도 예측 -> 약 97%
-model = LogisticRegression(max_iter=1000) # max_iter을 설정하지 않으면 ConvergenceWarning이 발생하여 최상의 모델을 만들기 max_iter=1000을 설정했다.
+model = LogisticRegression(max_iter=1000) # max_iter을 설정하지 않으면 ConvergenceWarning이 발생하여 적합한 모델을 만들기 max_iter=1000을 설정했다.
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
