@@ -53,7 +53,7 @@ use_math: true
   > - "the lights chased us".
 
 `ufos.csv 스프레드시트`는 목격이 발생한 **도시**, **주**, **국가**, **객체의 모양**, **위도**, **경도**에 대한 열이 포함되어 있다.
-<br> `pandas`, `matplotlib`, `numpy`를 사용하고, `ufos 스프레드시트`를 사용할 것이다. </br>
+<br> `pandas`, `matplotlib`, `numpy`를 사용하고, `ufos 스프레드시트`를 사용할 것이다.
 
 ```python
 import pandas as pd
@@ -144,7 +144,7 @@ ufos.head()
 
 이제 데이터를 **교육** 및 **테스트** 그룹으로 나누어 **모델을 교육**할 준비를 할 수 있다.
 <br> `X 벡터`로 <u>훈련할 세 가지 기능</u>을 선택하면 **해당 벡터**가 `국가`가 된다. 
-<br> *초, 위도, 경도를 입력*하고 **반환할 국가 ID**를 얻으려고 한다. </br>
+<br> *초, 위도, 경도를 입력*하고 **반환할 국가 ID**를 얻으려고 한다. 
 
 ```python
 from sklearn.model_selection import train_test_split
@@ -398,7 +398,7 @@ if __name__ == "__main__":
 ![res_7](http://jjhcom.github.io/assets/images/banners/ml_assignment7.jpg)
 
 이전에 코드로 **예측했던 정보**들을 이용하여 **같은 결과가 나오는지 확인**해볼 것이다.
-<br> 이전에 `Seconds = 50` / `Latitude = 44` / `Longitude = -12`를 입력했을 때 **영국의 국가 코드 '3'을 반환**했다. </br>
+<br> 이전에 `Seconds = 50` / `Latitude = 44` / `Longitude = -12`를 입력했을 때 **영국의 국가 코드 '3'을 반환**했다. 
 
 ![res_8](http://jjhcom.github.io/assets/images/banners/ml_assignment8.jpg)
 ![res_9](http://jjhcom.github.io/assets/images/banners/ml_assignment9.jpg)
@@ -410,7 +410,7 @@ if __name__ == "__main__":
 > `Flask`와 `Pickled 모델`을 사용하여 이러한 방식으로 모델을 사용하는 것은 비교적 간단하다.
 > <br> 가장 어려운 것은 예측하기 위해 *모델로 전송되어야 하는 데이터가 어떤 형태*인지 이해하는 것이다.
 > <br> 그것은 **어떻게 그 모델이 훈련**되는지에 따라 달려 있다.
-> <br> **예측**을 얻기 위해 **세 개의 데이터 포인트**가 입력되어야 한다. </br>
+> <br> **예측**을 얻기 위해 **세 개의 데이터 포인트**가 입력되어야 한다. 
 
 
 > 전문적인 환경에서, 모델을 교육하는 사람과 웹이나 모바일 앱에서 모델을 소비하는 사람 사이에 얼마나 좋은 의사소통이 중요한지 알 수 있다.
