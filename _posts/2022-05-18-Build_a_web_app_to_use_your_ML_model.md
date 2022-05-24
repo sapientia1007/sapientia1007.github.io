@@ -257,7 +257,7 @@ pip install -r requirements.txt
 ![res_5](http://jjhcom.github.io/assets/images/banners/ml_assignment5.jpg)
 
 (6) 앱을 완성하기 위해 3개의 📑파일을 더 만들 것이다.
-  - 이 경로에 📑`app.py`를 형성한다.
+  - 이 경로, 즉 📂`web-app`에 📑`app.py`를 형성한다.
   - 📂`templates` 디렉터리에 📑`index.html`을 형성한다.
   - 📂`static/css` 디렉터리에 📑`style.css`를 형성한다.
 
