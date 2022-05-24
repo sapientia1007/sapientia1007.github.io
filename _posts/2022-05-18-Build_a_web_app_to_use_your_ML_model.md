@@ -269,7 +269,7 @@ pip install -r requirements.txt
 
 (7) `style.css`파일에 아래와 같이 작성한다.
 
-```
+```css
 body {
 	width: 100%;
 	height: 100%;
@@ -303,7 +303,7 @@ input {
 
 (8) `index.html`파일에 아래와 같이 작성한다.
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
