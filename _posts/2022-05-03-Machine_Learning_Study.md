@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Machine_Learning_Study 1
-subtitle: Chapter 1/2/11
+subtitle: Chapter 1 & 2 & 11
 categories: Machine_Learning_Study
 tags: Study
 use_math : true
