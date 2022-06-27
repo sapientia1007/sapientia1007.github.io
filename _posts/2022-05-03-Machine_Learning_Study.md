@@ -412,3 +412,5 @@ ___
 
 ## 참고 : 
 Machine Learning with Pytorch and Scikit-learn, Raschka, Liu, Mirjalili
+
+![book](http://jjhcom.github.io/assets/images/banners/book.jpg)
