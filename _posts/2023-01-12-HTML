@@ -1,0 +1,183 @@
+---
+layout: post
+title: 생활코딩 WEB1 - HTML
+subtitle: 생활코딩 
+categories: 생활코딩
+tags: 생활코딩
+use_math: true
+---
+# WEB1 - HTML
+
+- HTML의 여러 태그 중에 무엇인가를 설명하지 않는 태그들은 감싸야하는 컨텐츠가 없기 때문에 태그를 닫지 않는다는 규칙
+
+        ⇒ HTML의 기본 문법 = Tag(태그)
+
+- 단락을 표현할 때는 줄바꿈 태그<br> 보다는 단락을 표현하는 태그인 p 태그가 더 좋은 선택
+    - <br> : 닫는 태그 따로 존재 하지 않음, 줄바꿈으로는 많은 사용→ 단락 사이 크기 사용 횟수만큼 조절 가능으로 자유, but 단락나누기로는 사용 잘 안함
+    - <p> : <br>보다 정보로서 보다 가치있게 해주기 때문 즉, 단락 구분이라는 걸 보여줌, <br>은 단순 줄바꿈, but 단락 사이 크기 고정 : 단점 → CSS로 해결 가능
+        
+        ```jsx
+        ⇒ <p style="margin-top:45px;">
+        ```
+        
+        ⇒ p 태그를 통해서 단락의 경계를 분명히 함
+        
+        ⇒ CSS를 통해서 p 태그의 디자인을 자유롭게 변경할 수 있음
+        
+        ⇒ br 태그 보다 p 태그가 더 좋은 선택 
+        
+- 이미지 HTML 추가 : <img>
+    - 속성(Attribute)
+        - 크기(width)
+        - 이미지 소스(src&source)
+    
+    ⇒ 속성으로 태그에 더 많은 의미 추가 가능
+    
+    - 크기 width 사용
+    
+    ```jsx
+    ⇒ <img src="game-g42f2fc557_1920.jpg" width="10%"> 
+    ```
+    
+    ```jsx
+    ⇒ <img src="https://cdn.pixabay.com/photo/2022/12/04/15/10/game-7634718_960_720.jpg”>
+    ```
+    
+- 리스트 HTML 추가
+    - <li></li> 사용
+    - 리스트 구분 → <ul></ul>
+        
+        ⇒ **u**nordered **l**ist
+        
+    
+    ```
+    <ul>
+        <li>1. HTML</li>
+        <li>2. CSS</li>
+        <li>3. JavaScript</li>
+    </ul>
+    <ul>
+        <li>SJH</li>
+        <li>HEC</li>
+        <li>KCW</li>
+    </ul>
+    ```
+    
+    - 숫자를 매기며 리스트 구분 → <ol></ol>
+        
+        ⇒ **o**rdered **l**ist
+        
+    
+    ```
+    <ol>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ol>
+    ```
+    
+    - 테이블(표) 추가
+        
+        ```
+        ⇒ 
+        <table>
+            <tr>
+                <td>head</td>
+                <td>98.1%</td>
+            </tr>
+            <tr>
+                <td>body</td>
+                <td>97.9%</td>
+            </tr>
+        </table>
+        ```
+        
+    - 제목 → <title></title>
+    - UTF-8 추가 → <meta charset="utf-8">
+        
+        ```jsx
+        <title>WEB1 - html</title>
+        <meta charset="utf-8">
+        ```
+        
+    - 본문 → <body>
+    - 본문 설명 (제목과 같은 개념)→ <head>
+    - <body>, <head>를 감싸는 하나의 태그 → <html></html>
+    - HTML로 만들어졌다는 것을 표현하기 위에 문서의 시작에 추가
+        
+        ⇒ <!doctype html>
+        
+    
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>생활코딩 WEB1 - HTML</title>
+    <meta charset = "utf-8">
+    </head>
+    
+    <body>
+    <ol>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ol>
+    <h1>HTML</h1>
+    <p>Hypertext Markup Language (HTML) is the standard markup language for <strong>creating <u>web</u> pages</strong> and web applications.
+        Web browsers receive HTML documents from a web server or from local storage and render them into multimedia web pages. 
+        HTML describes the structure of a web page semantically and originally included cues for the appearance of the document.</p>
+    <img src="game-g42f2fc557_1920.jpg" width="10%">
+    <p style="margin-top:45px;">HTML elements are the building blocks of HTML pages. With HTML constructs, images and other objects, such as interactive forms, may be embedded into the rendered page. 
+        It provides a means to create structured documents by denoting structural semantics for text such as headings, paragraphs, lists, links, quotes and other items. 
+        HTML elements are delineated by tags, written using angle brackets. </p>
+    </body>
+    </html>
+    ```
+    
+- 링크 추가
+    - <a> = “anchor”
+    - <href> = “**H**yperText **Ref**erence”
+    
+    ```html
+    <a href="https://www.w3.org/TR/html5/" target="_blank" title="html5 specification">Hypertext Markup Language (HTML)</a>
+    ```
+    
+    ⇒ target=”_blank” 
+    
+    : 링크를 클릭했을때 새 창에서 페이지가 열리게 하는 속성
+    
+    ⇒ title
+    
+    : 이 링크가 어떤 내용을 담고 있는지를 툴팁으로 보여주는 기능
+    
+- 웹페이지의 그룹  = Web Site
+- INTERNET vs. WEB
+    - 인터넷 = 도시 = 도로 = 운영체제
+    - 웹 = 도시 위에 있는 건물 하나 = 도로 위를 달리는 자동차 한 대 = 운영체제 위에서 동작하는 하나의 앱
+- 요청하는 컴퓨터 = 클라이언트(Client)
+- 응답하는 컴퓨터 = 서버(Server)
+    
+    → 웹 브라우저가 동작하는 컴퓨터 = 클라이언트 → 웹브라우저  = 웹 클라이언트 == 논리적인 관념
+    
+    → 웹 서버가 동작하는 컴퓨터 = 서버 → 웹 서버
+    
+    ⇒ 게임 개발 → 사용자의 컴퓨터에 설치된 프로그램 = 게임 클라이언트
+    
+    ⇒ 게임 회사의 서버 컴퓨터에 설치된 프로그램  = 게임 서버
+    
+- 인터넷에 연결된 컴퓨터 하나 하나 = 호스트
+- 이런 컴퓨터를 빌려주는 사업 =  호스팅
+
+---
+
+- 동영상 추가 → <iframe></iframe>
+- 댓글 기능 추가 → LiveRE / DISQUS 사용
+- 방문자와 채팅 기능 추가 → tawk 사용
+- 방문자 수 확인 → google analytics 사용  → google analytics demo
+
+
+___
+
+## 참고 :
+💥 **위의 모든 내용은 [생활코딩 - WEB1 : HTML & INTERNET](https://opentutorials.org/course/3084)를 참고하여 작성했습니다**
+
