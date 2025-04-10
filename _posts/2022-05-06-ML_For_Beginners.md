@@ -108,7 +108,7 @@ df.cuisine.value_counts().plot.barh() # 데이터 분포가 고르지 않음
 ```
 
 
-![res_1](http://jjhcom.github.io/assets/images/banners/res_1.png)
+![res_1](http://sapientia1007.github.io/assets/images/banners/res_1.png)
 
 ```python
 # 요리 당 얼마나 많은 데이터 사용할 수 있는지 확인
@@ -156,7 +156,7 @@ thai_ingredient_df.head(10).plot.barh()
 ```
 
 
-![res_2](http://jjhcom.github.io/assets/images/banners/res_2.png)
+![res_2](http://sapientia1007.github.io/assets/images/banners/res_2.png)
 
 ```python
 # 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Japanese)
@@ -164,7 +164,7 @@ japanese_ingredient_df = create_ingredient_df(japanese_df)
 japanese_ingredient_df.head(10).plot.barh()
 ```
 
-![res_3](http://jjhcom.github.io/assets/images/banners/res_3.png)
+![res_3](http://sapientia1007.github.io/assets/images/banners/res_3.png)
 
 ```python
 # 요리별로 가장 인기 있는 10대 식재료에 대한 아이디어 얻기(Chinese)
@@ -172,7 +172,7 @@ chinese_ingredient_df = create_ingredient_df(chinese_df)
 chinese_ingredient_df.head(10).plot.barh()
 ```
 
-![res_4](http://jjhcom.github.io/assets/images/banners/res_4.png)
+![res_4](http://sapientia1007.github.io/assets/images/banners/res_4.png)
 
 
 ```python
@@ -181,7 +181,7 @@ indian_ingredient_df = create_ingredient_df(indian_df)
 indian_ingredient_df.head(10).plot.barh()
 ```
 
-![res_5](http://jjhcom.github.io/assets/images/banners/res_5.png)
+![res_5](http://sapientia1007.github.io/assets/images/banners/res_5.png)
 
 
 ```python
@@ -190,7 +190,7 @@ korean_ingredient_df = create_ingredient_df(korean_df)
 korean_ingredient_df.head(10).plot.barh()
 ```
 
-![res_6](http://jjhcom.github.io/assets/images/banners/res_6.png)
+![res_6](http://sapientia1007.github.io/assets/images/banners/res_6.png)
 
 
 
@@ -371,7 +371,7 @@ cuisines_feature_df.head() # 'Unnamed: 0'과 'cuisine'
 
 `Scikit-learn`은 `KNeighbors`, `SVC`, `GaussianProcessClassifier`, `DecisionTreeClassifier`, `RandomForestClassifier`, `MLPClassifier`, `AdaBoostClassifier`, `GaussianNB` 그리고 `QuadraticDiscrinationAnalysis`를 **비교**하고 **시각화된 결과**를 보면서, **생성된 데이터세트**에 대해 나란히 비교한다.
 
-![classifiers1](http://jjhcom.github.io/assets/images/banners/classifiers1.png)
+![classifiers1](http://sapientia1007.github.io/assets/images/banners/classifiers1.png)
 
 
     - Scikit-learn의 설명서에서 생성된 그림
@@ -381,7 +381,7 @@ cuisines_feature_df.head() # 'Unnamed: 0'과 'cuisine'
 
 이때, **다중 클래스 문제**에 대해 몇 가지 **선택사항**이 있다는 것을 발견한다.
 
-![classifiers2](http://jjhcom.github.io/assets/images/banners/classifiers2.png)
+![classifiers2](http://sapientia1007.github.io/assets/images/banners/classifiers2.png)
   > 다중 클래스 분류 옵션을 자세히 설명하는 Microsoft 알고리즘 차트 시트의 분류
 
 ### 추론
@@ -418,7 +418,7 @@ cuisines_feature_df.head() # 'Unnamed: 0'과 'cuisine'
 
 📌 `Scikit-learn`은 `solvers`가 다양한 종류의 데이터 구조에서 나타나는 **다양한 문제를 처리하는 방법**을 설명하는 **표를 제공**한다.
 
-![classifiers3](http://jjhcom.github.io/assets/images/banners/classifiers3.png)
+![classifiers3](http://sapientia1007.github.io/assets/images/banners/classifiers3.png)
 
 ### 연습 
 **데이터 나누기**
@@ -520,7 +520,7 @@ weighted avg       0.81      0.81      0.81      1199
 
 `Scikit-learn`은 유사하지만, *추정기(분류기)의 범위를 더 좁히는*데 도움이 될 수 있는 **세분화된 시트(granular cheat sheet)**를 제공한다.
 
-![classifiers4](http://jjhcom.github.io/assets/images/banners/classifiers4.png)
+![classifiers4](http://sapientia1007.github.io/assets/images/banners/classifiers4.png)
 
 *데이터를 사용해 볼 추정기와 관련된 문제에 접근하는 방법에 대한 대략적인 지침을 사용자에게 제공하기 위해 설계*
 
@@ -860,7 +860,7 @@ with open("./model.onnx", "wb") as f:
 - `Netron`을 다운로드하고 `model.onnx`파일을 연다.
   - *380개의 입력과 분류기가 나열된 단순 모델을 시각화 할 수 있다*
 
-![applied1](http://jjhcom.github.io/assets/images/banners/applied1.png)
+![applied1](http://sapientia1007.github.io/assets/images/banners/applied1.png)
 
 `Netron`은 **모델을 보는 데 유용한 도구**이다.
 
