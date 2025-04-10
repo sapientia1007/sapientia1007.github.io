@@ -320,7 +320,7 @@ def calculate_pi(n_terms : int) -> float :
 
 
 ### 1 . 5 - 하노이 탑
-![hanoi](http://jjhcom.github.io/assets/images/banners/hanoi.jpg) : <https://blog.naver.com/mathplant00/220489897756>
+![hanoi](http://sapientia1007.github.io/assets/images/banners/hanoi.jpg) : <https://blog.naver.com/mathplant00/220489897756>
 
 **하노이탑 문제**는 다음과 같은 제약 조건에서 탑 A에 끼워져 있는 3개의 디스크를 탑 C로 이동하는 것이다
 * 한 번에 하나의 디스크만 이동할 수 있다.

@@ -6,7 +6,7 @@ banner:
   loop: true
   volume: 0.0
   start_at: 8.5
-  image: http://jjhcom.github.io/assets/images/banners/titanic_img.jpg
+  image: http://sapientia1007.github.io/assets/images/banners/titanic_img.jpg
   opacity: 0.618
   background: "#000"
   height: "75vh"
@@ -84,7 +84,7 @@ ax[1].set_title('Survived')
 plt.show()
 # 탑승객의 60%가 사망한것을 확인 가능(Survived의 0 : 사망/ 1 : 생존)
 ```
-![res1](http://jjhcom.github.io/assets/images/banners/res1.png)
+![res1](http://sapientia1007.github.io/assets/images/banners/res1.png)
 **생존자**와 **사망자**의 비율을 시각화한것으로, 위에서 언급했듯이, `0`은 **사망**을 의미하고, `1`은 **생존**을 의미한다.
 
 즉, 위 그래프로 **사망자의 비율이 더 많다는 것**을 알 수 있다.
@@ -100,7 +100,7 @@ ax[0].set_title('Survived (male)')
 ax[1].set_title('Survived (female)')
 plt.show()
 ```
-![res2](http://jjhcom.github.io/assets/images/banners/res2.png)
+![res2](http://sapientia1007.github.io/assets/images/banners/res2.png)
 먼저 왼쪽에 있는 `남성의 생존 비율`을 확인했을 때, **남성**은 **사망 비율이 더 높다**는 것을 확인할 수 있다.
 
 다음으로, 오른쪽에 있는 `여성의 생존 비율`을 확인했을 때, **여성**은 **생존 비율이 더 높다**는 것을 확인할 수 있다.
@@ -355,12 +355,12 @@ submission
 ---
 
 ### 결과
-![rank1](http://jjhcom.github.io/assets/images/banners/rank1.jpg)
+![rank1](http://sapientia1007.github.io/assets/images/banners/rank1.jpg)
 위 결과는 처음에, `RandomForestClassifier`로 훈련했을 때 나온 등수이다.
 
 
 아래는 `SVC`로 훈련했을 때 나온 등수이다. 
-![rank3](http://jjhcom.github.io/assets/images/banners/rank3.jpg)
+![rank3](http://sapientia1007.github.io/assets/images/banners/rank3.jpg)
 
 `RandomForestClassifier`보다 `SVC`로 훈련했을 때 성능이 더 좋다는 것을 과정 중에 확인했고, 역시 성적도 더 좋다는 것을 확인할 수 있다.
 

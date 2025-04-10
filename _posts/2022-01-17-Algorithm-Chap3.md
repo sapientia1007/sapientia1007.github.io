@@ -122,7 +122,7 @@ def backtracking_search(self, assignment: Dict[V, D] = {}) -> Optional[Dict[V,D]
 ```
 
 ### 3.2 호주 지도 색칠 문제
-![aus_map](http://jjhcom.github.io/assets/images/banners/aus_map_00.jpg) : <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=thatsnothing&logNo=220362024301>
+![aus_map](http://sapientia1007.github.io/assets/images/banners/aus_map_00.jpg) : <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=thatsnothing&logNo=220362024301>
 
 호주 지도에서 인접한 두 지역은 같은 색을 사용할 수 없다는 조건으로 분할된 지역을 3가지 색을 이용하여 칠한다고 가정한다.
 
@@ -188,7 +188,7 @@ if __name__ == "__main__":
 ```
 
 ### 3.3 여덟 퀸 문제
-![queens](http://jjhcom.github.io/assets/images/banners/queen.png) : <https://terms.naver.com/entry.naver?docId=5667830&cid=60205&categoryId=60205>
+![queens](http://sapientia1007.github.io/assets/images/banners/queen.png) : <https://terms.naver.com/entry.naver?docId=5667830&cid=60205&categoryId=60205>
 - 체스보드는 8x8 격자로 데어 있고, 퀸은 체스보드의 모든 행과 열, 대각선으로 이동할 수 있다. 
 - 퀸의 이동 경로에 적군 말이 있다면, 그 말의 위치로 이동하여 획득할 수 있다.
 - 여덟 퀸 문제는 한 퀸이 다른 퀸을 공격하지 않도록 여덟 개의 퀸을 체스보드에 배치하는 것이다.
